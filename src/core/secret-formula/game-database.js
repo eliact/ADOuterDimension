@@ -17,6 +17,7 @@ import { outer } from "./outer";
 import { progressStages } from "./progress-checker";
 import { reality } from "./reality";
 import { shopPurchases } from "./shop-purchases";
+import { sidebarResources } from "./sidebar-resources";
 import { speedrunMilestones } from "./speedrun-milestones";
 import { tabNotifications } from "./tab-notifications";
 import { tabs } from "./tabs";
@@ -40,6 +41,7 @@ export const GameDatabase = {
   outer,
   progressStages,
   reality,
+  sidebarResources,
   shopPurchases,
   speedrunMilestones,
   tabNotifications,

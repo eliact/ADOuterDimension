@@ -10,7 +10,6 @@ export default {
     data() {
         return {
           isReached: false,
-          isLocked: false,
         };
     },
     computed: {
@@ -67,5 +66,16 @@ export default {
 </template>
 
 <style scoped>
+.o-outer-wall__reward {
+  width: 25rem;
+  height: 8rem;
+  font-family: Typewriter, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  border: 0.1rem solid #2196f3;
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+}
 
 </style>

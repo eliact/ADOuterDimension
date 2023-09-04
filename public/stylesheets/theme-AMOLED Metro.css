@@ -32,6 +32,7 @@ input.t-amoled-metro {
 
 .t-amoled-metro .c-tt-buy-button--locked:hover {
   background: var(--color-bad);
+  color: black;
   border: 0.1rem solid var(--color-bad);
 }
 

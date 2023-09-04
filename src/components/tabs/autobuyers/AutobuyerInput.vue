@@ -69,7 +69,7 @@ export default {
     handleFocus() {
       this.isFocused = true;
     },
-    handleBlur() {
+    handleChange(event) {
       if (this.displayValue === "69") {
         SecretAchievement(28).unlock();
       }
@@ -80,8 +80,10 @@ export default {
       }
       this.updateDisplayValue();
       this.isValid = true;
+
       this.isFocused = false;
-    }
+      event.target.blur();
+    },
   }
 };
 
@@ -97,11 +99,17 @@ export const AutobuyerInputFunctions = {
         if (/^e\d*[.]?\d+$/u.test(input.replaceAll(",", ""))) {
           // Logarithm Notation
           decimal = Decimal.pow10(parseFloat(input.replaceAll(",", "").slice(1)));
-        } else if (/^\d*[.]?\d+(e\d*[.]?\d+)?$/u.test(input.replaceAll(",", ""))) {
+        } else if (/^\d*[.]?\d+(e\d+)?$/u.test(input.replaceAll(",", ""))) {
           // Scientific notation; internals of break-infinity will gladly strip extraneous letters before parsing, but
           // since this is largely uncommunicated to the user, we instead explicitly check for formatting and reject
           // anything that doesn't fit as invalid
           decimal = Decimal.fromString(input.replaceAll(",", ""));
+        } else if (/^\d*[.]?\d+(e\d*[.]?\d+)?$/u.test(input.replaceAll(",", ""))) {
+          // "Mixed scientific notation" - inputs such as "2.33e41.2" cause buggy behavior when fed directly into
+          // Decimal.fromString, so we parse out the mantissa and exponent separately before combining them
+          const regex = /(?<mantissa>\d*[.]?\d+)e(?<exponent>\d*[.]?\d+)/u;
+          const match = input.replaceAll(",", "").match(regex);
+          decimal = Decimal.pow10(Math.log10(Number(match.groups.mantissa)) + Number(match.groups.exponent));
         } else {
           return undefined;
         }
@@ -142,7 +150,7 @@ export const AutobuyerInputFunctions = {
     :class="validityClass"
     :type="inputType"
     class="o-autobuyer-input"
-    @blur="handleBlur"
+    @change="handleChange"
     @focus="handleFocus"
     @input="handleInput"
   >
