@@ -1,5 +1,5 @@
 import { Currency } from "./currency";
-import { Achievement, BreakInfinityUpgrade, END_STATE_MARKERS, GameEnd, InfinityChallenge, Replicanti, ReplicantiUpgrade, replicantiCap } from "./globals";
+import { Achievement, BreakInfinityUpgrade, END_STATE_MARKERS, EternityChallenges, EternityUpgrade, GameEnd, InfinityChallenge, Replicanti, ReplicantiUpgrade, replicantiCap } from "./globals";
 import { InfinityUpgrade } from "./infinity-upgrades";
 import { PlayerProgress } from "./player-progress";
 import { GameUI } from "./ui";
@@ -93,7 +93,7 @@ export function ListBugInf(id) {
         player.outer.bug.Inf++;
         GameUI.notify.outer(`You encounter a bug`, 8000);
         if (Currency.infinityPoints.value.mantissa === 0 && Currency.infinityPoints.value.exponent === 0) {
-            player.infinityPoints.exponant = 0;
+            player.infinityPoints.exponent = 0;
             return player.infinityPoints.mantissa = 1;
         } else {
             return player.infinityPoints.mantissa = player.infinityPoints.mantissa * 1.2;
@@ -172,8 +172,14 @@ export function ListBugBreak(id) {
             return BreakInfinityUpgrade.galaxyBoost.isBought = true;
         } if (!BreakInfinityUpgrade.autobuyerSpeed.isBought) {
             return BreakInfinityUpgrade.autobuyerSpeed.isBought = true;
-        } if (!BreakInfinityUpgrade.tickspeedCostMult < 8) {
-            return BreakInfinityUpgrade.tickspeedCostMult++;
+        } if (BreakInfinityUpgrade.tickspeedCostMult.boughtAmount < 8) {
+            return BreakInfinityUpgrade.tickspeedCostMult.boughtAmount += 1;
+        } if (BreakInfinityUpgrade.dimCostMult.boughtAmount < 7) {
+            return BreakInfinityUpgrade.dimCostMult.boughtAmount += 1;
+        } if (BreakInfinityUpgrade.ipGen.boughtAmount < 10) {
+            return BreakInfinityUpgrade.ipGen.boughtAmount += 1;
+        } else {
+            return;
         }
     } if (id <= 15 && id > 10) {
         player.outer.bug.Break++;
@@ -194,9 +200,31 @@ export function ListBugBreak(id) {
             return InfinityChallenge(7).complete();
         } if (!InfinityChallenge(8).isCompleted) {
             return InfinityChallenge(8).complete();
+        } else {
+            return;
         }
-    } if(id <= 45 && id > 15) {
-
+    } if (id <= 40 && id > 15) {
+        player.outer.bug.Break++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return player.infinityPoints.exponent = player.infinityPoints.exponent++;
+    } if (id <= 70 && id > 40) {
+        player.outer.bug.Break++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return player.infinities.mantissa = player.infinities.mantissa * 1.2;
+    } if (id <= 85 && id > 70) {
+        player.outer.bug.Break++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return player.IPMultPurchases += 5;
+    } if (id <= 95 && id > 85) {
+        player.outer.bug.Break++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return player.galaxies += 10;
+    } if (id === 100) {
+        player.outer.bug.Super++;
+        GameUI.notify.outer(`You encounter a superbug`, 8000);
+        return player.infinityPoints.exponent = 140;
+    } else {
+        return;
     }
 };
 
@@ -205,32 +233,135 @@ export function ListBugRep(id) {
         player.outer.bug.Rep++;
         GameUI.notify.outer(`You encounter a bug`, 8000);
         player.replicanti.boughtGalaxyCap++;
-        player.replicanty.galaxies++;
+        return player.replicanti.galaxies += 1;
     } if (id <= 30 && id > 10) {
         player.outer.bug.Rep++;
         GameUI.notify.outer(`You encounter a bug`, 8000);
-        if (player.replicanti.interval === ReplicantiUpgrade.interval.cap()) {
+        if (player.replicanti.interval === ReplicantiUpgrade.interval.cap) {
             return;
         } else {
-            return Math.max(player.replicanti.interval * 0.9, this.cap);
+            return player.replicanti.interval = Math.max(player.replicanti.interval * 0.9, ReplicantiUpgrade.interval.cap);
         }
     } if (id <= 50 && id > 30) {
         player.outer.bug.Rep++;
         GameUI.notify.outer(`You encounter a bug`, 8000);
-        if (player.replicanti.chance === ReplicantiUpgrade.chance.cap()) {
-            return;
+        if (player.replicanti.chance === ReplicantiUpgrade.chance.cap) {
+            return player.replicanti.chance = ReplicantiUpgrade.chance.cap;
         } else {
-            return nearestPercent(player.replicanti.chance + 0.01);
+            return player.replicanti.chance = nearestPercent(player.replicanti.chance + 0.01);
         }
-    } 
+    } if (id <= 75 && id > 50) {
+        player.outer.bug.Rep++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if ( Replicanti.amount.log10() <= 2) {
+            return Currency.replicanti.multiply(2);
+        } else {
+            return Currency.replicanti.multiply(Currency.replicanti.value.log10());
+        }
+    } if (id <= 90 && id > 75) {
+        player.outer.bug.Rep++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return player.infinityPoints.exponent = player.infinityPoints.exponent + 5; 
+    } if (id < 100 && id > 90) {
+        player.outer.bug.Rep++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        return Currency.infinities.add(Currency.infinities.value.log10());
+    } if (id === 100) {
+        player.outer.bug.Super++;
+        GameUI.notify.outer(`You encounter a superbug`, 8000);
+        return Currency.eternityPoints.add(1);
+    } else {
+        return;
+    }
 };
 
-function nearestPercent(x) {
-    return Math.round(100 * x) / 100;
-}
+
 
 export function ListBugEter(id) {
-
+    if (id <= 10) {
+        if (Currency.eternityPoints.lte(1000)) {
+            player.outer.bug.Eter++
+            GameUI.notify.outer(`You encounter a bug`, 8000);
+            return Currency.eternityPoints.add(2);
+        } else {
+            player.outer.bug.Eter++
+            GameUI.notify.outer(`You encounter a bug`, 8000);
+            return Currency.eternityPoints.add(Currency.eternityPoints.value.log10());
+        }
+    } if (id <= 20 && id > 10) {
+        if (Currency.eternities.lte(1000)) {
+            player.outer.bug.Eter++
+            GameUI.notify.outer(`You encounter a bug`, 8000);
+            return  Currency.eternities.add(1);
+        } else {
+            player.outer.bug.Eter++
+            GameUI.notify.outer(`You encounter a bug`, 8000);
+            return  Currency.eternities.add(Currency.eternities.value.log10());
+        }
+    } if (id <= 23 && id > 20) {
+        player.outer.bug.Eter++
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if (!EternityUpgrade.idMultEP.isBought) {
+            return EternityUpgrade.idMultEP.isBought = true;
+        } if (!EternityUpgrade.idMultEternities.isBought) {
+            return EternityUpgrade.idMultEternities.isBought = true;
+        } if (!EternityUpgrade.idMultICRecords.isBought) {
+            return EternityUpgrade.idMultICRecords.isBought = true;
+        } if (!EternityUpgrade.tdMultAchs.isBought) {
+            return EternityUpgrade.tdMultAchs.isBought = true;
+        } if (!EternityUpgrade.tdMultTheorems.isBought) {
+            return EternityUpgrade.tdMultTheorems.isBought = true;
+        } if (!EternityUpgrade.tdMultRealTime.isBought) {
+            return EternityUpgrade.tdMultRealTime.isBought = true;
+        } else {
+            return EternityUpgrade.epMult.boughtAmount += 1;
+        }
+    } if (id <= 33 && id > 23) {
+        player.outer.bug.Eter++
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if (Currency.timeTheorems.lte(1000)) {
+            return Currency.timeTheorems.add(1)
+        } else {
+            return Currency.timeTheorems.add(Currency.timeTheorems.value.log10())
+        }
+    } if (id <= 36 && id > 33) {
+        player.outer.bug.Eter++
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if (EternityChallenges.completions < 5) {
+            return EternityChallenges.all[0].addCompletion();
+        } if (EternityChallenges.completions < 10) {
+            return EternityChallenges.all[1].addCompletion();
+        } if (EternityChallenges.completions < 15) {
+            return EternityChallenges.all[2].addCompletion();
+        } if (EternityChallenges.completions < 20) {
+            return EternityChallenges.all[3].addCompletion();
+        } if (EternityChallenges.completions < 25) {
+            return EternityChallenges.all[4].addCompletion();
+        } if (EternityChallenges.completions < 30) {
+            return EternityChallenges.all[5].addCompletion();
+        } if (EternityChallenges.completions < 35) {
+            return EternityChallenges.all[6].addCompletion();
+        } if (EternityChallenges.completions < 40) {
+            return EternityChallenges.all[7].addCompletion();
+        } if (EternityChallenges.completions < 45) {
+            return EternityChallenges.all[8].addCompletion();
+        } if (EternityChallenges.completions < 50) {
+            return EternityChallenges.all[9].addCompletion();
+        } if (EternityChallenges.completions < 55) {
+            return EternityChallenges.all[10].addCompletion();
+        } if (EternityChallenges.completions < 60) {
+            return EternityChallenges.all[11].addCompletion();
+        } else {
+            return;
+        }
+    } if (id === 100) {
+        player.outer.bug.Super++;
+        GameUI.notify.outer(`You encounter a superbug`, 8000);
+        Currency.timeTheorems.add(100);
+        return;
+    } else {
+        return;
+    }
 };
 
 export function ListBugDila(id) {
@@ -247,7 +378,9 @@ export function ListBugCelest(id) {
 
 
 
-
+function nearestPercent(x) {
+    return Math.round(100 * x) / 100;
+}
 
 export function OuterBug() {
     if (Currency.outers.value > 0 && GameEnd.endState < END_STATE_MARKERS.INTERACTIVITY_DISABLED) {
@@ -277,11 +410,9 @@ export function OuterBug() {
             id = randomInt(1,100);
             return ListBugBreak(id);
         } if (PlayerProgress.infinityUnlocked()) {
-            console.log("inf");
             id = randomInt(1,100);
             return ListBugInf(id);
         } else {
-            console.log("anti");
             id = randomInt(1,100);
             return ListBugAnti(id);
         }

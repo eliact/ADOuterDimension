@@ -30,7 +30,7 @@ class InfinityChallengeState extends GameMechanicState {
 
   get isUnlocked() {
     return player.records.thisEternity.maxAM.gte(this.unlockAM) || (Achievement(133).isUnlocked && !Pelle.isDoomed) ||
-      (PelleUpgrade.keepInfinityChallenges.canBeApplied && Pelle.cel.records.totalAntimatter.gte(this.unlockAM));
+      (PelleUpgrade.keepInfinityChallenges.canBeApplied && Pelle.cel.records.totalAntimatter.gte(this.unlockAM)) || player.outers >= 1;
   }
 
   get isRunning() {
