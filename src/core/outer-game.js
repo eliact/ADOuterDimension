@@ -10,9 +10,9 @@ export const OG = {
         player.outer.fragment ++;
         player.outers ++;
 
-            const speedrun = player.speedrun;
+        const speedrun = player.speedrun;
         if (speedrun.isActive) {
-        player.speedrun.previousRuns[player.records.fullGameCompletions + 1] = {
+            player.speedrun.previousRuns[player.records.fullGameCompletions + 1] = {
             isSegmented: speedrun.isSegmented,
             usedSTD: speedrun.usedSTD,
             startDate: speedrun.startDate,
@@ -34,6 +34,10 @@ export const OG = {
 
         GlyphAppearanceHandler.unlockSet();
         this.restart();
+
+        GameEnd.removeAdditionalEnd = true;
+        GameEnd.additionalEnd = 15;
+        setTimeout(() => GameStorage.save(), 10000);
     },
 
     restart() {

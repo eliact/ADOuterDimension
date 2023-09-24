@@ -1,3 +1,5 @@
+import { PlayerProgress } from "./player-progress";
+
 export const TUTORIAL_STATE = {
   DIM1: 0,
   DIM2: 1,
@@ -41,7 +43,7 @@ const tutorialStates = [
 export const Tutorial = {
 
   isActive(atState) {
-    return player.records.fullGameCompletions === 0 && ui.view.tutorialState === atState && ui.view.tutorialActive;
+    return player.records.fullGameCompletions === 0 && ui.view.tutorialState === atState && ui.view.tutorialActive && player.outers === 0;
   },
 
   // This will remain visible until the first dimboost is purchased. However, since the tutorial state generally
