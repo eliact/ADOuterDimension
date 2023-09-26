@@ -543,6 +543,22 @@ export function ListBugDila(id) {
         } if (DilationUpgrade.ttGenerator.isBought) {
             DilationUpgrade.ttGenerator.isBought = true;
             return;
+        } else {
+            let rand = randomInt(1,3);
+            switch(rand) {
+              case 1: {
+                DilationUpgrade.dtGain.boughtAmount +=1;
+                return;
+              };
+              case 2: {
+                DilationUpgrade.galaxyThreshold.boughtAmount +=1;
+                return;
+              };
+              case 3: {
+                DilationUpgrade.tachyonGain.boughtAmount +=1;
+                return;
+              };
+            }
         }
     } if (id <= 50 && id > 40) {
         player.outer.bug.Dila++;
