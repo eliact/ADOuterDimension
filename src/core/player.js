@@ -890,7 +890,8 @@ window.player = {
       singularities: true,
       celestialMemories: true,
       blackHole: true,
-      realityShards: true
+      realityShards: true,
+      bug: true
     },
     hiddenTabBits: 0,
     hiddenSubtabBits: Array.repeat(0, 11),
@@ -928,6 +929,7 @@ window.player = {
       Celest: 0,
       Super: 0,
     },
+    bugs: 0,
     tokens: {
       teresa: false,
       effarig: false,

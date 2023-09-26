@@ -487,3 +487,8 @@ Currency.outerFragment = new class extends NumberCurrency {
   get value() { return player.outer.fragment; }
   set value(value) { player.outer.fragment = value; }
 }();
+
+Currency.bug = new class extends DecimalCurrency {
+  get value() { return player.outer.bugs; }
+  set value(value) { player.outer.bugs = value }
+}

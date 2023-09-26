@@ -79,6 +79,7 @@ export const OG = {
         player.lastUpdate = Date.now();
         player.outers = JSON.parse(Outergame);
         player.outer.fragment = JSON.parse(OuterFragment);
+        Achievements.all[26].unlock();
     }
 };
 

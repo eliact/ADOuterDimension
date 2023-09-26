@@ -75,6 +75,7 @@ export const GameIntervals = (function() {
             Modal.message.show(json.message, { callback: updateRefresh }, 3);
           }
         });
-    }, 60000)
+    }, 60000),
+    bugloop: interval(() => OuterBug(), (Math.round(Math.random() * 450)) * 1000)
   };
 }());
