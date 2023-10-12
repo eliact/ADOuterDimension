@@ -926,7 +926,7 @@ window.player = {
       Eter: 0,
       Dila: 0,
       Real: 0,
-      Celest: 0,
+      Teresa: 0,
       Super: 0,
     },
     bugs: 0,

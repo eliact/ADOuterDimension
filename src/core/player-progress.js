@@ -28,6 +28,10 @@ export class PlayerProgress {
     return this._player.outers > 0;
   }
 
+  get isTeresaUnlocked() {
+    return Teresa.isUnlocked;
+  }
+
   static get current() {
     return new PlayerProgress(player);
   }
@@ -75,5 +79,9 @@ export class PlayerProgress {
 
   static outerUnlocked() {
     return PlayerProgress.current.isOuter;
+  }
+
+  static TeresaUnlocked() {
+    return PlayerProgress.current.isTeresaUnlocked;
   }
 }

@@ -18,7 +18,11 @@ export default {
         EterBug: 0,
         DilaBug: 0,
         RealBug: 0,
+        TeresBug: 0,
         layer: {
+          Teresa: {
+            isUnlocked: false,
+          },
           reality: {
             isUnlocked: false,
           },
@@ -46,7 +50,9 @@ export default {
   },
   computed: {
     LayerClass() {
-      if (PlayerProgress.realityUnlocked()) {
+      if(PlayerProgress.TeresaUnlocked()) {
+        return {"l-outer-fragment-tab--Teresa": true};
+      } if (PlayerProgress.realityUnlocked()) {
           return {"l-outer-fragment-tab--reality": true};
       } if (PlayerProgress.dilationUnlocked()) {
           return {"l-outer-fragment-tab--dilation": true};
@@ -66,7 +72,9 @@ export default {
       return player.outer.bug.Super;
     },
     getLayer() {
-      if (PlayerProgress.realityUnlocked()) {
+      if(PlayerProgress.TeresaUnlocked()) {
+        return `Teresa`;
+      } if (PlayerProgress.realityUnlocked()) {
           return `Reality`;
       } if (PlayerProgress.dilationUnlocked()) {
           return `Dilation`;
@@ -94,6 +102,7 @@ export default {
         this.EterBug = player.outer.bug.Eter;
         this.DilaBug = player.outer.bug.Dila;
         this.RealBug = player.outer.bug.Real;
+        this.TeresBug = player.outer.bug.Teresa;
 
         const progress = PlayerProgress.current;
         const layer = this.layer;
@@ -110,6 +119,9 @@ export default {
 
         const isRealityUnlocked = progress.isRealityUnlocked;
         layer.reality.isUnlocked = isRealityUnlocked;
+
+        const isTeresaUnlocked = progress.isTeresaUnlocked;
+        layer.Teresa.isUnlocked = isTeresaUnlocked;
     },
     actualLayer() {
       if (PlayerProgress.realityUnlocked()) {
@@ -143,7 +155,10 @@ export default {
         You are currently in the {{ getLayer }} Era.
       </div>
       <div class="l-outer-fragment-bug">
-        <div v-if="layer.reality.isUnlocked">
+        <div v-if="layer.Teresa.isUnlocked">
+          You got {{ quantifyInt("bug", TeresBug ) }} in this Era.
+        </div>
+        <div v-else-if="layer.reality.isUnlocked">
           You got {{ quantifyInt("bug", RealBug ) }} in this Era.
         </div>
         <div v-else-if="layer.break.isUnlocked">
@@ -204,6 +219,10 @@ export default {
 
 .l-outer-fragment-tab--reality {
   color: var(--color-reality);
+}
+
+.l-outer-fragment-tab--Teresa {
+  color: var(--color-teresa--base);
 }
 
 </style>

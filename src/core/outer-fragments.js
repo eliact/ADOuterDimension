@@ -1,5 +1,5 @@
 import { Currency } from "./currency";
-import { Achievement, BreakInfinityUpgrade, DilationUpgrade, END_STATE_MARKERS, EternityChallenges, EternityUpgrade, GameEnd, InfinityChallenge, Replicanti, ReplicantiUpgrade, replicantiCap } from "./globals";
+import { Achievement, BlackHole, BlackHoles, BreakInfinityUpgrade, DilationUpgrade, END_STATE_MARKERS, EternityChallenges, EternityUpgrade, GameEnd, InfinityChallenge, RealityUpgrades, Replicanti, ReplicantiUpgrade, Teresa, replicantiCap } from "./globals";
 import { InfinityUpgrade } from "./infinity-upgrades";
 import { PlayerProgress } from "./player-progress";
 import { eternities } from "./secret-formula/multiplier-tab/eternities";
@@ -50,9 +50,10 @@ export function ListBugAnti(id) {
         player.outer.bug.Super++;
         player.outer.bugs++;
         GameUI.notify.outer(`You encounter a superbug`, 8000);
+        player.galaxies = 50;
         Achievement(26).unlock();
         Achievement(27).unlock();
-        player.galaxies = 50;
+        Achievement(83).unlock();
         return;
     } else {
         return;
@@ -154,6 +155,7 @@ export function ListBugInf(id) {
             return;
         } if (!NormalChallenge(4).isCompleted) {
             NormalChallenge(4).complete();
+            Achievement(47).unlock();
             return;
         } if (!NormalChallenge(5).isCompleted) {
             NormalChallenge(5).complete();
@@ -185,6 +187,7 @@ export function ListBugInf(id) {
             return;
         } if (!NormalChallenge(12).isCompleted) {
             NormalChallenge(12).complete();
+            Achievement(48).unlock();
             return;
         } else {
             return;
@@ -249,6 +252,7 @@ export function ListBugBreak(id) {
         GameUI.notify.outer(`You encounter a bug`, 8000);
         if (!InfinityChallenge(1).isCompleted) {
             InfinityChallenge(1).complete();
+            Achievement(67).unlock();
             return;
         } if (!InfinityChallenge(2).isCompleted) {
             InfinityChallenge(2).complete();
@@ -270,6 +274,7 @@ export function ListBugBreak(id) {
             return;
         } if (!InfinityChallenge(8).isCompleted) {
             InfinityChallenge(8).complete();
+            Achievement(82).unlock();
             return;
         } else {
             return;
@@ -467,6 +472,7 @@ export function ListBugEter(id) {
             return;
         } if (EternityChallenges.completions < 50) {
             EternityChallenges.all[9].addCompletion();
+            Achievement(123).unlock();
             return;
         } if (EternityChallenges.completions < 55) {
             EternityChallenges.all[10].addCompletion()
@@ -482,6 +488,7 @@ export function ListBugEter(id) {
         player.outer.bugs++;
         GameUI.notify.outer(`You encounter a bug`, 8000);
         Currency.infinitiesBanked.add(Currency.infinities.value.log10())
+        return;
     } if (id === 100) {
         player.outer.bug.Super++;
         player.outer.bugs++;
@@ -588,10 +595,132 @@ export function ListBugDila(id) {
 };
 
 export function ListBugReal(id) {
-
+    if (id <= 10) {
+        player.outer.bug.Real++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if(Currency.realityMachines.value < 1000) {
+            Currency.realityMachines.add(1);
+            return;
+        } else {
+            Currency.realityMachines.add(Currency.realityMachines.value.log10());
+            return;
+        }    
+    } if (id <= 20 && id > 10) {
+        player.outer.bug.Real++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        Currency.realities.add(1);
+        return;
+    } if (id <= 25 && id > 20) {
+        player.outer.bug.Real++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        Currency.perkPoints.add(1);
+        return;
+    } if (id <= 28 && id > 25) {
+        player.outer.bug.Real++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if (!RealityUpgrades.all[5].isBought) {
+            RealityUpgrades.all[5].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[6].isBought) {
+            RealityUpgrades.all[6].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[7].isBought) {
+            RealityUpgrades.all[7].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[8].isBought) {
+            RealityUpgrades.all[8].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[9].isBought) {
+            RealityUpgrades.all[9].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[10].isBought) {
+            RealityUpgrades.all[10].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[11].isBought) {
+            RealityUpgrades.all[11].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[12].isBought) {
+            RealityUpgrades.all[12].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[13].isBought) {
+            RealityUpgrades.all[13].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[14].isBought) {
+            RealityUpgrades.all[14].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[15].isBought) {
+            RealityUpgrades.all[15].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[16].isBought) {
+            RealityUpgrades.all[16].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[17].isBought) {
+            RealityUpgrades.all[17].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[18].isBought) {
+            RealityUpgrades.all[18].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[19].isBought) {
+            RealityUpgrades.all[19].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[20].isBought) {
+            RealityUpgrades.all[20].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[21].isBought) {
+            RealityUpgrades.all[21].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[22].isBought) {
+            RealityUpgrades.all[22].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[23].isBought) {
+            RealityUpgrades.all[23].isBought=true;
+            return;
+        } if (!RealityUpgrades.all[24].isBought) {
+            RealityUpgrades.all[24].isBought=true;
+            Achievement(147).unlock();
+            return;
+        } else {
+            return;
+        }
+    } if (id <= 30 && id > 28) {
+        player.outer.bug.Real++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a bug`, 8000);
+        if (!player.blackHole[0].unlocked) {
+            player.blackHole[0].unlocked=true;
+            Achievement(144).unlock();
+            return;
+        } else {
+            if (!BlackHoles.list[0].isPermanent) {
+                let ran = randomInt(1,3);
+                switch(ran) {
+                    case 1: {
+                        BlackHoles.list[0].intervalUpgrade.incrementAmount();
+                        return;
+                    };
+                    case 2: {
+                        BlackHoles.list[0].durationUpgrade.incrementAmount();
+                        return;
+                    };
+                    case 3: {
+                        BlackHoles.list[0].powerUpgrade.incrementAmount();
+                        return;
+                    };
+                } 
+            } else {
+                return;
+            }
+        } if (id === 100) {
+            
+        }
+    }
 };
 
-export function ListBugCelest(id) {
+export function ListBugTeresa(id) {
 
 };
 
@@ -602,13 +731,26 @@ function nearestPercent(x) {
 }
 
 export function OuterBug() {
+    console.log("bug");
     if (Currency.outers.value > 0 && GameEnd.endState < END_STATE_MARKERS.INTERACTIVITY_DISABLED) {
         let id = null;
-        // if (Teresa.isUnlocked = true) {
-        //     console.log("cels");
-        //     id = randomInt(1,100);
-        //     return ListBugCelest(id);
-        if (PlayerProgress.realityUnlocked()) {
+        if (Pelle.isUnlocked === true) {
+
+        } if (Laitela.isUnlocked === true) {
+
+        } if (VUnlocks.raUnlock.isUnlocked === true) {
+
+        } if (Achievement(151).isUnlocked === true) {
+
+        } if (EffarigUnlock.eternity.isUnlocked === true) {
+
+        } if (TeresaUnlocks.effarig.isUnlocked === true) {
+
+        } if (Teresa.isUnlocked === true) {
+            console.log("teresa");
+            id = randomInt(1,100);
+            return ListBugTeresa(id);
+        } if (PlayerProgress.realityUnlocked()) {
             console.log("real");
             id = randomInt(1,100);
             return ListBugReal(id);
