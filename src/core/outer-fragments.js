@@ -714,9 +714,24 @@ export function ListBugReal(id) {
             } else {
                 return;
             }
-        } if (id === 100) {
-            
         }
+    } if (id === 100) {
+        player.outer.bug.Super++;
+        player.outer.bugs++;
+        GameUI.notify.outer(`You encounter a superbug`, 8000);
+        var lev = randomInt(100,400);
+        var rar = randomRelat(1,4,1);
+        var type = typeglyph();
+        var pow = powglyph(type);
+        Glyphs.addToInventory({
+            id: undefined,
+            idx: null,
+            type: type,
+            strength: rar,
+            level: lev,
+            rawLevel: lev,
+            effects: makeGlyphEffectBitmask(pow) });
+        return;
     }
 };
 
@@ -781,4 +796,54 @@ export function OuterBug() {
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-  
+
+function randomRelat(min, max, precision) {
+    const r = Math.random() * (max - min) + min;
+    let val = r.toFixed(precision);
+    let values = parseFloat(val.replace(",","."));
+    return values;
+}
+
+
+function typeglyph() {
+    let t = randomInt(1,5);
+    var types =undefined;
+    switch(t) {
+        case 1: { 
+            types = "time";
+            return types;
+        };
+        case 2: {
+            types = "dilation";
+            return types;
+        };
+        case 3: {
+            types = "replication";
+            return types;
+        };
+        case 4: {
+            types = "infinity";
+            return types;
+        };
+        case 5: {
+            types = "power"
+            return types;
+        }
+    }
+}
+
+function powglyph(type) {
+    if (type === "time") {
+        return [["timepow"],["timespeed"],["timeetermult"],["timeEP"]];
+    } if (type === "dilation") {
+        return [["dilationDT"],["dilationgalaxyThreshold"],["dilationTTgen"],["dilationpow"]];
+    } if (type === "replication") {
+        return [["replicationspeed"],["replicationpow"],["replicationdtgain"],["replicationglyphlevel"]];
+    } if (type === "infinity") {
+        return [["infinitypow"],["infinityrate"],["infinityIP"],["infinityinfmult"]];
+    } if (type === "power") {
+        return [["powerpow"],["powermult"],["powerdimboost"],["powerbuy10"]];
+    } else {
+        return;
+    }
+}
