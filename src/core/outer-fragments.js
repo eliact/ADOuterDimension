@@ -748,7 +748,6 @@ function nearestPercent(x) {
 }
 
 export function OuterBug() {
-    console.log("bug");
     if (Currency.outers.value > 0 && GameEnd.endState < END_STATE_MARKERS.INTERACTIVITY_DISABLED) {
         let id = null;
         if (Pelle.isUnlocked === true) {
@@ -764,11 +763,9 @@ export function OuterBug() {
         } if (TeresaUnlocks.effarig.isUnlocked === true) {
 
         } if (Teresa.isUnlocked === true) {
-            console.log("teresa");
             id = randomInt(1,100);
             return ListBugTeresa(id);
         } if (PlayerProgress.realityUnlocked()) {
-            console.log("real");
             id = randomInt(1,100);
             return ListBugReal(id);
         } if (PlayerProgress.dilationUnlocked()) {
