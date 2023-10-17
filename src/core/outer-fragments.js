@@ -732,7 +732,9 @@ export function ListBugReal(id) {
             rawLevel: lev,
             effects: makeGlyphEffectBitmask(pow) });
         return;
-    }
+    } else {
+        return;
+    } 
 };
 
 export function ListBugTeresa(id) {
