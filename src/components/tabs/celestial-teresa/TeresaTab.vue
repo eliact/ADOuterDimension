@@ -35,6 +35,8 @@ export default {
       raisedPerkShop: false,
       isRunning: false,
       canUnlockNextPour: false,
+      outers: new Decimal(0),
+      TrialsUnlocked: false,
     };
   },
   computed: {
@@ -118,6 +120,8 @@ export default {
       this.isRunning = Teresa.isRunning;
       this.canUnlockNextPour = TeresaUnlocks.all
         .filter(unlock => this.rm.plus(this.pouredAmount).gte(unlock.price) && !unlock.isUnlocked).length > 0;
+      this.outers = Math.floor(Currency.outers.value);
+      this.TrialsUnlocked = player.outer.trials.Teresa.unlocked;
     },
     startRun() {
       if (this.isDoomed) return;
@@ -136,6 +140,14 @@ export default {
         "c-teresa-unlock-description": true,
         "c-teresa-unlock-description--unlocked": this.hasUnlock(unlockInfo)
       };
+    },
+    OuterTeresaIntro() {
+      Teresa.quotes.IntroOuter.show();
+      player.outer.trials.Teresa.unlocked = true;
+      return;
+    },
+    EnterTrialTeresa() {
+
     }
   }
 };
@@ -144,6 +156,20 @@ export default {
 <template>
   <div class="l-teresa-celestial-tab">
     <CelestialQuoteHistory celestial="teresa" />
+    <div
+      v-if="outers > 0 && TrialsUnlocked===false" 
+      class="l-teresa-fragment"
+      @click="OuterTeresaIntro()"
+    >
+      Show to Teresa the Fͯ͢r̳͞a̷̱͠͝g̾͢m̳͞e̷̲͠͞n̾͢t̹̯͟
+    </div>
+    <div
+      v-if="TrialsUnlocked===true"
+      class="l-teresa-fragment"
+      @click="EnterTrialTeresa()"
+    >
+      Attempt the Trial of Teresa
+    </div>
     <div>
       You have {{ quantify("Reality Machine", rm, 2, 2) }}.
     </div>

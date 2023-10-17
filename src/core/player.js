@@ -938,6 +938,43 @@ window.player = {
       ra: false,
       laitela: false,
       pelle: false,
+    },
+    trials: {
+      Teresa: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      Effarig: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      Enslaved: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      V: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      Ra: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      Laitela: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      Pelle: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
     }
   },
 };
