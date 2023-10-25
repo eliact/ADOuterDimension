@@ -90,5 +90,15 @@ export const vQuotes = {
       "No one is better than me...",
       "No one... no one... no on-",
     ],
+  },
+  IntroOuter: {
+    id: 9,
+    lines: [
+      "How dare you talk to me",
+      "Humpf...okay I let you the honor to talk this royalty",
+      "So...You want to beat My Achievements ?",
+      "RI-DI-CU-LUS",
+      "There is Achievements that you can't even have access to (and not 'cause I lost them)"
+    ]
   }
 };

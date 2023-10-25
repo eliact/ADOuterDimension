@@ -134,4 +134,11 @@ export const laitelaQuotes = {
       "The end...",
     ]
   },
+  IntroOuter: {
+    id: 10,
+    lines: [
+      "Your knowledge too is endless",
+      "How can you know something that you never experienced ?"
+    ]
+  }
 };

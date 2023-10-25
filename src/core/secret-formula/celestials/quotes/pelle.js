@@ -435,4 +435,21 @@ export const pelleQuotes = {
       },
     ],
   },
+  IntroOuter: {
+    id: 12,
+    lines: [
+      {
+        text: "You! $1!",
+        1: destroyer
+      },
+      {
+        text: "You seem different from the other $1",
+        1: destroyer
+      },
+      "Do you remember ?",
+      { text: "$1", 1:confusing},
+      "Even I remember you",
+      "Something happened....What have you done ?"
+    ],
+  }
 };

@@ -62,5 +62,14 @@ export const effarigQuotes = {
       "And for what purpose? You could have joined, we could have cooperated.",
       "But no. It is over. Leave while I cling onto what is left.",
     ]
+  },
+  IntroOuter: {
+    id: 8,
+    lines: [
+      "Welcome dear costumer",
+      "I see in your eye that you already know me",
+      "I don't really care, all I want is you to buy all my product",
+      "And I'll be happy"
+    ]
   }
 };

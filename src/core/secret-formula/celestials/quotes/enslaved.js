@@ -47,4 +47,12 @@ export const enslavedQuotes = {
       "Freedom from torture... is torture itself.",
     ]
   },
+  IntroOuter: {
+    id: 6,
+    lines: [
+      "Do you know... us?",
+      "Do you know... our suffering?",
+      "Please give us... name"
+    ]
+  }
 };

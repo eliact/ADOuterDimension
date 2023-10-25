@@ -127,4 +127,14 @@ export const raQuotes = {
       "I do not want to hurt you too.",
     ]
   },
+  IntroOuter: {
+    id: 14,
+    lines: [
+      "Ho...You, I remember you",
+      "It's the first, how is this possible",
+      "But I also remember something else",
+      "I remember that you are a frightening being, there is something bad about you",
+      "And I don't want to help bad guy so I won't give you power until you show me that you are a great being"
+    ]
+  }
 };
