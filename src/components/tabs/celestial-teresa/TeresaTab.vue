@@ -5,6 +5,7 @@ import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import CustomizeableTooltip from "@/components/CustomizeableTooltip";
 import GlyphSetPreview from "@/components/GlyphSetPreview";
 import PerkShopUpgradeButton from "./PerkShopUpgradeButton";
+import { Modal } from "../../../core/modal";
 
 export default {
   name: "TeresaTab",
@@ -36,7 +37,9 @@ export default {
       isRunning: false,
       canUnlockNextPour: false,
       outers: new Decimal(0),
-      TrialsUnlocked: false,
+      TestUnlocked: false,
+      TestDone: false,
+      TestRunning: false,
     };
   },
   computed: {
@@ -121,7 +124,9 @@ export default {
       this.canUnlockNextPour = TeresaUnlocks.all
         .filter(unlock => this.rm.plus(this.pouredAmount).gte(unlock.price) && !unlock.isUnlocked).length > 0;
       this.outers = Math.floor(Currency.outers.value);
-      this.TrialsUnlocked = player.outer.trials.Teresa.unlocked;
+      this.TestUnlocked = player.outer.tokens.teresa.unlocked;
+      this.TestDone = player.outer.tokens.teresa.done;
+      this.TestRunning = player.outer.tokens.teresa.isRunning;
     },
     startRun() {
       if (this.isDoomed) return;
@@ -143,11 +148,12 @@ export default {
     },
     OuterTeresaIntro() {
       Teresa.quotes.IntroOuter.show();
-      player.outer.trials.Teresa.unlocked = true;
+      player.outer.tokens.teresa.unlocked = true;
       return;
     },
-    EnterTrialTeresa() {
-
+    EnterOuterTeresa() {
+      if (this.isDoomed) return;
+      Modal.outer.show({ name: "Teresa's", number: 0 });
     }
   }
 };
@@ -157,18 +163,18 @@ export default {
   <div class="l-teresa-celestial-tab">
     <CelestialQuoteHistory celestial="teresa" />
     <div
-      v-if="outers > 0 && TrialsUnlocked===false" 
+      v-if="outers > 0 && TestUnlocked===false" 
       class="l-teresa-fragment"
       @click="OuterTeresaIntro()"
     >
-      Show to Teresa the Fͯ͢r̳͞a̷̱͠͝g̾͢m̳͞e̷̲͠͞n̾͢t̹̯͟
+      Approach Teresa
     </div>
     <div
-      v-if="TrialsUnlocked===true"
+      v-if="TestUnlocked===true && !TestDone===true && !TestRunning===true"
       class="l-teresa-fragment"
-      @click="EnterTrialTeresa()"
+      @click="EnterOuterTeresa()"
     >
-      Attempt the Trial of Teresa
+      Show to Teresa that you are worthy
     </div>
     <div>
       You have {{ quantify("Reality Machine", rm, 2, 2) }}.

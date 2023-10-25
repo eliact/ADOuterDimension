@@ -3,6 +3,8 @@ import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import GalaxyGeneratorPanel from "./PelleGalaxyGeneratorPanel";
 import PelleBarPanel from "./PelleBarPanel";
 import PelleUpgradePanel from "./PelleUpgradePanel";
+import { playerInfinityUpgradesOnReset } from "../../../game";
+import { Modal } from "../../../core/modal";
 
 export default {
   name: "PelleTab",
@@ -19,7 +21,11 @@ export default {
       completedRows: 0,
       cappedResources: 0,
       hasStrike: false,
-      hasGalaxyGenerator: false
+      hasGalaxyGenerator: false,
+      outers: new Decimal(0),
+      TestUnlocked: false,
+      TestDone: false,
+      TestRunning: false,
     };
   },
   computed: {
@@ -44,6 +50,10 @@ export default {
       }
       this.hasStrike = PelleStrikes.all.some(s => s.hasStrike);
       this.hasGalaxyGenerator = PelleRifts.recursion.milestones[2].canBeApplied || GalaxyGenerator.spentGalaxies > 0;
+      this.outers = Math.floor(Currency.outers.value);
+      this.TestUnlocked = player.outer.tokens.pelle.unlocked;
+      this.TestDone = player.outer.tokens.pelle.done;
+      this.TestRunning = player.outer.tokens.pelle.isRunning;
     },
     toggleBought() {
       Pelle.cel.showBought = !Pelle.cel.showBought;
@@ -54,6 +64,13 @@ export default {
     },
     enterDoomModal() {
       Modal.armageddon.show();
+    },
+    OuterPelleIntro() {
+      player.outer.tokens.pelle.unlocked = true;
+      return;
+    },
+    EnterOuterPelle() {
+      Modal.outer.show({ name: "Pelle's", number: "6" });
     }
   }
 };
@@ -66,6 +83,20 @@ export default {
       class="l-pelle-all-content-container"
     >
       <CelestialQuoteHistory celestial="pelle" />
+      <div
+        v-if="outers > 0 && TestUnlocked===false"
+        class=""
+        @click="OuterPelleIntro()"
+      >
+        Approach Pelle
+      </div>
+      <div
+        v-if="TestUnlocked===true && !TestDone===true && !TestRunning===true"
+        class=""
+        @click="EnterPelleTrial()"
+      >
+        Show to Pelle that you are worthy
+      </div>
       <div class="button-container">
         <button
           class="o-pelle-button"
