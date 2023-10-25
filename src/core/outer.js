@@ -9,7 +9,7 @@ export class OuterWallState {
     get isReached() {
         return  Currency.outers.gte(this.config.outers);
     }
-}
+};
 export const OuterWall = mapGameDataToObject(
     GameDatabase.outer.wall,
     config => new OuterWallState(config)
