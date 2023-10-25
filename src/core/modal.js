@@ -21,6 +21,7 @@ import HardResetModal from "@/components/modals/prestige/HardResetModal";
 import RealityModal from "@/components/modals/prestige/RealityModal";
 import ReplicantiGalaxyModal from "@/components/modals/prestige/ReplicantiGalaxyModal";
 import ResetRealityModal from "@/components/modals/prestige/ResetRealityModal";
+import EnterOuterCelestialsModal from "../components/modals/prestige/EnterOuterCelestialsModal";
 
 import AnimationOptionsModal from "@/components/modals/options/AnimationOptionsModal";
 import AwayProgressOptionsModal from "@/components/modals/options/AwayProgressOptionsModal";
@@ -220,6 +221,7 @@ Modal.enterSpeedrun = new Modal(SpeedrunModeModal);
 Modal.modifySeed = new Modal(ModifySeedModal);
 Modal.changeName = new Modal(ChangeNameModal);
 Modal.armageddon = new Modal(ArmageddonModal, 1);
+Modal.outer = new Modal(EnterOuterCelestialsModal, 1);
 
 Modal.confirmationOptions = new Modal(ConfirmationOptionsModal);
 Modal.infoDisplayOptions = new Modal(InfoDisplayOptionsModal);

@@ -1,11 +1,7 @@
-
 export const outerWall = {
     automatorStart: {
         outers: 2,
-        reward: () => {
-            player.reality.automator.forceUnlock = true;
-            return "Start with the automator each times you tried to go outer";
-        }
+        reward: "Start with the automator each times you tried to go outer"
     },
     two: {
         outers: 3,

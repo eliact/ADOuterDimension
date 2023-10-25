@@ -5,6 +5,7 @@ import { AUTOMATOR_MODE, AUTOMATOR_TYPE } from "./automator/automator-backend";
 import { DC } from "./constants";
 import { deepmergeAll } from "@/utility/deepmerge";
 import { GlyphTypes } from "./glyph-effects";
+import { OuterWall } from "./outer";
 
 // This is actually reassigned when importing saves
 // eslint-disable-next-line prefer-const
@@ -931,15 +932,45 @@ window.player = {
     },
     bugs: 0,
     tokens: {
-      teresa: false,
-      effarig: false,
-      enslaved: false,
-      v: false,
-      ra: false,
-      laitela: false,
-      pelle: false,
+      active: false,
+      teresa: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      effarig: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      enslaved: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      v: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      ra: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      laitela: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
+      pelle: {
+        unlocked: false,
+        isRunning: false,
+        done: false,
+      },
     },
     trials: {
+      active: false,
       Teresa: {
         unlocked: false,
         isRunning: false,
@@ -1046,7 +1077,7 @@ export const Player = {
   },
 
   get automatorUnlocked() {
-    return AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock;
+    return AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock || OuterWall.automatorStart.isReached;
   },
 
   resetRequirements(key) {
