@@ -138,7 +138,10 @@ export const laitelaQuotes = {
     id: 10,
     lines: [
       "Your knowledge too is endless",
-      "How can you know something that you never experienced ?"
+      "How can you know something that you never experienced ?",
+      "What...ARE YOU ?",
+      "My darkness can not swallow you",
+      "Could you be the light that shine through the darkness of the unknown ?"
     ]
   }
 };

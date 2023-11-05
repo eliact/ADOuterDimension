@@ -9,12 +9,16 @@ export default {
   },
   data() {
     return {
-      isShown: false
+      isShown: false,
+      isOuter: false
     };
   },
   computed: {
     color() {
-      return this.celestial === "laitela" ? `var(--color-laitela--accent)` : `var(--color-${this.celestial}--base)`;
+      let celestials = undefined;
+      celestials = this.celestial;
+      player.outerSpace.celestials[this.celestial].active ?  celestials = "outer" + this.celestial : celestials = this.celestial 
+      return celestials === "laitela" ? `var(--color-laitela--accent)` : `var(--color-${celestials}--base)`; 
     },
     possessiveForm() {
       return Celestials[this.celestial].possessiveName;
@@ -23,6 +27,7 @@ export default {
   methods: {
     update() {
       this.isShown = Celestials[this.celestial].quotes.all.some(x => x.isUnlocked);
+      this.isOuter = player.outerSpace.celestials.teresa.active;
     },
     show() {
       Quote.showHistory(Celestials[this.celestial].quotes.all);

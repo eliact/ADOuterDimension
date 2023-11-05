@@ -10,6 +10,8 @@ import SpectateGame from "@/components/SpectateGame";
 
 import S12Taskbar from "./S12Taskbar";
 
+import OutersQuoteModal from "../../modals/outers-quotes/OutersQuoteModal";
+
 export default {
   name: "S12UiFixed",
   components: {
@@ -22,6 +24,7 @@ export default {
     SpectateGame,
     NewGame,
     S12Taskbar,
+    OutersQuoteModal,
   },
   data() {
     return {
@@ -53,6 +56,10 @@ export default {
       <CelestialQuoteHistoryDisplay
         v-else-if="view.quotes.history"
         :quotes="view.quotes.history"
+      />
+      <OutersQuoteModal
+        v-else-if="view.quotes.current"
+        :quote="view.quotes.current"
       />
       <PopupModal
         v-else-if="view.modal.current"

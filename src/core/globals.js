@@ -103,3 +103,5 @@ export * from "./outers/outer-ra";
 export * from "./outers/outer-laitela";
 export * from "./outers/outer-pelle";
 export * from "./outers/outer-celestials";
+export * from "./outers/quotes";
+export * from "./outers/The-Eye";

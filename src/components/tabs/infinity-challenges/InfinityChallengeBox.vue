@@ -2,6 +2,7 @@
 import ChallengeBox from "@/components/ChallengeBox";
 import DescriptionDisplay from "@/components/DescriptionDisplay";
 import EffectDisplay from "@/components/EffectDisplay";
+import { Currency } from "../../../core/currency";
 
 export default {
   name: "InfinityChallengeBox",
@@ -20,7 +21,8 @@ export default {
     return {
       isUnlocked: false,
       isRunning: false,
-      isCompleted: false
+      isCompleted: false,
+      outer: false
     };
   },
   computed: {
@@ -37,6 +39,7 @@ export default {
       this.isUnlocked = challenge.isUnlocked;
       this.isRunning = challenge.isRunning;
       this.isCompleted = challenge.isCompleted;
+      this.outer = Currency.outers.gte(1);
     }
   }
 };
@@ -48,6 +51,7 @@ export default {
     :is-unlocked="isUnlocked"
     :is-running="isRunning"
     :is-completed="isCompleted"
+    :outer="outer"
     class="c-challenge-box--infinity"
     @start="challenge.requestStart()"
   >

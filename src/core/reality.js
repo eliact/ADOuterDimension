@@ -764,6 +764,7 @@ function restoreCelestialRuns(celestialRunState) {
   if (player.celestials.ra.run) Ra.initializeRun();
   player.celestials.laitela.run = celestialRunState.laitela;
   if (player.celestials.laitela.run) Laitela.initializeRun();
+  else return;
 }
 
 // This is also called when the upgrade is purchased, be aware of potentially having "default" values overwrite values
@@ -810,6 +811,12 @@ export function clearCelestialRuns() {
     v: player.celestials.v.run,
     ra: player.celestials.ra.run,
     laitela: player.celestials.laitela.run,
+    OuterTeresa: player.outer.tokens.teresa.isRunning,
+    OuterEffarig: player.outer.tokens.effarig.isRunning,
+    OuterEnslaved: player.outer.tokens.enslaved.isRunning,
+    OuterV: player.outer.tokens.v.isRunning,
+    OuterRa: player.outer.tokens.ra.isRunning,
+    OuterLaitela: player.outer.tokens.laitela.isRunning,
   };
   player.celestials.teresa.run = false;
   player.celestials.effarig.run = false;
@@ -827,6 +834,12 @@ export function clearCelestialRuns() {
   player.celestials.v.run = false;
   player.celestials.ra.run = false;
   player.celestials.laitela.run = false;
+  player.outer.tokens.teresa.isRunning = false;
+  player.outer.tokens.effarig.isRunning =false;
+  player.outer.tokens.enslaved.isRunning = false;
+  player.outer.tokens.v.isRunning = false;
+  player.outer.tokens.ra.isRunning = false;
+  player.outer.tokens.laitela.isRunning = false;
   return saved;
 }
 

@@ -12,6 +12,7 @@ import SaveTimer from "@/components/SaveTimer";
 import SpectateGame from "@/components/SpectateGame";
 import SpeedrunStatus from "@/components/SpeedrunStatus";
 import TimeTheoremShop from "@/components/tabs/time-studies/tt-shop/TimeTheoremShop";
+import OutersQuoteModal from "@/components/modals/outers-quotes/OutersQuoteModal";
 
 export default {
   name: "GameUiComponentFixed",
@@ -25,6 +26,7 @@ export default {
     ModalProgressBar,
     CelestialQuoteModal,
     CelestialQuoteHistoryDisplay,
+    OutersQuoteModal,
     FadeAway,
     CreditsContainer,
     SpectateGame,
@@ -84,6 +86,10 @@ export default {
       <CelestialQuoteHistoryDisplay
         v-else-if="view.quotes.history"
         :quotes="view.quotes.history"
+      />
+      <OutersQuoteModal
+        v-else-if="view.outerquotes.current"
+        :quote="view.outerquotes.current"
       />
       <PopupModal
         v-else-if="view.modal.current"

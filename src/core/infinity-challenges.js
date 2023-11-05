@@ -1,3 +1,4 @@
+import { Currency } from "./currency";
 import { GameMechanicState } from "./game-mechanics";
 
 export function tryCompleteInfinityChallenges() {
@@ -30,7 +31,7 @@ class InfinityChallengeState extends GameMechanicState {
 
   get isUnlocked() {
     return player.records.thisEternity.maxAM.gte(this.unlockAM) || (Achievement(133).isUnlocked && !Pelle.isDoomed) ||
-      (PelleUpgrade.keepInfinityChallenges.canBeApplied && Pelle.cel.records.totalAntimatter.gte(this.unlockAM)) || player.outers >= 1;
+      (PelleUpgrade.keepInfinityChallenges.canBeApplied && Pelle.cel.records.totalAntimatter.gte(this.unlockAM));
   }
 
   get isRunning() {

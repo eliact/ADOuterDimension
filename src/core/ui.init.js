@@ -11,6 +11,11 @@ export const state = {
       current: undefined,
       history: undefined
     },
+    outerquotes: {
+      queue: [],
+      current: undefined,
+      history: undefined
+    },
     tabs: {
       reality: {
         openGlyphWeights: false,

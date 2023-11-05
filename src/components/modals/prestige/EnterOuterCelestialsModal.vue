@@ -33,11 +33,11 @@ export default {
       return `Attempt ${this.name} Test`;
     },
     message() {
-        return `Perform a Reality and once you are in, You will not be able to leave until you pass the Trial`;
+        return `Perform a Reality and once you are in, You will not be able to leave until you pass the Test`;
     },
     extraline() {
         switch(this.number) {
-            case 0: return `Teresa want to see if you are worthy enough`;
+            case 0: return `Show to Teresa that they can have faith in you`;
             case 1: return `Effarig want to see if you are worthy enough`;
             case 2: return `The Nameless Ones want to see if you are worthy enough`;
             case 3: return `V want to see if you are worthy enough`;
@@ -76,6 +76,33 @@ export default {
         </template>
         <div class="c-modal-message__text">
             {{ message }}
+            <br>
+            <br>
+            <div class="c-modal-celestial__run-effects">
+              <div
+                v-for="(effect, i) in effects"
+                :key="i"
+                class="c-modal-celestial__run-effects__line"
+              >
+                <b v-if="effect.trim()">&bull;</b>
+                <b>&nbsp;</b>
+                {{ effect }}
+              </div>
+            </div>
+            <div
+              v-if="description"
+              class="reality-description"
+            >
+              <br><br>
+              {{ description }}
+            </div>
+            <br><br>
+            <div>
+              {{ extraLine }}
+            </div>
         </div>
+        <template #confirm-text>
+          Begin
+        </template>
     </ModalWrapperChoice>
 </template>

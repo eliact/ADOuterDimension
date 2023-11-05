@@ -1,3 +1,5 @@
+import { OuterTeresa } from "../globals";
+
 // This actually deals with both sacrifice and refining, but I wasn't 100% sure what to call it
 export const GlyphSacrificeHandler = {
   // Anything scaling on sacrifice caps at this value, even though the actual sacrifice values can go higher
@@ -46,8 +48,11 @@ export const GlyphSacrificeHandler = {
     const pre10kFactor = Math.pow(Math.clampMax(glyph.level, 10000) + 10, 2.5);
     const post10kFactor = 1 + Math.clampMin(glyph.level - 10000, 0) / 100;
     const power = Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.effectOrDefault(1);
-    return Math.pow(pre10kFactor * post10kFactor * glyph.strength *
-      Teresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
+    if (OuterTeresa.isOuter === true) {
+      return Math.pow(pre10kFactor * post10kFactor * glyph.strength * OuterTeresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
+    } else {
+      return Math.pow(pre10kFactor * post10kFactor * glyph.strength * Teresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
+    }
   },
   sacrificeGlyph(glyph, force = false) {
     if (Pelle.isDoomed) return;

@@ -12,7 +12,7 @@ import { supportedBrowsers } from "./supported-browsers";
 import Payments from "./core/payments";
 import { Currency } from "./core/currency";
 import { DilationUpgrade } from "./core/dilation";
-import { PlayerProgress, Teresa } from "./core/globals";
+import { OuterTeresa, PlayerProgress, Teresa } from "./core/globals";
 
 if (GlobalErrorHandler.handled) {
   throw new Error("Initialization failed");
@@ -114,6 +114,8 @@ export function gainedInfinityPoints() {
     ip = ip.pow(0.5);
   } else if (Laitela.isRunning) {
     ip = dilatedValueOf(ip);
+  } else if (OuterTeresa.isRunning) {
+    ip = ip.pow(0.55);
   }
   if (GlyphAlteration.isAdded("infinity")) {
     ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
@@ -148,6 +150,8 @@ export function gainedEternityPoints() {
     ep = ep.pow(0.5);
   } else if (Laitela.isRunning) {
     ep = dilatedValueOf(ep);
+  } else if (OuterTeresa.isRunning) {
+    ep = ep.pow(0.55);
   }
   if (GlyphAlteration.isAdded("time")) {
     ep = ep.pow(getSecondaryGlyphEffect("timeEP"));
@@ -813,7 +817,10 @@ function applyAutoprestige(diff) {
   Currency.infinityPoints.add(TimeStudy(181).effectOrDefault(0));
 
   if (TeresaUnlocks.epGen.canBeApplied) {
-    Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_01)
+    OuterTeresa.isOuter
+    ? Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_02)
+      .times(getGameSpeedupFactor() * diff / 1000).timesEffectOf(Ra.unlocks.continuousTTBoost.effects.autoPrestige))
+    : Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_01)
       .times(getGameSpeedupFactor() * diff / 1000).timesEffectOf(Ra.unlocks.continuousTTBoost.effects.autoPrestige));
   }
 
@@ -860,7 +867,7 @@ export function getTTPerSecond() {
   if (GlyphAlteration.isAdded("dilation")) ttMult *= getSecondaryGlyphEffect("dilationTTgen");
 
   // Glyph TT generation
-  const glyphTT = Teresa.isRunning || Enslaved.isRunning || Pelle.isDoomed
+  const glyphTT = Teresa.isRunning || Enslaved.isRunning || Pelle.isDoomed || OuterTeresa.isRunning
     ? 0
     : getAdjustedGlyphEffect("dilationTTgen") * ttMult;
 

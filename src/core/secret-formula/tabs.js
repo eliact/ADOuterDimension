@@ -531,7 +531,7 @@ export const tabs = [
       {
         key: "token",
         name: "Token of Recognition",
-        symbol: "⊚",
+        symbol: "",
         hideAt: 2.8,
         component: "tokenTab",
         id: 2,

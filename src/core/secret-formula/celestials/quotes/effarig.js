@@ -69,7 +69,8 @@ export const effarigQuotes = {
       "Welcome dear costumer",
       "I see in your eye that you already know me",
       "I don't really care, all I want is you to buy all my product",
-      "And I'll be happy"
+      "And I'll be happy",
+      "All I want is to be Happy"
     ]
   }
 };

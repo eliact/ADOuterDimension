@@ -32,12 +32,24 @@ export const teresaQuotes = {
     id: 4,
     lines: [
       "When you are near me, I have a feeling of....déjà vu",
-      "I need to see if you are worthy enough",
-      "Show me"
+      "Did we meet already ?",
+      "I don't think so 'cause I would have crushed you already",
+      "But I don't care",
+      "You can try if you want"
+    ]
+  },
+  OuterTeresa: {
+    id: 5,
+    lines: [
+      "Where are we ?",
+      "How did you get here ?",
+      "I feel like...I am near my..true? self",
+      "But I am here, How is it even posible ?",
+      "I...I need some time but thank you to make me discover this. I feel like it's very important"
     ]
   },
   TrialsOuter: {
-    id: 5,
+    id: 6,
     lines: [
       "Ho...You, again",
       "Am I the last one ?",

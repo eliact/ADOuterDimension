@@ -2,6 +2,7 @@
 import ChallengeGrid from "@/components/ChallengeGrid";
 import ChallengeTabHeader from "@/components/ChallengeTabHeader";
 import InfinityChallengeBox from "./InfinityChallengeBox";
+import { PlayerProgress } from "../../../core/player-progress";
 
 export default {
   name: "InfinityChallengesTab",
@@ -36,7 +37,7 @@ export default {
       this.showAllChallenges = player.options.showAllChallenges;
     },
     isChallengeVisible(challenge) {
-      return challenge.isUnlocked || (this.showAllChallenges && PlayerProgress.eternityUnlocked());
+      return challenge.isUnlocked || (this.showAllChallenges && PlayerProgress.eternityUnlocked()) || PlayerProgress.outerUnlocked();
     }
   }
 };

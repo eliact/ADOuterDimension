@@ -931,6 +931,11 @@ window.player = {
       Super: 0,
     },
     bugs: 0,
+    quotes: {
+      theEye: {
+        quoteBits: 0,
+      }
+    },
     tokens: {
       active: false,
       teresa: {
@@ -1008,6 +1013,31 @@ window.player = {
       },
     }
   },
+  outerSpace: {
+    celestials: {
+      teresa: {
+        active: false
+      },
+      effarig: {
+        active: false
+      },
+      enslaved: {
+        active: false
+      },
+      v: {
+        active: false
+      },
+      ra: {
+        active: false
+      },
+      laitela: {
+        active: false
+      },
+      pelle: {
+        active: false
+      }
+    }
+  }
 };
 
 export const Player = {

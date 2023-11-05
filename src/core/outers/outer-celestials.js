@@ -1,3 +1,4 @@
+import { TheEye } from "./The-Eye";
 import { OuterV } from "./outer-V";
 import { OuterEffarig } from "./outer-effarig";
 import { OuterEnslaved } from "./outer-enslaved";
@@ -15,17 +16,19 @@ export const OuterCelestials = {
     v: OuterV,
     ra: OuterRa,
     laitela: OuterLaitela,
-    pelle: OuterPelle
+    pelle: OuterPelle,
+    theEye: TheEye
 };
 
 GameDatabase.outer.descriptions = [
     {
         name: "Teresa",
         effects() {
-            return `More difficult`;
+            return `Glyph Time Theorem generation is disabled.
+            You gain less Infinity Points and Eternity Points (x^${format(0.55, 2, 2)}).`;
         },
         description() {
-            return `Teresa doesn't trust you, show that they can be themselve`;
+            return `Teresa doesn't trust you, show that they can be themself.`;
         }
     },
     {

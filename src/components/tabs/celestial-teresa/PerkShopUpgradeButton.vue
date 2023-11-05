@@ -20,17 +20,21 @@ export default {
     return {
       isAvailableForPurchase: false,
       isCapped: false,
+      isOuter: false,
     };
   },
   computed: {
     isDoomed: () => Pelle.isDoomed,
     classObject() {
       return {
-        "o-teresa-shop-button": true,
-        "o-teresa-shop-button--available": this.isAvailableForPurchase && !this.isCapped,
-        "o-teresa-shop-button--capped": this.isCapped,
+        "o-teresa-shop-button": !this.isOuter,
+        "o-teresa-shop-button--available": this.isAvailableForPurchase && !this.isCappedn && !this.isOuter,
+        "o-teresa-shop-button--capped": this.isCapped && !this.isOuter,
         "o-teresa-shop-button--pelle-disabled": this.isDoomed &&
-          (this.upgrade === PerkShopUpgrade.musicGlyph || this.upgrade === PerkShopUpgrade.fillMusicGlyph)
+          (this.upgrade === PerkShopUpgrade.musicGlyph || this.upgrade === PerkShopUpgrade.fillMusicGlyph),
+        "o-outerteresa-shop-button": this.isOuter,
+        "o-outerteresa-shop-button--available": this.isAvailableForPurchase && !this.isCapped && this.isOuter,
+        "o-outerteresa-shop-button--capped": this.isCapped && this.isOuter,    
       };
     },
   },
@@ -38,6 +42,7 @@ export default {
     update() {
       this.isAvailableForPurchase = this.upgrade.isAvailableForPurchase;
       this.isCapped = this.upgrade.isCapped;
+      this.isOuter = player.outerSpace.celestials.teresa.active;
     }
   }
 };
