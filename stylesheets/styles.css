@@ -104,6 +104,10 @@ html {
 
   --color-pelle--base: crimson;
   --color-pelle--secondary: #00bcd4;
+
+  --color-theEye--base: #1b95f9e2;
+  --color-outerteresa--base: #7851ec;
+  --color-outereffarig--base: #f0503b;
 }
 
 :root .t-metro,
@@ -123,6 +127,7 @@ html {
   --color-reality: #3a823d;
   --color-reality-light: #d5ffd7;
   --color-celestials: #00bcd4;
+  --color-outers: #8596ea;
 }
 
 :root .t-dark {
@@ -5877,6 +5882,18 @@ kbd {
   animation: a-teresa-unfinished-milestone-flash 3s infinite;
 }
 
+.c-outerteresa-milestone-line {
+  width: 100%;
+  height: 0.2rem;
+  background-color: var(--color-outerteresa--base);
+  animation: a-teresa-unfinished-milestone-flash 3s infinite;
+}
+
+.c-outerteresa-milestone-line--unlocked {
+  filter: brightness(50%);
+  animation: none;
+}
+
 @keyframes a-teresa-unfinished-milestone-flash {
   0% { opacity: 0.7; }
   20% { opacity: 0.7; }
@@ -5959,6 +5976,29 @@ kbd {
   cursor: pointer;
 }
 
+.c-outerteresa-run-button__icon--running {
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+  border-color: var(--color-teresa--accent);
+  animation: a-outerteresa-run-button__icon--super-glow 1.2s infinite, a-teresa-run-button__icon--spin 5s infinite;
+}
+
+.c-outerteresa-run-button__icon {
+  width: 12rem;
+  height: 12rem;
+  align-items: center;
+  font-size: 7rem;
+  font-weight: bold;
+  color: var(--color-outerteresa--base);
+  text-shadow: 0.1rem 0.1rem 0.5rem;
+  background-color: var(--color-teresa--accent);
+  border: var(--var-border-width, 0.4rem) solid var(--color-outerteresa--base);
+  border-radius: 50%;
+  margin: 1.5rem auto;
+  transition-duration: 0.2s;
+  animation: a-teresa-run-button__icon--glow 3s infinite;
+}
+
 @keyframes a-teresa-run-button__icon--glow {
   0% { text-shadow: 0.1rem 0.1rem 0.3rem; }
   50% { text-shadow: 0.1rem 0.1rem 0.8rem; }
@@ -5979,6 +6019,23 @@ kbd {
   100% {
     text-shadow: 0.1rem 0.1rem 0.3rem;
     box-shadow: 0 0 0.3rem var(--color-teresa--base);
+  }
+}
+
+@keyframes a-outerteresa-run-button__icon--super-glow {
+  0% {
+    text-shadow: 0.1rem 0.1rem 0.3rem;
+    box-shadow: 0 0 0.3rem var(--color-outerteresa--base);
+  }
+
+  50% {
+    text-shadow: 0.1rem 0.1rem 0.9rem;
+    box-shadow: 0 0 1rem var(--color-outerteresa--base);
+  }
+
+  100% {
+    text-shadow: 0.1rem 0.1rem 0.3rem;
+    box-shadow: 0 0 0.3rem var(--color-outerteresa--base);
   }
 }
 
@@ -6044,10 +6101,20 @@ kbd {
   animation: a-teresa-pour--unlock-available 3s infinite;
 }
 
+.c-outerteresa-pour--unlock-available {
+  animation: a-outerteresa-pour--unlock-available 3s infinite;
+}
+
 @keyframes a-teresa-pour--unlock-available {
   0% { box-shadow: 0 0 0.3rem var(--color-teresa--base) inset; }
   50% { box-shadow: 0 0 1rem var(--color-teresa--base) inset; }
   100% { box-shadow: 0 0 0.3rem var(--color-teresa--base) inset; }
+}
+
+@keyframes a-outerteresa-pour--unlock-available {
+  0% { box-shadow: 0 0 0.3rem var(--color-outerteresa--base) inset; }
+  50% { box-shadow: 0 0 1rem var(--color-outerteresa--base) inset; }
+  100% { box-shadow: 0 0 0.3rem var(--color-outerteresa--base) inset; }
 }
 
 .s-base--metro .c-teresa-unlock {
@@ -6080,6 +6147,92 @@ kbd {
   background-color: #2196f3;
 }
 
+.o-outerteresa-shop-button {
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  background-color: var(--color-disabled);
+  border: var(--var-border-width, 0.2rem) solid var(--color-outerteresa--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition-duration: 0.15s;
+}
+
+.o-outerteresa-shop-button--available {
+  color: var(--color-outerteresa--base);
+  background-color: var(--color-teresa--accent);
+  cursor: pointer;
+}
+
+.o-outerteresa-shop-button--available:hover {
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+}
+
+.o-outerteresa-shop-button--capped {
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+}
+
+.c-outerteresa-pour {
+  width: 13rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.c-outerteresa-unlock {
+  width: 20rem;
+  font-weight: bold;
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+  border: none;
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin: 0 10rem 1rem;
+  padding: 1rem;
+  transition-duration: 0.15s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.c-outerteresa-run-button {
+  font-weight: bold;
+  color: var(--color-outerteresa--base);
+  background-color: var(--color-teresa--accent);
+  border: var(--var-border-width, 0.2rem) solid var(--color-outerteresa--base);
+}
+
+.c-outerteresa-run-button__icon:hover {
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+}
+
+.c-outercelestial-run-button--clickable {
+  cursor: pointer;
+}
+
+.c-outerrm-store-inner {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--color-outerteresa--base);
+}
+
+.c-outerteresa-unlock-description {
+  width: 14rem;
+  font-size: 1rem;
+  color: var(--color-outerteresa--base);
+  background-color: var(--color-teresa--accent);
+  border: 0.1rem solid var(--color-outerteresa--base);
+}
+
+.c-outerteresa-unlock-description--unlocked {
+  color: var(--color-teresa--accent);
+  background-color: var(--color-outerteresa--base);
+}
 /* #endregion Teresa tab */
 
 /* #region effarig tab */
@@ -6363,6 +6516,17 @@ kbd {
   border-radius: var(--var-border-radius, 0.5rem);
   margin-left: 3rem;
   padding: 1rem;
+}
+
+.l-outereffarig-run {
+  display: inline-flex;
+  flex-direction: column;
+  width: 520px;
+  align-items: center;
+  border: var(--var-border-width, 0.2rem) solid var(--color-outereffarig--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin-left: 3rem;
+  padding: 1rem; 
 }
 
 .c-effarig-run-description {
