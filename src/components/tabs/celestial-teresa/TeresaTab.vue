@@ -1,12 +1,17 @@
 <script>
+import { Currency, OuterTeresa, OuterTeresaUnlocks, Teresa } from "../../../core/globals";
+
+import { Modal } from "../../../core/modal";
+
 import { DC } from "@/core/constants";
+
 
 import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import CustomizeableTooltip from "@/components/CustomizeableTooltip";
 import GlyphSetPreview from "@/components/GlyphSetPreview";
+import OuterPerkShopUpgradeButton from "./OuterPerkShopUpgradeButton";
 import PerkShopUpgradeButton from "./PerkShopUpgradeButton";
-import { Modal } from "../../../core/modal";
-import { OuterTeresa, Teresa } from "../../../core/globals";
+
 
 export default {
   name: "TeresaTab",
@@ -14,18 +19,22 @@ export default {
     GlyphSetPreview,
     PerkShopUpgradeButton,
     CelestialQuoteHistory,
-    CustomizeableTooltip
+    CustomizeableTooltip,
+    OuterPerkShopUpgradeButton
   },
   data() {
     return {
       pour: false,
       time: new Date().getTime(),
       pouredAmount: 0,
+      outerpouredAmount: 0,
       isPouredAmountCapped: false,
+      isOuterPouredAmountCapped: false,
       rm: new Decimal(0),
       percentage: "",
+      outerpercentage: "",
       possibleFillPercentage: "",
-      rmMult: 0,
+      outerpossibleFillPercentage: "",
       bestAM: new Decimal(0),
       bestAMSet: [],
       lastMachines: new Decimal(0),
@@ -33,7 +42,9 @@ export default {
       perkPoints: 0,
       hasReality: false,
       hasEPGen: false,
+      hasOuterEPGen: false,
       hasPerkShop: false,
+      hasOuterPerkShop: false,
       raisedPerkShop: false,
       isRunning: false,
       canUnlockNextPour: false,
@@ -45,18 +56,29 @@ export default {
       TheEyeTalk: false,
       isOuter: false,
       bestAMouter: new Decimal(0),
-      runRewardOuter: 0
+      runRewardOuter: 0,
+      hasRealityShard: false
     };
   },
   computed: {
     unlockInfos: () => TeresaUnlocks.all,
+    outerunlockInfos: () => OuterTeresaUnlocks.all,
     pouredAmountCap: () => Teresa.pouredAmountCap,
+    outerpouredAmountCap: () => OuterTeresa.pouredAmountCap,
     showRunReward() {
       return this.bestAM.gt(1);
     },
     showOuterReward() {
       return this.bestAMouter.gt(1);
     },
+    objectifAttained() {
+      if (player.outer.tokens.teresa.isRunning === true) {
+        return Currency.eternityPoints.gte(DC.E8000);
+      }
+      return false;
+
+    },
+    rmMult: () => (OuterTeresa.isOuter ? OuterTeresa.rmMultiplier : Teresa.rmMultiplier),
     upgrades() {
       const upgrades = [
         PerkShopUpgrade.glyphLevel,
@@ -68,34 +90,49 @@ export default {
       if (this.raisedPerkShop) upgrades.push(PerkShopUpgrade.fillMusicGlyph);
       return upgrades;
     },
+    outerupgrades() {
+      const outerupgrades = [
+        OuterPerkShopUpgrade.glyphLevel,
+        OuterPerkShopUpgrade.rmMult,
+        OuterPerkShopUpgrade.bulkDilation,
+        OuterPerkShopUpgrade.autoSpeed,
+        OuterPerkShopUpgrade.musicGlyph,
+      ];
+      if (this.raisedPerkShop) outerupgrades.push(OuterPerkShopUpgrade.fillMusicGlyph);
+      return outerupgrades;
+    },
     runButtonClassObject() {
       return {
         "o-pelle-disabled-pointer": this.isDoomed,
         "c-teresa-run-button__icon": !this.isOuter,
         "c-teresa-run-button__icon--running": this.isRunning && !this.isOuter,
         "c-celestial-run-button--clickable": !this.isDoomed && !this.isOuter,
-        "c-outerteresa-run-button__icon": this.isOuter,
+        "c-outerteresa-run-button__icon": this.isOuter || this.TestUnlocked,
         "c-outerteresa-run-button__icon--running": this.isRunning && this.isOuter,
         "c-outercelestial-run-button--clickable": !this.isDoomed && this.isOuter,
       };
     },
     pourButtonClassObject() {
-        return {
-          "o-outerteresa-shop-button": this.isOuter,
-          "c-outerteresa-pour": this.isOuter,
-          "o-outerteresa-shop-button--available": !this.isPouredAmountCapped && this.isOuter,
-          "o-outerteresa-shop-button--capped": this.isPouredAmountCapped && this.isOuter,
-          "c-outerteresa-pour--unlock-available": this.canUnlockNextPour && this.isOuter,
-          "c-disabled-pour": this.isPouredAmountCapped,
-          "o-teresa-shop-button": !this.isOuter,
-          "c-teresa-pour": !this.isOuter,
-          "o-teresa-shop-button--available": !this.isPouredAmountCapped && !this.isOuter,
-          "o-teresa-shop-button--capped": this.isPouredAmountCapped && !this.isOuter,
-          "c-teresa-pour--unlock-available": this.canUnlockNextPour && !this.isOuter,
-        };
+      return {
+        "o-outerteresa-shop-button": this.isOuter,
+        "c-outerteresa-pour": this.isOuter,
+        "o-outerteresa-shop-button--available": !this.isOuterPouredAmountCapped && this.isOuter,
+        "o-outerteresa-shop-button--capped": this.isOuterPouredAmountCapped && this.isOuter,
+        "c-outerteresa-pour--unlock-available": this.canUnlockNextPour && this.isOuter,
+        "c-disabled-pour": (this.isPouredAmountCapped && !this.isOuter) ||
+         (this.isOuterPouredAmountCapped && this.isOuter),
+        "o-teresa-shop-button": !this.isOuter,
+        "c-teresa-pour": !this.isOuter,
+        "o-teresa-shop-button--available": !this.isPouredAmountCapped && !this.isOuter,
+        "o-teresa-shop-button--capped": this.isPouredAmountCapped && !this.isOuter,
+        "c-teresa-pour--unlock-available": this.canUnlockNextPour && !this.isOuter,
+      };
     },
     pourText() {
-      return this.isPouredAmountCapped ? "Filled" : "Pour RM";
+      if (!this.isOuter) {
+        return this.isPouredAmountCapped ? "Filled" : "Pour Rm";
+      }
+      return this.isOuterPouredAmountCapped ? "Filled" : "Pour RM";
     },
     runDescription() {
       return GameDatabase.celestials.descriptions[0].effects();
@@ -106,27 +143,27 @@ export default {
         : `${quantify("Imaginary Machine", this.lastMachines.dividedBy(DC.E10000), 2)}`;
     },
     unlockInfoTooltipArrowStyle() {
-      if(!this.isOuter) {
+      if (!this.isOuter) {
         return {
           borderRight: "0.5rem solid var(--color-teresa--base)",
         };
-      } else {
-        return {
-          borderRight: "0.5rem solid var(--color-outerteresa--base)"
-        };
       }
+      return {
+        borderRight: "0.5rem solid var(--color-outerteresa--base)"
+      };
+
     },
     RmStoreClass() {
       return {
         "c-outerrm-store-inner": this.isOuter,
         "c-rm-store-inner--light": true,
-        "c-rm-store-inner":!this.isOuter
+        "c-rm-store-inner": !this.isOuter
       };
     },
     RmStoreInnerClass() {
       return {
         "c-outerrm-store-inner": this.isOuter,
-        "c-rm-store-inner":!this.isOuter
+        "c-rm-store-inner": !this.isOuter
       };
     },
     teresaUnlockClass() {
@@ -141,7 +178,7 @@ export default {
         "c-outerteresa-run-button": this.isOuter,
         "c-teresa-unlock": !this.isOuter,
         "c-outerteresa-unlock": this.isOuter,
-      }
+      };
     },
     isDoomed: () => Pelle.isDoomed,
   },
@@ -151,18 +188,25 @@ export default {
       if (this.pour) {
         const diff = (now - this.time) / 1000;
         Teresa.pourRM(diff);
+        OuterTeresa.pourRM(diff);
       } else {
         Teresa.timePoured = 0;
+        OuterTeresa.timePoured = 0;
       }
       this.time = now;
       this.pouredAmount = player.celestials.teresa.pouredAmount;
+      this.outerpouredAmount = player.outerSpace.celestials.teresa.pouredAmount;
       this.isPouredAmountCapped = this.pouredAmount === this.pouredAmountCap;
+      this.isOuterPouredAmountCapped = this.outerpouredAmount === this.outerpouredAmountCap;
       this.percentage = `${(Teresa.fill * 100).toFixed(2)}%`;
+      this.outerpercentage = `${(OuterTeresa.fill * 100).toFixed(2)}%`;
       this.possibleFillPercentage = `${(Teresa.possibleFill * 100).toFixed(2)}%`;
-      this.rmMult = Teresa.rmMultiplier;
+      this.outerpossibleFillPercentage = `${(OuterTeresa.possibleFill * 100).toFixed(2)}%`;
       this.hasReality = TeresaUnlocks.run.isUnlocked;
       this.hasEPGen = TeresaUnlocks.epGen.isUnlocked;
+      this.hasOuterEPGen = OuterTeresaUnlocks.epGen.isUnlocked;
       this.hasPerkShop = TeresaUnlocks.shop.isUnlocked;
+      this.hasOuterPerkShop = OuterTeresaUnlocks.shop.isUnlocked;
       this.raisedPerkShop = Ra.unlocks.perkShopIncrease.canBeApplied;
       this.bestAM.copyFrom(player.celestials.teresa.bestRunAM);
       this.bestAMSet = Glyphs.copyForRecords(player.celestials.teresa.bestAMSet);
@@ -173,18 +217,24 @@ export default {
       this.isRunning = Teresa.isRunning;
       this.canUnlockNextPour = TeresaUnlocks.all
         .filter(unlock => this.rm.plus(this.pouredAmount).gte(unlock.price) && !unlock.isUnlocked).length > 0;
-      this.outers.copyFrom(player.outers);
-      this.outerFragment.copyFrom(player.outer.fragment);
+      this.outers = player.outers;
+      this.outerFragment = player.outer.fragment;
       this.TestUnlocked = player.outer.tokens.teresa.unlocked;
       this.TestDone = player.outer.tokens.teresa.done;
       this.TestRunning = player.outer.tokens.teresa.isRunning;
-      this.TheEyeTalk = player.outer.quotes.theEye.quoteBits > 0 ? true : false;
+      this.TheEyeTalk = player.outer.quotes.theEye.quoteBits > 0;
       this.isOuter = player.outerSpace.celestials.teresa.active;
       this.bestAMouter.copyFrom(player.records.totalAntimatter);
       this.runRewardOuter = OuterTeresa.runRewardMultiplier;
+      this.hasRealityShard = OuterTeresaUnlocks.realityShard.isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
+      if (this.isOuter) return;
+      if (this.TestUnlocked) {
+        Modal.outer.show({ name: "Teresa's", number: 0 });
+        return;
+      }
       Modal.celestials.show({ name: "Teresa's", number: 0 });
     },
     unlockDescriptionHeight(unlockInfo) {
@@ -192,11 +242,17 @@ export default {
       const pos = Math.log1p(unlockInfo.price) / Math.log1p(maxPrice);
       return `calc(${(100 * pos).toFixed(2)}% - 0.1rem)`;
     },
+    outerunlockDescriptionHeight(unlockInfo) {
+      const outermaxPrice = OuterTeresaUnlocks[OuterTeresa.lastUnlock].price;
+      const outerpos = Math.log1p(unlockInfo.price) / Math.log1p(outermaxPrice);
+      return `calc(${(100 * outerpos).toFixed(2)}% - 0.1rem)`;
+    },
     hasUnlock(unlockInfo) {
       return unlockInfo.isUnlocked;
     },
     unlockInfoTooltipClass(unlockInfo) {
       return {
+        "c-outerteresa-unlock-last-line--unlocked": this.isOuter && this.hasRealityShard,
         "c-outerteresa-unlock-description": this.isOuter,
         "c-outerteresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && this.isOuter,
         "c-teresa-unlock-description": !this.isOuter,
@@ -209,22 +265,20 @@ export default {
         "c-teresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter,
         "c-outerteresa-milestone-line": this.isOuter,
         "c-outerteresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && this.isOuter
-      }
+      };
     },
     OuterTeresaIntro() {
       Teresa.quotes.IntroOuter.show();
       player.outer.tokens.teresa.unlocked = true;
-      player.outerFragment -= 1;
-      return;
-    },
-    EnterOuterTeresa() {
-      if (this.isDoomed) return;
-      Modal.outer.show({ name: "Teresa's", number: 0 });
     },
     GoOuterSpace() {
       player.outerSpace.celestials.teresa.active = true;
       Teresa.quotes.OuterTeresa.show();
-      return;
+      player.outer.tokens.teresa.done = true;
+      player.outer.tokens.teresa.isRunning = false;
+      player.outer.tokens.active = false;
+      player.outer.fragment -= 1;
+      OuterTeresa.pouredAmount = Teresa.pouredAmount;
     }
   }
 };
@@ -234,25 +288,18 @@ export default {
   <div class="l-teresa-celestial-tab">
     <CelestialQuoteHistory celestial="teresa" />
     <div
-      v-if="outers > 0 && TestUnlocked===false && outerFragment > 0" 
+      v-if="outers > 0 && TestUnlocked===false && outerFragment > 0"
       class="l-teresa-fragment"
       @click="OuterTeresaIntro()"
     >
       Approach Teresa
     </div>
     <div
-      v-if="TestUnlocked===true && !TestDone===true && !TestRunning===true && !isOuter"
-      class="l-teresa-fragment"
-      @click="EnterOuterTeresa()"
-    >
-      Try
-    </div>
-    <div
-      v-if="TheEyeTalk && !isOuter"
+      v-if="TheEyeTalk && !isOuter && objectifAttained"
       class="l-teresa-fragment"
       @click="GoOuterSpace()"
     >
-      Try to get out of this Reality
+      Go out of this Reality
     </div>
     <div>
       You have {{ quantify("Reality Machine", rm, 2, 2) }}.
@@ -310,10 +357,10 @@ export default {
           Teresa Outer Reality reward: Glyph Sacrifice power {{ formatX(runRewardOuter, 2, 2) }}
         </div>
         <div
-          v-if="hasEPGen"
+          v-if="hasEPGen || hasOuterEPGen"
           :class="teresaUnlockClass"
         >
-          <span 
+          <span
             v-if="!isOuter"
             :class="{ 'o-pelle-disabled': isDoomed }"
           >
@@ -340,10 +387,17 @@ export default {
         </button>
         <div class="c-rm-store">
           <div
+            v-if="!isOuter"
             :class="RmStoreClass"
             :style="{ height: possibleFillPercentage}"
           />
           <div
+            v-else-if="isOuter"
+            :class="RmStoreClass"
+            :style="{ height: outerpossibleFillPercentage}"
+          />
+          <div
+            v-if="!isOuter"
             :class="RmStoreInnerClass"
             :style="{ height: percentage}"
           >
@@ -353,28 +407,65 @@ export default {
               {{ format(pouredAmount, 2, 2) }}/{{ format(pouredAmountCap, 2, 2) }}
             </div>
           </div>
-          <CustomizeableTooltip
-            v-for="unlockInfo in unlockInfos"
-            :key="unlockInfo.id"
-            content-class="c-teresa-unlock-description--hover-area"
-            :bottom="unlockDescriptionHeight(unlockInfo)"
-            right="0"
-            mode="right"
-            :show="true"
-            :tooltip-arrow-style="unlockInfoTooltipArrowStyle"
-            :tooltip-class="unlockInfoTooltipClass(unlockInfo)"
+          <div
+            v-else-if="isOuter"
+            :class="RmStoreInnerClass"
+            :style="{ height: outerpercentage }"
           >
-            <template #mainContent>
-              <div
-                :class="milestoneClass(unlockInfo)"
-              />
-            </template>
-            <template #tooltipContent>
-              <b :class="{ 'o-pelle-disabled': unlockInfo.pelleDisabled }">
-                {{ format(unlockInfo.price, 2, 2) }}: {{ unlockInfo.description }}
-              </b>
-            </template>
-          </CustomizeableTooltip>
+            <div class="c-rm-store-label">
+              {{ formatX(rmMult, 2, 2) }} RM gain
+              <br>
+              {{ format(outerpouredAmount, 2, 2) }}/{{ format(outerpouredAmountCap, 2, 2) }}
+            </div>
+          </div>
+          <div v-if="!isOuter">
+            <CustomizeableTooltip
+              v-for="unlockInfo in unlockInfos"
+              :key="unlockInfo.id"
+              content-class="c-teresa-unlock-description--hover-area"
+              :bottom="unlockDescriptionHeight(unlockInfo)"
+              right="0"
+              mode="right"
+              :show="true"
+              :tooltip-arrow-style="unlockInfoTooltipArrowStyle"
+              :tooltip-class="unlockInfoTooltipClass(unlockInfo)"
+            >
+              <template #mainContent>
+                <div
+                  :class="milestoneClass(unlockInfo)"
+                />
+              </template>
+              <template #tooltipContent>
+                <b :class="{ 'o-pelle-disabled': unlockInfo.pelleDisabled }">
+                  {{ format(unlockInfo.price, 2, 2) }}: {{ unlockInfo.description }}
+                </b>
+              </template>
+            </CustomizeableTooltip>
+          </div>
+          <div v-else-if="isOuter">
+            <CustomizeableTooltip
+              v-for="outerunlockInfo in outerunlockInfos"
+              :key="outerunlockInfo.id"
+              content-class="c-teresa-unlock-description--hover-area"
+              :bottom="unlockDescriptionHeight(outerunlockInfo)"
+              right="0"
+              mode="right"
+              :show="true"
+              :tooltip-arrow-style="unlockInfoTooltipArrowStyle"
+              :tooltip-class="unlockInfoTooltipClass(outerunlockInfo)"
+            >
+              <template #mainContent>
+                <div
+                  :class="milestoneClass(outerunlockInfo)"
+                />
+              </template>
+              <template #tooltipContent>
+                <b :class="{ 'o-pelle-disabled': outerunlockInfo.pelleDisabled }">
+                  {{ format(outerunlockInfo.price, 2, 2) }}: {{ outerunlockInfo.description }}
+                </b>
+              </template>
+            </CustomizeableTooltip>
+          </div>
         </div>
       </div>
       <div
@@ -382,17 +473,30 @@ export default {
         class="l-rm-container-labels l-teresa-mechanic-container"
       />
       <div
-        v-if="hasPerkShop"
+        v-else-if="outerpouredAmount < outerpouredAmountCap"
+        class="l-rm-container-labels l-teresa-mechanic-container"
+      />
+      <div
+        v-if="hasPerkShop || hasOuterPerkShop"
         class="c-teresa-shop"
       >
         <span class="o-teresa-pp">
           You have {{ quantify("Perk Point", perkPoints, 2, 0) }}.
         </span>
-        <PerkShopUpgradeButton
-          v-for="upgrade in upgrades"
-          :key="upgrade.id"
-          :upgrade="upgrade"
-        />
+        <div v-if="!isOuter">
+          <PerkShopUpgradeButton
+            v-for="upgrade in upgrades"
+            :key="upgrade.id"
+            :upgrade="upgrade"
+          />
+        </div>
+        <div v-if="isOuter">
+          <OuterPerkShopUpgradeButton
+            v-for="upgrade in outerupgrades"
+            :key="upgrade.id"
+            :upgrade="upgrade"
+          />
+        </div>
         You can now modify the appearance of your Glyphs to look like Music Glyphs.
       </div>
     </div>

@@ -107,6 +107,7 @@ html {
 
   --color-theEye--base: #1b95f9e2;
   --color-outerteresa--base: #7851ec;
+  --color-outereffarig--base: #f0503b;
 }
 
 :root .t-metro,
@@ -5874,6 +5875,10 @@ kbd {
   background-color: var(--color-teresa--base);
 }
 
+.c-outerteresa-unlock-last-line--unlocked {
+  background-color: var(--color-theEye--base) !important;
+}
+
 .c-teresa-milestone-line {
   width: 100%;
   height: 0.2rem;
@@ -6515,6 +6520,17 @@ kbd {
   border-radius: var(--var-border-radius, 0.5rem);
   margin-left: 3rem;
   padding: 1rem;
+}
+
+.l-outereffarig-run {
+  display: inline-flex;
+  flex-direction: column;
+  width: 520px;
+  align-items: center;
+  border: var(--var-border-width, 0.2rem) solid var(--color-outereffarig--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin-left: 3rem;
+  padding: 1rem; 
 }
 
 .c-effarig-run-description {

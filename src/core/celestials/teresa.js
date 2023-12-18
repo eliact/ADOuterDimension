@@ -1,6 +1,6 @@
 import { BitUpgradeState, RebuyableMechanicState } from "../game-mechanics";
-import { OuterTeresa } from "../globals";
 import { GameDatabase } from "../secret-formula/game-database";
+import { OuterTeresa } from "../globals";
 
 import { Quotes } from "./quotes";
 
@@ -47,7 +47,7 @@ export const Teresa = {
     return Math.min(Currency.realityMachines.value.plus(this.pouredAmount).log10() / 24, 1);
   },
   get rmMultiplier() {
-    return Math.max((250 * Math.pow(this.pouredAmount / 1e24, 0.1)) * 1.5, 1);
+    return Math.max(250 * Math.pow(this.pouredAmount / 1e24, 0.1), 1);
   },
   get runRewardMultiplier() {
     return this.rewardMultiplier(player.celestials.teresa.bestRunAM);
@@ -156,7 +156,7 @@ export const PerkShopUpgrade = mapGameDataToObject(
 );
 
 EventHub.logic.on(GAME_EVENT.TAB_CHANGED, () => {
-  if (Tab.celestials.teresa.isOpen) Teresa.quotes.initial.show();
+  if (Tab.celestials.teresa.isOpen && OuterTeresa.isOuter === false) Teresa.quotes.initial.show();
 });
 
 EventHub.logic.on(GAME_EVENT.GAME_LOAD, () => Teresa.checkForUnlocks());

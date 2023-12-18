@@ -48,8 +48,15 @@ export const teresaQuotes = {
       "I...I need some time but thank you to make me discover this. I feel like it's very important"
     ]
   },
-  TrialsOuter: {
+  Outereffarig: {
     id: 6,
+    lines: [
+      "Help them too",
+      "Please"
+    ]
+  },
+  TrialsOuter: {
+    id: 7,
     lines: [
       "Ho...You, again",
       "Am I the last one ?",

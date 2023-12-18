@@ -4,7 +4,7 @@ export const teresa = {
       id: 0,
       price: 1e14,
       description: "Unlock Teresa's Reality.",
-      onUnlock: () => Teresa.quotes.unlockReality.show(),
+      onUnlock: () => (OuterTeresa.isOuter ? false : Teresa.quotes.unlockReality.show()),
     },
     epGen: {
       id: 1,
@@ -16,7 +16,7 @@ export const teresa = {
       id: 2,
       price: 1e21,
       description: "Unlock Effarig, Celestial of Ancient Relics.",
-      onUnlock: () => Teresa.quotes.effarig.show(),
+      onUnlock: () => (OuterTeresa.isOuter ? Teresa.quotes.Outereffarig.show() : Teresa.quotes.effarig.show()),
     },
     shop: {
       id: 3,
