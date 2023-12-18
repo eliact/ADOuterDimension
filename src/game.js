@@ -12,7 +12,7 @@ import { supportedBrowsers } from "./supported-browsers";
 import Payments from "./core/payments";
 import { Currency } from "./core/currency";
 import { DilationUpgrade } from "./core/dilation";
-import { OuterTeresa, PlayerProgress, Teresa } from "./core/globals";
+import { OUTER_EFFARIG_STAGES, OuterTeresa, PlayerProgress, Teresa } from "./core/globals";
 
 if (GlobalErrorHandler.handled) {
   throw new Error("Initialization failed");
@@ -105,6 +105,12 @@ export function gainedInfinityPoints() {
     ? Decimal.pow10(player.records.thisInfinity.maxAM.log10() / div - 0.75)
     : new Decimal(308 / div);
   if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ETERNITY) {
+    ip = ip.min(DC.E200);
+  }
+  if (OuterEffarig.isRunning && OuterEffarig.currentStage === OUTER_EFFARIG_STAGES.ETERNITY) {
+    ip = ip.min(DC.E200);
+  }
+  if (OuterEffarig.isRunning && OuterEffarig.currentStage === OUTER_EFFARIG_STAGES.OUTER) {
     ip = ip.min(DC.E200);
   }
   ip = ip.times(GameCache.totalIPMult.value);
@@ -367,6 +373,8 @@ export function getGameSpeedupFactor(effectsToConsider, blackHolesActiveOverride
     } else if (Laitela.isRunning) {
       const nerfModifier = Math.clampMax(Time.thisRealityRealTime.totalMinutes / 10, 1);
       factor = Math.pow(factor, nerfModifier);
+    } else if (OuterEffarig.isRunning) {
+      factor = OuterEffarig.multiplier(factor).toNumber();
     }
   }
 

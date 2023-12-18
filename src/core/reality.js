@@ -1,3 +1,4 @@
+import { Effarig, EffarigUnlock, OuterEffarig, OuterEffarigUnlock } from "./globals";
 import { DC } from "./constants";
 
 /**
@@ -351,6 +352,14 @@ function giveRealityRewards(realityProps) {
   if (Effarig.isRunning && !EffarigUnlock.reality.isUnlocked) {
     EffarigUnlock.reality.unlock();
     Effarig.quotes.completeReality.show();
+  }
+
+  if (OuterEffarig.isRunning && !OuterEffarigUnlock.reality.isUnlocked) {
+    OuterEffarigUnlock.reality.unlock();
+  }
+
+  if (OuterEffarig.isRunning && !OuterEffarigUnlock.outer.isUnlocked && OuterEffarigUnlock.reality.isUnlocked) {
+    OuterEffarigUnlock.outer.unlock();
   }
 
   if (Enslaved.isRunning) Enslaved.completeRun();
@@ -835,7 +844,7 @@ export function clearCelestialRuns() {
   player.celestials.ra.run = false;
   player.celestials.laitela.run = false;
   player.outer.tokens.teresa.isRunning = false;
-  player.outer.tokens.effarig.isRunning =false;
+  player.outer.tokens.effarig.isRunning = false;
   player.outer.tokens.enslaved.isRunning = false;
   player.outer.tokens.v.isRunning = false;
   player.outer.tokens.ra.isRunning = false;

@@ -53,7 +53,8 @@ export const AD = {
       const baseEff = (player.dilation.active || Enslaved.isRunning)
         ? 0.75 * Effects.product(DilationUpgrade.dilationPenalty)
         : 1;
-      return baseEff * (Effarig.isRunning ? Effarig.multDilation : 1);
+      return baseEff * (Effarig.isRunning ? Effarig.multDilation : 1) * (OuterEffarig.isRunning
+        ? OuterEffarig.multDilation : 1);
     },
     isDilated: true,
     overlay: ["Ω", "<i class='fas fa-cube' />"],

@@ -261,9 +261,9 @@ export const imaginaryUpgrades = [
     requirement: () => `Reach ${format("1e150000000000")} antimatter in Effarig's Reality with
       at least ${formatInt(4)} Cursed Glyphs equipped`,
     // Note: 4 cursed glyphs is -12 glyph count, but equipping a positive glyph in the last slot is allowed
-    hasFailed: () => !Effarig.isRunning || player.requirementChecks.reality.maxGlyphs > -10,
-    checkRequirement: () => Effarig.isRunning && player.requirementChecks.reality.maxGlyphs < -10 &&
-      Currency.antimatter.value.exponent >= 1.5e11,
+    hasFailed: () => !OuterEffarig.isRunning || !Effarig.isRunning || player.requirementChecks.reality.maxGlyphs > -10,
+    checkRequirement: () => (Effarig.isRunning || OuterEffarig.isRunning) &&
+      player.requirementChecks.reality.maxGlyphs < -10 && Currency.antimatter.value.exponent >= 1.5e11,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `All Glyph Sacrifice totals are increased to ${format(1e100)}`,
     effect: 1e100,

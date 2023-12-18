@@ -1,6 +1,7 @@
 import { GameMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 import { DC } from "./constants";
 import FullScreenAnimationHandler from "./full-screen-animation-handler";
+import { beginProcessReality, getRealityProps } from "./reality";
 
 function giveEternityRewards(auto) {
   player.records.bestEternity.time = Math.min(player.records.thisEternity.time, player.records.bestEternity.time);
@@ -50,6 +51,11 @@ function giveEternityRewards(auto) {
 
   if (Effarig.isRunning && !EffarigUnlock.eternity.isUnlocked) {
     EffarigUnlock.eternity.unlock();
+    beginProcessReality(getRealityProps(true));
+  }
+
+  if (OuterEffarig.isRunning && !OuterEffarigUnlock.eternity.isUnlocked) {
+    OuterEffarigUnlock.eternity.unlock();
     beginProcessReality(getRealityProps(true));
   }
 }

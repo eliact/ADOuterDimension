@@ -228,6 +228,8 @@ class TimeDimensionState extends DimensionState {
       mult = Effarig.multiplier(mult);
     } else if (V.isRunning) {
       mult = mult.pow(0.5);
+    } else if (OuterEffarig.isRunning) {
+      mult = OuterEffarig.multiplier(mult);
     }
 
     return mult;

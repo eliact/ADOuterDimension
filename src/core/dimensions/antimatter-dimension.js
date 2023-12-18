@@ -78,6 +78,8 @@ export function getDimensionFinalMultiplierUncached(tier) {
     multiplier = Effarig.multiplier(multiplier);
   } else if (V.isRunning) {
     multiplier = multiplier.pow(0.5);
+  } else if (OuterEffarig.isRunning) {
+    multiplier = OuterEffarig.multiplier(multiplier);
   }
 
   // This power effect goes intentionally after all the nerf effects and shouldn't be moved before them

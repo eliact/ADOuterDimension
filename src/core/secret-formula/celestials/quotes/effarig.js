@@ -72,5 +72,13 @@ export const effarigQuotes = {
       "And I'll be happy",
       "All I want is to be Happy"
     ]
+  },
+  OuterUnlock: {
+    id: 9,
+    lines: [
+      "I...I don't know this realm of me",
+      "Do not enter it, Please",
+      
+    ]
   }
 };

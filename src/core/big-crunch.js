@@ -1,5 +1,6 @@
 import { DC } from "./constants";
 import FullScreenAnimationHandler from "./full-screen-animation-handler";
+import { beginProcessReality, getRealityProps } from "./reality";
 
 export function bigCrunchAnimation() {
   FullScreenAnimationHandler.display("a-implode", 2);
@@ -147,6 +148,11 @@ function bigCrunchCheckUnlocks() {
 
   if (Effarig.isRunning && !EffarigUnlock.infinity.isUnlocked) {
     EffarigUnlock.infinity.unlock();
+    beginProcessReality(getRealityProps(true));
+  }
+
+  if (OuterEffarig.isRunning && !OuterEffarigUnlock.infinity.isUnlocked) {
+    OuterEffarigUnlock.infinity.unlock();
     beginProcessReality(getRealityProps(true));
   }
 }

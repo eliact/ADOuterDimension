@@ -1,4 +1,8 @@
 <script>
+import { Modal } from "../../../core/modal";
+
+import { OuterEffarig } from "../../../core/globals";
+
 import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import EffarigRunUnlockReward from "./EffarigRunUnlockReward";
 import EffarigUnlockButton from "./EffarigUnlockButton";
@@ -24,7 +28,10 @@ export default {
       quote: "",
       isRunning: false,
       vIsFlipped: false,
-      relicShardRarityAlwaysMax: false
+      relicShardRarityAlwaysMax: false,
+      preOuter: false,
+      OutFrag: false,
+      Outer: false
     };
   },
   computed: {
@@ -39,7 +46,25 @@ export default {
       EffarigUnlock.eternity,
       EffarigUnlock.reality
     ],
+    outershopUnlocks: () => [
+      OuterEffarigUnlock.adjuster,
+      OuterEffarigUnlock.glyphFilter,
+      OuterEffarigUnlock.setSaves
+    ],
+    outerrunUnlock: () => OuterEffarigUnlock.run,
+    outerrunUnlocks: () => [
+      OuterEffarigUnlock.infinity,
+      OuterEffarigUnlock.eternity,
+      OuterEffarigUnlock.reality,
+      OuterEffarigUnlock.outer
+    ],
     symbol: () => GLYPH_SYMBOLS.effarig,
+    ClassRun() {
+      return {
+        "l-effarig-run": !OuterEffarigUnlock.outer.isUnlocked,
+        "l-outereffarig-run": OuterEffarigUnlock.outer.isUnlocked
+      };
+    },
     runButtonOuterClass() {
       return {
         "l-effarig-run-button": true,
@@ -78,14 +103,21 @@ export default {
       this.amplifiedShards = this.shardsGained * (1 + this.amplification);
       this.amplifiedShardsRate = (this.amplifiedShards / Time.thisRealityRealTime.totalMinutes);
       this.quote = Effarig.quote;
-      this.runUnlocked = EffarigUnlock.run.isUnlocked;
-      this.isRunning = Effarig.isRunning;
+      this.runUnlocked = EffarigUnlock.run.isUnlocked || OuterEffarigUnlock.run.isUnlocked;
+      this.isRunning = Effarig.isRunning || OuterEffarig.isRunning;
       this.vIsFlipped = V.isFlipped;
       this.relicShardRarityAlwaysMax = Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied;
+      this.preOuter = player.outers > 0;
+      this.OutFrag = player.outer.fragment > 0;
+      this.Outer = OuterEffarigUnlock.outer.isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
-      Modal.celestials.show({ name: "Effarig's", number: 1 });
+      if ((this.preOuter && this.OutFrag) || this.Outer) {
+        Modal.outer.show({ name: "Effarig's", number: 1 });
+      } else {
+        Modal.celestials.show({ name: "Effarig's", number: 1 });
+      }
     },
     createCursedGlyph() {
       Glyphs.giveCursedGlyph();
@@ -153,7 +185,7 @@ export default {
       </div>
       <div
         v-if="runUnlocked"
-        class="l-effarig-run"
+        :class="ClassRun"
       >
         <div class="c-effarig-run-description">
           <span :class="{ 'o-pelle-disabled': isDoomed }">
@@ -174,11 +206,20 @@ export default {
         <div class="c-effarig-run-description">
           {{ runDescription }}
         </div>
-        <EffarigRunUnlockReward
-          v-for="(unlock, i) in runUnlocks"
-          :key="i"
-          :unlock="unlock"
-        />
+        <div v-if="(preOuter && OutFrag) || Outer">
+          <EffarigRunUnlockReward
+            v-for="(unlock, i) in outerrunUnlocks"
+            :key="i"
+            :unlock="unlock"
+          />
+        </div>
+        <div v-else>
+          <EffarigRunUnlockReward
+            v-for="(unlock, i) in runUnlocks"
+            :key="i"
+            :unlock="unlock"
+          />
+        </div>
       </div>
     </div>
   </div>

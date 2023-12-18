@@ -10,6 +10,7 @@ export default {
       isInEffarig: false,
       effarigMultNerfText: "",
       effarigTickNerfText: "",
+      isInOuterEffarig: false,
       isInLaitela: false,
       laitelaTimer: 0,
       laitelaEntropy: "",
@@ -35,6 +36,12 @@ export default {
       if (this.isInEffarig) {
         this.effarigMultNerfText = `${formatPow(0.25 + 0.25 * Effarig.nerfFactor(Currency.infinityPower.value), 0, 5)}`;
         this.effarigTickNerfText = `${formatPow(0.7 + 0.1 * Effarig.nerfFactor(Currency.timeShards.value), 0, 5)}`;
+      }
+      this.isInOuterEffarig = OuterEffarig.isRunning;
+      if (this.isInOuterEffarig) {
+        this.effarigMultNerfText = `${formatPow(0.25 + 0.25 * OuterEffarig.nerfFactor(Currency.infinityPower.value)
+          , 0, 5)}`;
+        this.effarigTickNerfText = `${formatPow(0.7 + 0.1 * OuterEffarig.nerfFactor(Currency.timeShards.value), 0, 5)}`;
       }
       this.isInLaitela = Laitela.isRunning;
       if (this.isInLaitela) {
@@ -79,7 +86,7 @@ export default {
     <div v-if="waitingforHint">
       {{ enslavedText }}
     </div>
-    <div v-if="isInEffarig">
+    <div v-if="isInEffarig || isInOuterEffarig">
       Game speed and multipliers are Dilated {{ effarigMultNerfText }}
       <br>
       Tickspeed is Dilated {{ effarigTickNerfText }}

@@ -7,10 +7,12 @@ const thisInfinityMult = thisInfinity => {
   return DC.D15.pow(Math.log(scaledInfinity) * cappedInfinity);
 };
 const passiveIPMult = () => {
-  const isEffarigLimited = Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ETERNITY;
+  const isEffarigLimited = (OuterEffarig.isRunning || Effarig.isRunning) &&
+   (Effarig.currentStage === EFFARIG_STAGES.ETERNITY || OuterEffarig.currentStage === OUTER_EFFARIG_STAGES.OUTER);
   const normalValue = Perk.studyPassive.isBought ? 1e50 : 1e25;
   return isEffarigLimited
-    ? Math.min(normalValue, Effarig.eternityCap.toNumber())
+    ? (OuterEffarig.isRunning ? Math.min(normalValue, OuterEffarig.eternityCap.toNumber()) 
+    : Math.min(normalValue, Effarig.eternityCap.toNumber()) )
     : normalValue;
 };
 

@@ -12,8 +12,10 @@ export const MachineHandler = {
   },
 
   get realityMachineMultiplier() {
-    return ShopPurchase.RMPurchases.currentMult * Teresa.rmMultiplier * Effects.max(1, PerkShopUpgrade.rmMult) *
-      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1);
+    const outerteresamult = OuterTeresa.isOuter ? OuterTeresa.rmMultiplier : 1;
+    const teresamult = OuterTeresa.isOuter ? 1 : Teresa.rmMultiplier;
+    return ShopPurchase.RMPurchases.currentMult * teresamult * Effects.max(1, PerkShopUpgrade.rmMult) *
+      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1) * outerteresamult;
   },
 
   get uncappedRM() {

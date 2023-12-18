@@ -1,5 +1,6 @@
 import { GameMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 import { DC } from "./constants";
+import { OUTER_EFFARIG_STAGES } from "./globals";
 
 class ChargedInfinityUpgradeState extends GameMechanicState {
   constructor(config, upgrade) {
@@ -82,6 +83,9 @@ export class InfinityUpgradeState extends SetPurchasableMechanicState {
 
 export function totalIPMult() {
   if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.INFINITY) {
+    return DC.D1;
+  }
+  if (OuterEffarig.isRunning && OuterEffarig.currentStage === OUTER_EFFARIG_STAGES.INFINITY) {
     return DC.D1;
   }
   let ipMult = DC.D1

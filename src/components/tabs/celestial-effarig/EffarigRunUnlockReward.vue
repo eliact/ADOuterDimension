@@ -1,4 +1,6 @@
 <script>
+import { Currency } from "../../../core/currency";
+
 export default {
   name: "EffarigRunUnlockReward",
   props: {
@@ -9,7 +11,8 @@ export default {
   },
   data() {
     return {
-      isUnlocked: false
+      isUnlocked: false,
+      Outer: false
     };
   },
   computed: {
@@ -22,6 +25,7 @@ export default {
   methods: {
     update() {
       this.isUnlocked = this.unlock.isUnlocked;
+      this.Outer = Currency.outers.gt(0);
     }
   }
 };
