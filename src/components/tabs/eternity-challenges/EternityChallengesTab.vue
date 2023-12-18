@@ -1,4 +1,6 @@
 <script>
+import { PlayerProgress } from "../../../core/player-progress";
+
 import ChallengeGrid from "@/components/ChallengeGrid";
 import ChallengeTabHeader from "@/components/ChallengeTabHeader";
 import EternityChallengeBox from "./EternityChallengeBox";
@@ -57,7 +59,8 @@ export default {
     },
     isChallengeVisible(challenge) {
       return challenge.completions > 0 || challenge.isUnlocked || challenge.hasUnlocked ||
-        (this.showAllChallenges && PlayerProgress.realityUnlocked());
+        (this.showAllChallenges && PlayerProgress.realityUnlocked()) ||
+        (this.showAllChallenges && PlayerProgress.outerUnlocked());
     }
   }
 };

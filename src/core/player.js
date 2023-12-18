@@ -1016,10 +1016,14 @@ window.player = {
   outerSpace: {
     celestials: {
       teresa: {
-        active: false
+        active: false,
+        outerperkShop: Array.repeat(0, 5),
+        unlockBits: 0,
+        pouredAmount: 0
       },
       effarig: {
-        active: false
+        active: false,
+        unlockBits: 0
       },
       enslaved: {
         active: false
@@ -1107,7 +1111,8 @@ export const Player = {
   },
 
   get automatorUnlocked() {
-    return AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock || OuterWall.automatorStart.isReached;
+    return AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock ||
+    OuterWall.automatorStart.isReached;
   },
 
   resetRequirements(key) {

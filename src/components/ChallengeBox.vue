@@ -1,4 +1,6 @@
 <script>
+import { Currency } from "../core/currency";
+
 import HintText from "@/components/HintText";
 
 export default {
@@ -38,9 +40,13 @@ export default {
     return {
       inC1: Boolean,
       infinities: new Decimal(0),
+      outers: new Decimal(0)
     };
   },
   computed: {
+    isOut() {
+      return this.outers > 0;
+    },
     buttonClassObject() {
       const challengeLocked = !(this.isCompleted || this.isRunning || this.inC1 || this.isUnlocked);
       // It's important to disable the cursor for Normal Challenge 1, challenges that are running, or
@@ -51,7 +57,7 @@ export default {
         "o-challenge-btn--broken": this.overrideLabel.length > 0 && this.name !== "C10",
         "o-challenge-btn--broken-alt": this.overrideLabel.length > 0 && this.name === "C10",
         "o-challenge-btn--running": this.isRunning || this.inC1,
-        "o-challenge-btn--completed": this.isCompleted && this.isUnlocked,
+        "o-challenge-btn--completed": this.isCompleted && (this.isUnlocked || this.isOut),
         "o-challenge-btn--unlocked": !this.isCompleted && this.isUnlocked,
         "o-challenge-btn--locked": challengeLocked,
         "o-challenge-btn--unenterable": challengeNotEnterable,
@@ -72,6 +78,7 @@ export default {
     update() {
       this.inC1 = this.name === "C1" && !this.isCompleted && !Player.isInAntimatterChallenge;
       this.infinities.copyFrom(Currency.infinities);
+      this.outers = player.outers;
     },
   }
 };

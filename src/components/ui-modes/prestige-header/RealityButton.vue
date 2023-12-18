@@ -116,6 +116,10 @@ export default {
         [Teresa.isRunning, teresaReward, teresaThreshold]];
     },
     handleClick() {
+      if (OuterTeresa.isRunning) {
+        TheEye.quotes.Teresa.show();
+        return;
+      }
       if (this.canReality) {
         requestManualReality();
       }

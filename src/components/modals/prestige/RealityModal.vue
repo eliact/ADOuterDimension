@@ -2,7 +2,6 @@
 import GlyphComponent from "@/components/GlyphComponent";
 import ModalWrapperChoice from "@/components/modals/ModalWrapperChoice";
 import PrimaryButton from "@/components/PrimaryButton";
-import { TimeTheoremAutobuyerState } from "../../../core/autobuyers/time-theorem-autobuyer";
 
 export default {
   name: "RealityModal",
@@ -131,13 +130,7 @@ export default {
         // Sac isn't passed through confirm so we have to close it manually
         this.emitClose();
       }
-      if (player.outer.tokens.teresa.isRunning) {
-        TheEye.quotes.Teresa.show();
-        this.emitClose();
-        return;
-      } else {
-        startManualReality(sacrifice, this.selectedGlyph);
-      }
+      startManualReality(sacrifice, this.selectedGlyph);
     }
   },
 };
