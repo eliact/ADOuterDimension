@@ -1,7 +1,7 @@
 <script>
+import EffectDisplay from "@/components/EffectDisplay";
 import PrimaryButton from "@/components/PrimaryButton";
 import PrimaryToggleButton from "@/components/PrimaryToggleButton";
-import EffectDisplay from "@/components/EffectDisplay";
 
 
 export default {
@@ -23,14 +23,14 @@ export default {
         pelle: false,
       },
       isUnlocked: false,
-    }; 
+    };
   },
   computed: {
     ClassObject() {
       return {
         "o-token": true,
         "o-token--hidden": !this.isUnlocked,
-      }
+      };
     },
 
   },
@@ -40,15 +40,15 @@ export default {
     }
   }
 
-}
+};
 </script>
 
 <template>
-<div>
   <div>
+    <div>
     
+    </div>
   </div>
-</div>
 </template>
 
 <style scoped>

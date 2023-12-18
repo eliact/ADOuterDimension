@@ -1,7 +1,8 @@
 <script>
-import { Currency } from '../../../core/currency';
-import { OuterWallState } from '../../../core/outer';
-import TheWallTabButton from './TheWallTabButton.vue';
+import { Currency } from "../../../core/currency";
+import { OuterWallState } from "../../../core/outer";
+
+import TheWallTabButton from "./TheWallTabButton";
 
 export default {
   name: "TheWallTab",
@@ -11,12 +12,12 @@ export default {
   data() {
     return {
       outerCount: new Decimal(),
-    }; 
+    };
   },
   computed: {
     milestones() {
       return Object.values(GameDatabase.outer.wall)
-        .sort((a,b) => a.outers - b.outers)
+        .sort((a, b) => a.outers - b.outers)
         .map(config => new OuterWallState(config));
     },
     rows() {
