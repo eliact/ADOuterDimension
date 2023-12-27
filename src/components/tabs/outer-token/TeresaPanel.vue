@@ -43,7 +43,7 @@ export default {
       class="l-outer-teresa-content-container"
     >
       Number of Space Shards You have:
-      {{ format(spaceShard) }}
+      {{ spaceShard }} Shards
       <br>
       You keep them through games.
       <br>
