@@ -223,7 +223,8 @@ export const GlyphGenerator = {
     if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied) return rarityToStrength(100);
     let result = GlyphGenerator.gaussianBellCurve(rng) * GlyphGenerator.strengthMultiplier;
     const relicShardFactor = Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied ? 1 : rng.uniform();
-    const increasedRarity = relicShardFactor * Effarig.maxRarityBoost +
+    const rarityBoost = OuterEffarig.isOuter ? OuterEffarig.maxRarityBoost : Effarig.maxRarityBoost;
+    const increasedRarity = relicShardFactor * rarityBoost +
       Effects.sum(Achievement(146), GlyphSacrifice.effarig);
     // Each rarity% is 0.025 strength.
     result += increasedRarity / 40;

@@ -1,10 +1,12 @@
 <script>
+// Import { playerInfinityUpgradesOnReset } from "../../../game";
+
+import { Modal } from "../../../core/modal";
+
 import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import GalaxyGeneratorPanel from "./PelleGalaxyGeneratorPanel";
 import PelleBarPanel from "./PelleBarPanel";
 import PelleUpgradePanel from "./PelleUpgradePanel";
-import { playerInfinityUpgradesOnReset } from "../../../game";
-import { Modal } from "../../../core/modal";
 
 export default {
   name: "PelleTab",
@@ -67,7 +69,6 @@ export default {
     },
     OuterPelleIntro() {
       player.outer.tokens.pelle.unlocked = true;
-      return;
     },
     EnterOuterPelle() {
       Modal.outer.show({ name: "Pelle's", number: "6" });
