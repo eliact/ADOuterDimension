@@ -81,6 +81,7 @@ export const OG = {
     player.outer.fragment = JSON.parse(OuterFragment);
     Achievements.all[26].unlock();
     Achievements.all[53].unlock();
+    if (player.outers === 1) TheEye.quotes.Outer.show();
   }
 };
 
