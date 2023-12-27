@@ -178,7 +178,7 @@ export const tabs = [
     name: "Automation",
     id: 4,
     hideAt: 2.1,
-    condition: () => 
+    condition: () =>
       player.records.totalAntimatter.gte(1e40) ||
       OuterWall.automatorStart.isReached,
     hidable: true,
@@ -196,7 +196,7 @@ export const tabs = [
         name: "Automator",
         symbol: "<i class='fas fa-code'></i>",
         component: "AutomatorTab",
-        condition: () => 
+        condition: () =>
           PlayerProgress.realityUnlocked() ||
           OuterWall.automatorStart.isReached,
         id: 1,
@@ -512,6 +512,14 @@ export const tabs = [
     hidable: true,
     subtabs: [
       {
+        key: "outer-celestial-navigation",
+        name: "Outer Space",
+        symbol: "<i class='fas fa-map-marked-alt'></i>",
+        component: "OuterCelestialNavigationTab",
+        id: 3,
+        condition: () => OuterTeresa.isRunning || OuterTeresa.runCompleted
+      },
+      {
         key: "TheWall",
         name: "The Wall",
         symbol: "⩸",
@@ -533,7 +541,7 @@ export const tabs = [
         name: "Token of Recognition",
         symbol: "",
         hideAt: 2.8,
-        component: "tokenTab",
+        component: "TokenTab",
         id: 2,
         hidable: true
       }

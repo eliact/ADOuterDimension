@@ -1,3 +1,4 @@
+import { outercelestialNavigation } from "./outer-navigation";
 import { outereffarigUnlocks } from "./outer-effarig";
 import { outerperkShop } from "./outer-perk-shop";
 import { outerteresa } from "./outer-teresa";
@@ -13,5 +14,6 @@ export const outer = {
   outereffarig: {
     unlocks: outereffarigUnlocks
   },
-  outerteresa
+  outerteresa,
+  outernavigation: outercelestialNavigation,
 };
