@@ -1,64 +1,64 @@
 <script>
 export default {
-    name: "OutersQuoteBackground",
-    props: {
-        outerSymbols: {
-            type: Array,
-            required: true
-        },
-        outers: {
-            type: Array,
-            required: true
-        },
-        primary: {
-            type: Boolean,
-            required: true
-        },
+  name: "OutersQuoteBackground",
+  props: {
+    outerSymbols: {
+      type: Array,
+      required: true
     },
-    computed: {
-        modalClass() {
-            return {
-                "l-modal-outer-quote": true,
-            };
-        },
+    outers: {
+      type: Array,
+      required: true
     },
-    methods: {
-        styleObject(outEntry, opac, isText) {
-            const basecol = `var(--color-${outEntry[0]}--base)`;
-            return {
-                color: basecol,
-                opacity: opac * outEntry[1]
-            };
-        },
+    primary: {
+      type: Boolean,
+      required: true
     },
+  },
+  computed: {
+    modalClass() {
+      return {
+        "l-modal-outer-quote": true,
+      };
+    },
+  },
+  methods: {
+    styleObject(outEntry, opac, isText) {
+      const basecol = `var(--color-${outEntry[0]}--base)`;
+      return {
+        color: basecol,
+        opacity: opac * outEntry[1]
+      };
+    },
+  },
 
-}
+};
 </script>
 
 <template>
-    <div :class="modalClass">
-        <span
-            v-for="(outer, index) in outers"
-            :key="index"
-            class="c-modal-outer-quote c-modal-outer-quote__symbol"
-            :style="styleObject(outer, 0.2, true)"
-            v-html="outerSymbols[index]"
-        />
-        <span
-            v-for="(outer, index) in outers"
-            :key="index + 10"
-            class="c-modal-outer-quote c-modal-outer-quote__shadow"
-            :style="styleObject(outer, 1, false)"
-        />
-        <span
-            v-for="(outer, index) in outers"
-            :key="index + 20"
-            class="c-modal-outer-quote c-modal-outer-quote__text"
-            :style="styleObject(outer, 1, true)"
-        >
-            <slot />
-        </span>
-    </div>
+  <div :class="modalClass">
+    <span
+      v-for="(outer, index) in outers"
+      :key="index"
+      class="c-modal-outer-quote c-modal-outer-quote__symbol"
+      :style="styleObject(outer, 0.2, true)"
+      v-html="outerSymbols[index]"
+    />
+    <span
+      v-for="(outer, index) in outers"
+      :key="index + 10"
+      class="c-modal-outer-quote c-modal-outer-quote__shadow"
+      :style="styleObject(outer, 1, false)"
+    />
+    <span
+      v-for="(outer, index) in outers"
+      :key="index + 20"
+      class="c-modal-outer-quote c-modal-outer-quote__text"
+      :style="styleObject(outer, 1, true)"
+    >
+      <slot />
+    </span>
+  </div>
 </template>
 
 <style scoped>

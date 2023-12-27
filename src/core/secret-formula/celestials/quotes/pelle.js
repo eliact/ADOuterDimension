@@ -447,7 +447,7 @@ export const pelleQuotes = {
         1: destroyer
       },
       "Do you remember ?",
-      { text: "$1", 1:confusing},
+      { text: "$1", 1: confusing },
       "Even I remember you",
       "Something happened....What have you done ?"
     ],

@@ -2,100 +2,100 @@
 import OutersQuoteLine from "../OutersQuoteLine";
 
 export default {
-    name: "OutersQuoteLineBasicInteractable",
-    components: {
+  name: "OutersQuoteLineBasicInteractable",
+  components: {
     OutersQuoteLine,
-},
-    props: {
-        quote: {
-            type: Object,
-            required: true
-        },
-        isFocused: {
-            type: Boolean,
-            required: false,
-            default: true
-        },
-        primary: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-        leftVisible: {
-            type: Boolean,
-            required: false,
-            default: true
-        },
-        rightVisible: {
-            type: Boolean,
-            required: false,
-            default: true
-        },
-        closeVisible: {
-            type: Boolean,
-            required: false,
-            default: true
-        },
+  },
+  props: {
+    quote: {
+      type: Object,
+      required: true
     },
-    data() {
-        return {
-            index: 0,
-        };
+    isFocused: {
+      type: Boolean,
+      required: false,
+      default: true
     },
-    computed: {
-        totalLines() {
-            return this.quote.totalLines;
-        },
-        currentLine: {
-            get() {
-                return this.index;
-            },
-            set(x) {
-                this.index = Math.clamp(x, 0, this.totalLines - 1)
-            }
-        },
-        isQuoteStart() {
-            return this.currentLine === 0
-        },
-        isQuoteEnd() {
-            return this.currentLine === this.totalLines - 1;
-        },
+    primary: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
-    created() {
-        this.$nextTick(() => {
-            this.$on(GAME_EVENT.ARROW_KEY_PRESSED, arroy => this.progressIn(arrow[0]));
-            this.$on(GAME_EVENT.ENTER_PRESSED, () => {
-                if (this.isQuoteEnd) this.close();
-            });
-        });
+    leftVisible: {
+      type: Boolean,
+      required: false,
+      default: true
     },
-    methods: {
-        progressIn(direction) {
-            if (!this.isFocused) return false;
-            switch(direction) {
-                case "left": return this.currentLine--;
-                case "right": return this.currentLine++;
-                default: return false;
-            }
-        },
-        close() {
-            if (!this.isFocused) return;
-            this.index = 0;
-            OuterQuote.advanceQueue();
-        },
+    rightVisible: {
+      type: Boolean,
+      required: false,
+      default: true
     },
+    closeVisible: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+  },
+  data() {
+    return {
+      index: 0,
+    };
+  },
+  computed: {
+    totalLines() {
+      return this.quote.totalLines;
+    },
+    currentLine: {
+      get() {
+        return this.index;
+      },
+      set(x) {
+        this.index = Math.clamp(x, 0, this.totalLines - 1);
+      }
+    },
+    isQuoteStart() {
+      return this.currentLine === 0;
+    },
+    isQuoteEnd() {
+      return this.currentLine === this.totalLines - 1;
+    },
+  },
+  created() {
+    this.$nextTick(() => {
+      this.$on(GAME_EVENT.ARROW_KEY_PRESSED, arroy => this.progressIn(arrow[0]));
+      this.$on(GAME_EVENT.ENTER_PRESSED, () => {
+        if (this.isQuoteEnd) this.close();
+      });
+    });
+  },
+  methods: {
+    progressIn(direction) {
+      if (!this.isFocused) return false;
+      switch (direction) {
+        case "left": return this.currentLine--;
+        case "right": return this.currentLine++;
+        default: return false;
+      }
+    },
+    close() {
+      if (!this.isFocused) return;
+      this.index = 0;
+      OuterQuote.advanceQueue();
+    },
+  },
 };
 </script>
 
 <template>
-    <OutersQuoteLine
-        :quote="quote"
-        :current-line="currentLine"
-        :left-visible="!isQuoteStart && leftVisible"
-        :right-visible="!isQuoteEnd && rightVisible"
-        :close-visible="isQuoteEnd && closeVisible"
-        primary
-        @close="close"
-        @progress-in="progressIn"
-    />
+  <OutersQuoteLine
+    :quote="quote"
+    :current-line="currentLine"
+    :left-visible="!isQuoteStart && leftVisible"
+    :right-visible="!isQuoteEnd && rightVisible"
+    :close-visible="isQuoteEnd && closeVisible"
+    primary
+    @close="close"
+    @progress-in="progressIn"
+  />
 </template>
