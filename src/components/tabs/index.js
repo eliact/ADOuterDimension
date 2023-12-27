@@ -25,6 +25,7 @@ import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
 import OptionsGameplayTab from "./options-gameplay/OptionsGameplayTab";
 import OptionsSavingTab from "./options-saving/OptionsSavingTab";
 import OptionsVisualTab from "./options-visual/OptionsVisualTab";
+import OuterCelestialNavigationTab from "./outer-celestial-navigation/OuterCelestialNavigationTab";
 import OuterFragmentTab from "./outer-game/OuterFragmentTab";
 import PastPrestigeRunsTab from "./past-prestige-runs/PastPrestigeRunsTab";
 import PelleTab from "./celestial-pelle/PelleTab";
@@ -42,7 +43,7 @@ import TheWallTab from "./outer-game/TheWallTab";
 import TimeDilationTab from "./time-dilation/TimeDilationTab";
 import TimeDimensionsTab from "./time-dimensions/TimeDimensionsTab";
 import TimeStudiesTab from "./time-studies/TimeStudiesTab";
-import tokenTab from "./outer-game/tokenTab";
+import TokenTab from "./outer-token/tokenTab";
 import VTab from "./celestial-v/VTab";
 
 const TabComponents = {
@@ -80,7 +81,7 @@ const TabComponents = {
   EternityUpgradesTab,
   EternityMilestonesTab,
   TimeDilationTab,
-  tokenTab,
+  TokenTab,
   GlyphsTab,
   RealityUpgradesTab,
   ImaginaryUpgradesTab,
@@ -91,6 +92,7 @@ const TabComponents = {
   ShopTab,
   MultiplierBreakdownTab,
   TheWallTab,
+  OuterCelestialNavigationTab,
 };
 
 export default TabComponents;
