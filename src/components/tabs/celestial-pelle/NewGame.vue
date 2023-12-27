@@ -1,6 +1,6 @@
 <script>
-import { NG } from '../../../core/new-game';
-import { Modal } from '../../../core/modal';
+import { Modal } from "../../../core/modal";
+import { NG } from "../../../core/new-game";
 
 export default {
   name: "NewGame",
@@ -85,11 +85,11 @@ export default {
       Or there is maybe another way to meet them again....
     </h3>
     <div class="c-outer-game-button-container">
-      <button 
+      <button
         class="c-outer-game-button o-primary-btn"
         @click="startOuterGame"
-        >
-          Approach the  W̳̾͢͞a̷͠l̲͞l̹̯̾͢͟ 
+      >
+        Approach the  W̳̾͢͞a̷͠l̲͞l̹̯̾͢͟
       </button>
     </div>
   </div>
