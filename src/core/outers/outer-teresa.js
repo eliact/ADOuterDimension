@@ -7,7 +7,7 @@ import { RebuyableMechanicState } from "../game-mechanics/rebuyable";
 
 export const OuterTeresa = {
   timePoured: 0,
-  lastUnlock: "realityShard",
+  lastUnlock: "spaceShard",
   displayName: "Teresa",
   possessiveName: "Teresa's",
   pouredAmountCap: 1e40,
@@ -62,7 +62,15 @@ export const OuterTeresa = {
   },
   get rmMultiplier() {
     return Math.min(Math.max((250 * Math.pow(this.pouredAmount / 1e24, 0.1)) * 1.5, 1), 400);
-  }
+  },
+  get spaceShardGained() {
+    if (!OuterTeresaUnlocks.spaceShard.canBeApplied) return 0;
+    return 1e-8;
+  },
+  get spaceShard() {
+    return player.outerSpace.celestials.teresa.spaceShard;
+  },
+  symbol: "Ϟ"
 };
 
 class OuterPerkShopUpgradeState extends RebuyableMechanicState {

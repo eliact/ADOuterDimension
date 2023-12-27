@@ -1,4 +1,4 @@
-import { Effarig, EffarigUnlock, OuterEffarig, OuterEffarigUnlock } from "./globals";
+import { Currency, Effarig, EffarigUnlock, OuterEffarig, OuterEffarigUnlock, OuterTeresa } from "./globals";
 import { DC } from "./constants";
 
 /**
@@ -272,6 +272,7 @@ export function getRealityProps(isReset, alreadyGotGlyph = false) {
     gainedRM: MachineHandler.gainedRealityMachines,
     gainedGlyphLevel: gainedGlyphLevel(),
     gainedShards: Effarig.shardsGained,
+    gainedSpaceShard: OuterTeresa.spaceShardGained,
     simulatedRealities: simulatedRealityCount(true),
     alreadyGotGlyph,
   });
@@ -313,6 +314,9 @@ function giveRealityRewards(realityProps) {
   Currency.perkPoints.add(realityAndPPMultiplier);
   if (TeresaUnlocks.effarig.canBeApplied) {
     Currency.relicShards.add(realityProps.gainedShards * multiplier);
+  }
+  if (OuterTeresaUnlocks.spaceShard.canBeApplied) {
+    Currency.spaceShard.add(realityProps.gainedSpaceShard);
   }
   if (multiplier > 1 && Enslaved.boostReality) {
     // Real time amplification is capped at 1 second of reality time; if it's faster then using all time at once would
@@ -773,6 +777,7 @@ function restoreCelestialRuns(celestialRunState) {
   if (player.celestials.ra.run) Ra.initializeRun();
   player.celestials.laitela.run = celestialRunState.laitela;
   if (player.celestials.laitela.run) Laitela.initializeRun();
+  // eslint-disable-next-line no-useless-return
   else return;
 }
 

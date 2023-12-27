@@ -490,5 +490,10 @@ Currency.outerFragment = new class extends NumberCurrency {
 
 Currency.bug = new class extends DecimalCurrency {
   get value() { return player.outer.bugs; }
-  set value(value) { player.outer.bugs = value }
-}
+  set value(value) { player.outer.bugs = value; }
+}();
+
+Currency.spaceShard = new class extends DecimalCurrency {
+  get value() { return player.outerSpace.celestials.teresa.spaceShard; }
+  set value(value) { player.outerSpace.celestials.teresa.spaceShard = value; }
+}();

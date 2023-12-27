@@ -1,6 +1,5 @@
-import { Currency } from "../currency";
-// eslint-disable-next-line sort-imports
 import { BitUpgradeState } from "../game-mechanics/bit-upgrade-state";
+import { Currency } from "../currency";
 import { GameDatabase } from "../secret-formula/game-database";
 
 export const OUTER_EFFARIG_STAGES = {
@@ -88,7 +87,7 @@ export const OuterEffarig = {
     return countValuesFromBitmask(genEffectBitmask) + countValuesFromBitmask(nongenEffectBitmask);
   },
   get shardsGained() {
-    if (!TeresaUnlocks.effarig.canBeApplied) return 0;
+    if (!OuterTeresaUnlocks.effarig.canBeApplied) return 0;
     return Math.floor(Math.pow(Currency.eternityPoints.exponent / 7000, this.glyphEffectAmount)) *
           AlchemyResource.effarig.effectValue;
   },

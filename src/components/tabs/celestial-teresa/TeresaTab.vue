@@ -57,7 +57,7 @@ export default {
       isOuter: false,
       bestAMouter: new Decimal(0),
       runRewardOuter: 0,
-      hasRealityShard: false
+      hasSpaceShard: false
     };
   },
   computed: {
@@ -142,17 +142,6 @@ export default {
         ? `${quantify("Reality Machine", this.lastMachines, 2)}`
         : `${quantify("Imaginary Machine", this.lastMachines.dividedBy(DC.E10000), 2)}`;
     },
-    unlockInfoTooltipArrowStyle() {
-      if (!this.isOuter) {
-        return {
-          borderRight: "0.5rem solid var(--color-teresa--base)",
-        };
-      }
-      return {
-        borderRight: "0.5rem solid var(--color-outerteresa--base)"
-      };
-
-    },
     RmStoreClass() {
       return {
         "c-outerrm-store-inner": this.isOuter,
@@ -226,7 +215,7 @@ export default {
       this.isOuter = player.outerSpace.celestials.teresa.active;
       this.bestAMouter.copyFrom(player.records.totalAntimatter);
       this.runRewardOuter = OuterTeresa.runRewardMultiplier;
-      this.hasRealityShard = OuterTeresaUnlocks.realityShard.isUnlocked;
+      this.hasSpaceShard = OuterTeresaUnlocks.spaceShard.isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
@@ -250,22 +239,60 @@ export default {
     hasUnlock(unlockInfo) {
       return unlockInfo.isUnlocked;
     },
-    unlockInfoTooltipClass(unlockInfo) {
+    unlockInfoTooltipClass(unlockInfo, index) {
       return {
-        "c-outerteresa-unlock-last-line--unlocked": this.isOuter && this.hasRealityShard,
-        "c-outerteresa-unlock-description": this.isOuter,
-        "c-outerteresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && this.isOuter,
-        "c-teresa-unlock-description": !this.isOuter,
-        "c-teresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter
+        "c-outerteresa-unlock-last-line": this.isOuter && this.hasSpaceShard && index === 6,
+        "c-outerteresa-unlock-last-line--unlocked": this.isOuter && this.hasSpaceShard &&
+         index === 6 && this.hasUnlock(unlockInfo),
+        "c-outerteresa-unlock-description": this.isOuter && index < 6,
+        "c-outerteresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && this.isOuter && index < 6,
+        "c-teresa-unlock-description": !this.isOuter && index < 6,
+        "c-teresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter && index < 6
       };
     },
-    milestoneClass(unlockInfo) {
+    milestoneClass(unlockInfo, index) {
       return {
-        "c-teresa-milestone-line": !this.isOuter,
-        "c-teresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter,
-        "c-outerteresa-milestone-line": this.isOuter,
-        "c-outerteresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && this.isOuter
+        "c-outerteresa-milestone-last-line": this.isOuter && this.hasSpaceShard && index === 6,
+        "c-outerteresa-milestone-last-line--unlocked": this.isOuter && this.hasSpaceShard &&
+         index === 6 && this.hasUnlock(unlockInfo),
+        "c-teresa-milestone-line": !this.isOuter && index < 6,
+        "c-teresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter && index < 6,
+        "c-outerteresa-milestone-line": this.isOuter && index < 6,
+        "c-outerteresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && this.isOuter && index < 6
       };
+    },
+    unlockInfoTooltipArrowStyle(index) {
+      if (!this.isOuter) {
+        return {
+          borderRight: "0.5rem solid var(--color-teresa--base)"
+        };
+      }
+      switch (index) {
+        case 0: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 1: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 2: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 3: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 4: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 5: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+        case 6: return {
+          borderRight: "0.5rem solid var(--color-theEye--base)"
+        };
+        default: return {
+          borderRight: "0.5rem solid var(--color-outerteresa--base)"
+        };
+      }
     },
     OuterTeresaIntro() {
       Teresa.quotes.IntroOuter.show();
@@ -444,22 +471,26 @@ export default {
           </div>
           <div v-else-if="isOuter">
             <CustomizeableTooltip
-              v-for="outerunlockInfo in outerunlockInfos"
+              v-for="(outerunlockInfo, index) in outerunlockInfos"
               :key="outerunlockInfo.id"
               content-class="c-teresa-unlock-description--hover-area"
               :bottom="unlockDescriptionHeight(outerunlockInfo)"
               right="0"
               mode="right"
               :show="true"
-              :tooltip-arrow-style="unlockInfoTooltipArrowStyle"
-              :tooltip-class="unlockInfoTooltipClass(outerunlockInfo)"
+              :tooltip-arrow-style="unlockInfoTooltipArrowStyle(index)"
+              :tooltip-class="unlockInfoTooltipClass(outerunlockInfo, index)"
             >
-              <template #mainContent>
+              <template
+                #mainContent
+              >
                 <div
-                  :class="milestoneClass(outerunlockInfo)"
+                  :class="milestoneClass(outerunlockInfo, index)"
                 />
               </template>
-              <template #tooltipContent>
+              <template
+                #tooltipContent
+              >
                 <b :class="{ 'o-pelle-disabled': outerunlockInfo.pelleDisabled }">
                   {{ format(outerunlockInfo.price, 2, 2) }}: {{ outerunlockInfo.description }}
                 </b>

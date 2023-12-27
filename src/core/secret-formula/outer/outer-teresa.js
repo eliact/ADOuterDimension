@@ -38,10 +38,10 @@ export const outerteresa = {
         for (const id of [1, 2, 3, 4, 5, 6]) player.eternityUpgrades.add(id);
       },
     },
-    realityShard: {
+    spaceShard: {
       id: 6,
       price: 1e40,
-      description: "Unlock Reality Shard"
+      description: "Unlock Space Shard"
     }
   }
 };
