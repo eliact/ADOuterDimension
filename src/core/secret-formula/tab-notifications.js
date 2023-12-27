@@ -220,4 +220,15 @@ export const tabNotifications = {
     // Always externally triggered
     condition: () => true,
   },
+  spaceShardUnlock: {
+    id: 17,
+    tabsToHighLight: [
+      {
+        parent: "outer",
+        tab: "token",
+      },
+    ],
+    condition: () => OuterTeresaUnlocks.spaceShard.canBeApplied && player.outerSpace.celestials.teresa.spaceShard === 0,
+    events: [GAME_EVENT.GAME_TICK_AFTER]
+  }
 };
