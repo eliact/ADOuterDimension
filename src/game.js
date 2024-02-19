@@ -1,3 +1,4 @@
+/* eslint-disable sort-imports */
 import TWEEN from "tween.js";
 
 import { ElectronRuntime, SteamRuntime } from "@/steam";
@@ -12,7 +13,7 @@ import { supportedBrowsers } from "./supported-browsers";
 import Payments from "./core/payments";
 import { Currency } from "./core/currency";
 import { DilationUpgrade } from "./core/dilation";
-import { OUTER_EFFARIG_STAGES, OuterTeresa, PlayerProgress, Teresa } from "./core/globals";
+import { GameIntervals, OUTER_EFFARIG_STAGES, OuterBug, OuterTeresa, PlayerProgress, Teresa } from "./core/globals";
 
 if (GlobalErrorHandler.handled) {
   throw new Error("Initialization failed");
@@ -628,6 +629,13 @@ export function gameLoop(passDiff, options = {}) {
     }
   }
 
+  if (player.outerSpace.celestials.teresa.spaceDimension >= 1 && !player.outerSpace.celestials.teresa.inSpaceReality) {
+    player.outerSpace.celestials.teresa.timeBefore +=
+     player.outerSpace.celestials.teresa.timeBefore >= TimeSpan.fromHours(5).totalMilliseconds ? 0 : realDiff * 0.7;
+    if (player.outerSpace.celestials.teresa.timeBefore >= TimeSpan.fromHours(5).totalMilliseconds) {
+      player.outerSpace.celestials.teresa.availableSpaceReality = true;
+    }
+  }
   laitelaRealityTick(realDiff);
   Achievements.autoAchieveUpdate(diff);
   V.checkForUnlocks();
@@ -651,6 +659,11 @@ export function gameLoop(passDiff, options = {}) {
     if (Tabs.current.subtabs.find(t => t.isOpen).isPermanentlyHidden) {
       [...Tab.dimensions.subtabs].reverse().find(t => !t.isPermanentlyHidden).show(true);
     }
+  }
+
+  if (PlayerProgress.outerUnlocked() && player.outer.loop === false) {
+    GameIntervals.bugloop.start();
+    player.outer.loop = true;
   }
 
   EventHub.dispatch(GAME_EVENT.GAME_TICK_AFTER);
@@ -973,6 +986,14 @@ export function simulateTime(seconds, real, fast) {
     remainingRealSeconds -= diff;
   };
 
+  if (PlayerProgress.outerUnlocked()) {
+    let timebug = seconds;
+    while (timebug > 0) {
+      const inter = (Math.round(Math.random() * 500)) * 1000;
+      setInterval(OuterBug(), inter);
+      timebug -= inter;
+    }
+  }
   // Simulation code which accounts for BH cycles (segments where a BH is active doesn't use diff since it splits
   // up intervals based on real time instead in an effort to keep ticks all roughly equal in game time).
   // Black hole auto-pausing is entirely handled by the black hole phase advancement code (for actually pausing)

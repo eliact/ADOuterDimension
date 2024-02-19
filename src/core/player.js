@@ -892,7 +892,8 @@ window.player = {
       celestialMemories: true,
       blackHole: true,
       realityShards: true,
-      bug: true
+      bug: true,
+      spaceShards: true
     },
     hiddenTabBits: 0,
     hiddenSubtabBits: Array.repeat(0, 11),
@@ -1020,7 +1021,11 @@ window.player = {
         outerperkShop: Array.repeat(0, 5),
         unlockBits: 0,
         pouredAmount: 0,
-        spaceShard: DC.D0
+        spaceShard: DC.D0,
+        spaceDimension: 0,
+        availableSpaceReality: false,
+        inSpaceReality: false,
+        timeBefore: 0
       },
       effarig: {
         active: false,

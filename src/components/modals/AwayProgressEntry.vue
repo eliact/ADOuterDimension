@@ -237,6 +237,14 @@ export default {
   color: var(--color-pelle--base);
 }
 
+.c-modal-away-progress__bug {
+  color: var(--color-theEye--base);
+}
+
+.c-modal-away-progress__space-shards {
+  color: var(--color-outerteresa--base);
+}
+
 .c-modal-away-progress__disabled b,
 .c-modal-away-progress__disabled {
   font-style: italic;
