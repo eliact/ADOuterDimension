@@ -70,6 +70,18 @@ export const OuterTeresa = {
   get spaceShard() {
     return player.outerSpace.celestials.teresa.spaceShard;
   },
+  get spaceShardMultiplier() {
+    if (this.spaceShard.lt(1 / 4)) return 20;
+    if (this.spaceShard.lt(1 / 2)) return 80;
+    if (this.spaceShard.lt(3 / 4)) return 150;
+    if (this.spaceShard.lt(1)) return 300;
+    return 1;
+  },
+  spaceDimension() {
+    if (Currency.spaceShard.lt(1)) return;
+    Currency.spaceShard.subtract(1);
+    player.outerSpace.celestials.teresa.spaceDimension++;
+  },
   symbol: "Ϟ"
 };
 

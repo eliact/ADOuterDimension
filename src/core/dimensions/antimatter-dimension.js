@@ -49,6 +49,8 @@ export function antimatterDimensionCommonMultiplier() {
 
   if (Pelle.isDoomed) multiplier = multiplier.dividedBy(10);
 
+  if (OuterTeresaUnlocks.spaceShard.canBeApplied) multiplier = multiplier.times(OuterTeresa.spaceShardMultiplier);
+
   return multiplier;
 }
 

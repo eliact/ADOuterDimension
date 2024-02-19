@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EffarigPanel",
+  name: "EnslavedPanel",
   components: {
 
   },
@@ -12,14 +12,14 @@ export default {
   computed: {
     Class() {
       return {
-        "l-outer-effarig-panel-container__unlocked": this.isUnlocked,
-        "l-outer-effarig-panel-container__locked": !this.isUnlocked
+        "l-outer-enslaved-panel-container__unlocked": this.isUnlocked,
+        "l-outer-enslaved-panel-container__locked": !this.isUnlocked
       };
     },
     ClassTitle() {
       return {
-        "c-outer-effarig-panel-title__unlocked": this.isUnlocked,
-        "c-outer-effarig-panel-title__locked": !this.isUnlocked
+        "c-outer-enslaved-panel-title__unlocked": this.isUnlocked,
+        "c-outer-enslaved-panel-title__locked": !this.isUnlocked
       };
     },
     ClassButton() {
@@ -40,11 +40,11 @@ export default {
 <template>
   <div :class="Class">
     <div :class="ClassTitle">
-      Ϙ
+      Ϟ
     </div>
     <div
       v-if="isUnlocked"
-      class="l-outer-effarig-content-container"
+      class="l-outer-enslaved-content-container"
     >
       hey
     </div>

@@ -2,13 +2,15 @@
 import { OuterTeresa } from "../../../core/globals";
 
 import EffarigPanel from "./EffarigPanel";
+import EnslavedPanel from "./EnslavedPanel";
 import TeresaPanel from "./TeresaPanel";
 
 export default {
   name: "TokenTab",
   components: {
     TeresaPanel,
-    EffarigPanel
+    EffarigPanel,
+    EnslavedPanel
   },
   data() {
     return {
@@ -53,11 +55,14 @@ export default {
   <div class="o-test">
     <TeresaPanel />
     <EffarigPanel />
+    <EnslavedPanel />
   </div>
 </template>
 
 <style scoped>
 .o-test {
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 </style>

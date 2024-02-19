@@ -300,6 +300,7 @@ function updateRealityRecords(realityProps) {
   }
 }
 
+// eslint-disable-next-line complexity
 function giveRealityRewards(realityProps) {
   const multiplier = realityProps.simulatedRealities + 1;
   const realityAndPPMultiplier = multiplier + binomialDistribution(multiplier, Achievement(154).effectOrDefault(0));
@@ -317,6 +318,7 @@ function giveRealityRewards(realityProps) {
   }
   if (OuterTeresaUnlocks.spaceShard.canBeApplied) {
     Currency.spaceShard.add(realityProps.gainedSpaceShard);
+    if (Currency.spaceShard.gte(1)) OuterTeresa.spaceDimension();
   }
   if (multiplier > 1 && Enslaved.boostReality) {
     // Real time amplification is capped at 1 second of reality time; if it's faster then using all time at once would
@@ -831,6 +833,7 @@ export function clearCelestialRuns() {
     OuterV: player.outer.tokens.v.isRunning,
     OuterRa: player.outer.tokens.ra.isRunning,
     OuterLaitela: player.outer.tokens.laitela.isRunning,
+    SpaceReality: player.outerSpace.celestials.teresa.inSpaceReality,
   };
   player.celestials.teresa.run = false;
   player.celestials.effarig.run = false;
@@ -854,6 +857,7 @@ export function clearCelestialRuns() {
   player.outer.tokens.v.isRunning = false;
   player.outer.tokens.ra.isRunning = false;
   player.outer.tokens.laitela.isRunning = false;
+  player.outerSpace.celestials.teresa.inSpaceReality = false;
   return saved;
 }
 

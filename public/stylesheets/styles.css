@@ -9650,7 +9650,7 @@ input.o-automator-block-input {
 .l-outer-teresa-panel-container__locked {
   height: 7rem;
   width: 7rem;
-  border: var(--var-border-width, 0.2rem) solid grey;
+  border: var(--var-border-width, 0.5rem) solid grey;
   border-radius: var(--var-border-radius, 5rem);
   margin: 1rem;
   margin-top: 5rem;
