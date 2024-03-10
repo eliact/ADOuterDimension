@@ -1,7 +1,7 @@
+import { beginProcessReality, getRealityProps } from "./reality";
 import { GameMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 import { DC } from "./constants";
 import FullScreenAnimationHandler from "./full-screen-animation-handler";
-import { beginProcessReality, getRealityProps } from "./reality";
 
 function giveEternityRewards(auto) {
   player.records.bestEternity.time = Math.min(player.records.thisEternity.time, player.records.bestEternity.time);

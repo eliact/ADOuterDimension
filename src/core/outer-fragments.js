@@ -912,6 +912,7 @@ function randomRelat(min, max, precision) {
 }
 
 
+// eslint-disable-next-line consistent-return
 function typeglyph() {
   const t = randomInt(1, 5);
   let types = undefined;
@@ -939,6 +940,7 @@ function typeglyph() {
   }
 }
 
+// eslint-disable-next-line consistent-return
 function powglyph(type) {
   if (type === "time") {
     return [["timepow"], ["timespeed"], ["timeetermult"], ["timeEP"]];
