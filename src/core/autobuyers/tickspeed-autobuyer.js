@@ -13,7 +13,7 @@ export class TickspeedAutobuyerState extends UpgradeableAutobuyerState {
 
   get isUnlocked() {
     if (Pelle.isDisabled("tickspeedAutobuyer")) return false;
-    return this.canBeUpgraded;
+    return this.canBeUpgraded || OuterWall.autobuyerStart.isReached;
   }
 
   get canBeUpgraded() {
@@ -91,7 +91,8 @@ export class TickspeedAutobuyerState extends UpgradeableAutobuyerState {
 
   reset() {
     super.reset();
-    if (EternityMilestone.keepAutobuyers.isReached || PelleUpgrade.keepAutobuyers.canBeApplied) return;
+    if (EternityMilestone.keepAutobuyers.isReached || PelleUpgrade.keepAutobuyers.canBeApplied ||
+      OuterWall.autobuyerStart.isReached) return;
     this.data.mode = AUTOBUYER_MODE.BUY_SINGLE;
     this.data.isUnlocked = false;
     this.data.isBought = false;

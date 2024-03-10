@@ -7,7 +7,11 @@ export const OG = {
     GameEnd.creditsEverClosed = false;
     player.isGameEnd = false;
     player.celestials.pelle.doomed = false;
-    player.outer.fragment ++;
+    if (OuterWall.MultFragments.isReached) {
+      player.outer.fragment += 2;
+    } else {
+      player.outer.fragment++;
+    }
     player.outers ++;
 
     const speedrun = player.speedrun;

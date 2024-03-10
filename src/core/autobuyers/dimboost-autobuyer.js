@@ -11,7 +11,7 @@ export class DimBoostAutobuyerState extends UpgradeableAutobuyerState {
 
   get isUnlocked() {
     if (Pelle.isDisabled("dimBoostAutobuyer")) return false;
-    return this.canBeUpgraded;
+    return this.canBeUpgraded || OuterWall.autobuyerStart.isReached;
   }
 
   get canBeUpgraded() {

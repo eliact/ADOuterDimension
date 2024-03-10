@@ -1,26 +1,26 @@
 export const outerWall = {
-    automatorStart: {
-        outers: 2,
-        reward: "Start with the automator each times you tried to go outer"
-    },
-    two: {
-        outers: 3,
-        reward: "Start with NA"
-    },
-    three: {
-        outers: 4,
-        reward: "Start with NA"
-    },
-    four: {
-        outers: 5,
-        reward: "Start with NA"
-    },
-    five: {
-        outers: 6,
-        reward: "Start with NA"
-    },
-    six: {
-        outers: 7,
-        reward: "Start with NA"
-    },
+  automatorStart: {
+    outers: 1,
+    reward: "Start with the automator each times you tried to go outer"
+  },
+  autobuyerStart: {
+    outers: 2,
+    reward: "Start with all autobuyers unlocked"
+  },
+  OuterAutoAchiev: {
+    outers: 3,
+    reward: "Really slow auto-achievement"
+  },
+  MultFragment: {
+    outers: 4,
+    reward: "x2 Outer Fragment gain"
+  },
+  five: {
+    outers: 5,
+    reward: "Start with NA"
+  },
+  six: {
+    outers: 6,
+    reward: "Start with NA"
+  },
 };
