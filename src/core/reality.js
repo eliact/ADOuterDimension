@@ -318,7 +318,7 @@ function giveRealityRewards(realityProps) {
   }
   if (OuterTeresaUnlocks.spaceShard.canBeApplied) {
     Currency.spaceShard.add(realityProps.gainedSpaceShard);
-    if (Currency.spaceShard.gte(1)) OuterTeresa.spaceDimension();
+    if (Currency.spaceShard.gte(1)) OuterTeresa.addSpaceDimension();
   }
   if (multiplier > 1 && Enslaved.boostReality) {
     // Real time amplification is capped at 1 second of reality time; if it's faster then using all time at once would

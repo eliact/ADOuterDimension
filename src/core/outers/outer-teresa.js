@@ -65,22 +65,24 @@ export const OuterTeresa = {
   },
   get spaceShardGained() {
     if (!OuterTeresaUnlocks.spaceShard.canBeApplied) return 0;
-    return 1e-8;
+    return 1;
   },
   get spaceShard() {
     return player.outerSpace.celestials.teresa.spaceShard;
   },
   get spaceShardMultiplier() {
-    if (this.spaceShard.lt(1 / 4)) return 20;
-    if (this.spaceShard.lt(1 / 2)) return 80;
-    if (this.spaceShard.lt(3 / 4)) return 150;
-    if (this.spaceShard.lt(1)) return 300;
-    return 1;
+    return Decimal.pow((this.spaceShard.ln()) / (Math.log(3)), 2);
   },
-  spaceDimension() {
-    if (Currency.spaceShard.lt(1)) return;
-    Currency.spaceShard.subtract(1);
+  addSpaceDimension() {
+    if (Currency.spaceShard.lt(5e8)) return;
+    Currency.spaceShard.reset();
     player.outerSpace.celestials.teresa.spaceDimension++;
+  },
+  get spaceDimension() {
+    return player.outerSpace.celestials.teresa.spaceDimension;
+  },
+  get inSpaceReality() {
+    return player.outerSpace.celestials.teresa.inSpaceReality;
   },
   symbol: "Ϟ"
 };

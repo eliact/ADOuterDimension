@@ -51,6 +51,8 @@ export function antimatterDimensionCommonMultiplier() {
 
   if (OuterTeresaUnlocks.spaceShard.canBeApplied) multiplier = multiplier.times(OuterTeresa.spaceShardMultiplier);
 
+  if (OuterTeresa.inSpaceReality) multiplier = multiplier.times(OuterTeresa.spaceDimension.log10() * 20 + 5);
+
   return multiplier;
 }
 

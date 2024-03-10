@@ -123,6 +123,8 @@ export function gainedInfinityPoints() {
     ip = dilatedValueOf(ip);
   } else if (OuterTeresa.isRunning) {
     ip = ip.pow(0.55);
+  } else if (OuterTeresa.inSpaceReality) {
+    ip = ip.pow(OuterTeresa.spaceDimension.log10() + 1);
   }
   if (GlyphAlteration.isAdded("infinity")) {
     ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
@@ -159,6 +161,8 @@ export function gainedEternityPoints() {
     ep = dilatedValueOf(ep);
   } else if (OuterTeresa.isRunning) {
     ep = ep.pow(0.55);
+  } else if (OuterTeresa.inSpaceReality) {
+    ep = ep.pow(OuterTeresa.spaceDimension.log10() + 1);
   }
   if (GlyphAlteration.isAdded("time")) {
     ep = ep.pow(getSecondaryGlyphEffect("timeEP"));

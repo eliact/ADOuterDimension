@@ -128,6 +128,9 @@ export function timeDimensionCommonMultiplier() {
         4)
         .clampMin(1));
   }
+
+  if (OuterTeresa.inSpaceReality) multiplier = multiplier.times(OuterTeresa.spaceDimension.log10() * 10 + 5);
+
   return mult;
 }
 
