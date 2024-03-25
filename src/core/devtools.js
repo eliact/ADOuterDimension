@@ -1,12 +1,46 @@
 import { sha512_256 } from "js-sha512";
 
 import { DC } from "./constants";
+import { EternityChallenge } from "./eternity-challenge";
 import FullScreenAnimationHandler from "./full-screen-animation-handler";
+import { NormalChallenge } from "./normal-challenges";
 
 /* eslint-disable no-console */
 // Disabling no-console here seems
 // reasonable, since these are the devtools after all
 export const dev = {};
+
+dev.OuterTest = {};
+
+dev.OuterTest.completeChallenges = {};
+
+dev.OuterTest.completeChallenges.normal = function() {
+  for (let i = 1; i < 13; i++) NormalChallenge(i).complete();
+};
+
+dev.OuterTest.completeChallenges.infinity = function() {
+  for (let i = 1; i < 9; i++) InfinityChallenge(i).complete();
+};
+
+dev.OuterTest.completeChallenges.eternity = function() {
+  for (let i = 1; i < 13; i++) EternityChallenge(i).completions = 5;
+};
+
+dev.OuterTest.completeChallenges.all = function() {
+  dev.OuterTest.completeChallenges.normal();
+  dev.OuterTest.completeChallenges.infinity();
+  dev.OuterTest.completeChallenges.eternity();
+};
+
+dev.OuterTest.givePreAchievements = function() {
+  for (let i = 0; i <= 103; i++) Achievements.all[i].unlock();
+};
+
+dev.OuterTest.unlockTeresa = function() {
+  dev.OuterTest.givePreAchievements();
+  for (let i = 5; i <= 24; i++) RealityUpgrades.all[i].isBought = true;
+  Achievements.all[110].unlock();
+};
 
 dev.hardReset = function() {
   GameStorage.hardReset();
