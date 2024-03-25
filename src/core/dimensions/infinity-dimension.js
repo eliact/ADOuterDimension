@@ -25,7 +25,7 @@ export function infinityDimensionCommonMultiplier() {
     mult = mult.times(replicantiMult());
   }
 
-  if (OuterTeresa.inSpaceReality) multiplier = multiplier.times(OuterTeresa.spaceDimension.log10() * 15 + 5);
+  if (OuterTeresa.inSpaceReality) mult = mult.times(Math.log10(OuterTeresa.spaceDimension) * 15 + 5);
 
   return mult;
 }
