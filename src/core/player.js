@@ -937,6 +937,11 @@ window.player = {
         quoteBits: 0,
       }
     },
+    MimicEye: {
+      TeresaBits: 0,
+      pouredAmount: 0,
+      TeresaUnlocked: false
+    },
     tokens: {
       active: false,
       teresa: {
@@ -970,44 +975,6 @@ window.player = {
         done: false,
       },
       pelle: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-    },
-    trials: {
-      active: false,
-      Teresa: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      Effarig: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      Enslaved: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      V: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      Ra: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      Laitela: {
-        unlocked: false,
-        isRunning: false,
-        done: false,
-      },
-      Pelle: {
         unlocked: false,
         isRunning: false,
         done: false,

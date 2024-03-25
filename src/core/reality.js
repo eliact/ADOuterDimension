@@ -827,7 +827,6 @@ export function clearCelestialRuns() {
     v: player.celestials.v.run,
     ra: player.celestials.ra.run,
     laitela: player.celestials.laitela.run,
-    OuterTeresa: player.outer.tokens.teresa.isRunning,
     OuterEffarig: player.outer.tokens.effarig.isRunning,
     OuterEnslaved: player.outer.tokens.enslaved.isRunning,
     OuterV: player.outer.tokens.v.isRunning,
@@ -851,7 +850,6 @@ export function clearCelestialRuns() {
   player.celestials.v.run = false;
   player.celestials.ra.run = false;
   player.celestials.laitela.run = false;
-  player.outer.tokens.teresa.isRunning = false;
   player.outer.tokens.effarig.isRunning = false;
   player.outer.tokens.enslaved.isRunning = false;
   player.outer.tokens.v.isRunning = false;

@@ -19,6 +19,7 @@ import InfinityChallengesTab from "./infinity-challenges/InfinityChallengesTab";
 import InfinityDimensionsTab from "./infinity-dimensions/InfinityDimensionsTab";
 import InfinityUpgradesTab from "./infinity-upgrades/InfinityUpgradesTab";
 import LaitelaTab from "./celestial-laitela/LaitelaTab";
+import MimicEyeTab from "./MimicEye/MimicEyeTab";
 import MultiplierBreakdownTab from "./statistics/MultiplierBreakdownTab";
 import NormalAchievementsTab from "./normal-achievements/NormalAchievementsTab";
 import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
@@ -93,6 +94,7 @@ const TabComponents = {
   MultiplierBreakdownTab,
   TheWallTab,
   OuterCelestialNavigationTab,
+  MimicEyeTab,
 };
 
 export default TabComponents;

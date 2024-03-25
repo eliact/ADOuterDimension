@@ -13,10 +13,12 @@ export const MachineHandler = {
 
   get realityMachineMultiplier() {
     const outerteresamult = OuterTeresa.isOuter ? OuterTeresa.rmMultiplier : 1;
+    const OuterTeresaRealityMult = player.outer.tokens.teresa.isRunning ? TheEye.rmMultiplier : 1;
     const teresamult = OuterTeresa.isOuter ? 1 : Teresa.rmMultiplier;
     const spaceRealityMult = OuterTeresa.inSpaceReality ? Math.log(OuterTeresa.spaceDimension) * 40 + 20 : 1;
     return ShopPurchase.RMPurchases.currentMult * teresamult * Effects.max(1, PerkShopUpgrade.rmMult) *
-      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1) * outerteresamult * spaceRealityMult;
+      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1) * outerteresamult * spaceRealityMult *
+       OuterTeresaRealityMult;
   },
 
   get uncappedRM() {

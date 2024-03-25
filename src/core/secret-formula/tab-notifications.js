@@ -230,5 +230,16 @@ export const tabNotifications = {
     ],
     condition: () => OuterTeresaUnlocks.spaceShard.canBeApplied && player.outerSpace.celestials.teresa.spaceShard === 0,
     events: [GAME_EVENT.GAME_TICK_AFTER]
+  },
+  mimicTeresa: {
+    id: 18,
+    tabsToHighLight: [
+      {
+        parent: "outer",
+        tab: "mimicEye"
+      },
+    ],
+    condition: () => player.outer.MimicEye.TeresaUnlocked,
+    events: [GAME_EVENT.REALITY_RESET_AFTER]
   }
 };

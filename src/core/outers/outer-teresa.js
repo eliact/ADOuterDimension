@@ -30,11 +30,15 @@ export const OuterTeresa = {
   },
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.teresa.isRunning = true;
+    player.outerSpace.celestials.teresa.active = true;
+    Teresa.quotes.OuterTeresa.show();
+    player.outer.fragment -= 1;
+    this.pouredAmount = Teresa.pouredAmount;
+    player.reality.realityMachines = new Decimal("0");
   },
   rewardMultiplier(antimatter) {
-    return Decimal.max(Decimal.pow(antimatter.plus(1).log10() / 1.5e8, 12), 1).toNumber();
+    return Decimal.max(Decimal.pow(antimatter.plus(1).log10() / 1.5e8, 7), 1).toNumber();
   },
   get isRunning() {
     return player.outer.tokens.teresa.isRunning;

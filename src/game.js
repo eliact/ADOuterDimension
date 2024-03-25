@@ -122,9 +122,11 @@ export function gainedInfinityPoints() {
   } else if (Laitela.isRunning) {
     ip = dilatedValueOf(ip);
   } else if (OuterTeresa.isRunning) {
-    ip = ip.pow(0.55);
+    // eslint-disable-next-line no-unused-expressions
+    MimicTeresaUnlocks.upPower.canBeApplied
+      ? ip = ip.pow(0.70) : ip = ip.pow(0.55);
   } else if (OuterTeresa.inSpaceReality) {
-    ip = ip.pow(OuterTeresa.spaceDimension.log10() + 1);
+    ip = ip.pow(Math.log10(OuterTeresa.spaceDimension) + 1);
   }
   if (GlyphAlteration.isAdded("infinity")) {
     ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
@@ -160,9 +162,11 @@ export function gainedEternityPoints() {
   } else if (Laitela.isRunning) {
     ep = dilatedValueOf(ep);
   } else if (OuterTeresa.isRunning) {
-    ep = ep.pow(0.55);
+    // eslint-disable-next-line no-unused-expressions
+    MimicTeresaUnlocks.upPower.canBeApplied
+      ? ep = ep.pow(0.70) : ep = ep.pow(0.55);
   } else if (OuterTeresa.inSpaceReality) {
-    ep = ep.pow(OuterTeresa.spaceDimension.log10() + 1);
+    ep = ep.pow(Math.log10(OuterTeresa.spaceDimension) + 1);
   }
   if (GlyphAlteration.isAdded("time")) {
     ep = ep.pow(getSecondaryGlyphEffect("timeEP"));
@@ -893,7 +897,8 @@ export function getTTPerSecond() {
   if (GlyphAlteration.isAdded("dilation")) ttMult *= getSecondaryGlyphEffect("dilationTTgen");
 
   // Glyph TT generation
-  const glyphTT = Teresa.isRunning || Enslaved.isRunning || Pelle.isDoomed || OuterTeresa.isRunning
+  // eslint-disable-next-line max-len
+  const glyphTT = Teresa.isRunning || Enslaved.isRunning || Pelle.isDoomed || (OuterTeresa.isRunning && !MimicTeresaUnlocks.TTgenGlyph.canBeApplied)
     ? 0
     : getAdjustedGlyphEffect("dilationTTgen") * ttMult;
 

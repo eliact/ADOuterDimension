@@ -1,3 +1,4 @@
+import { mimicTeresa } from "./MimicTheEye";
 import { outercelestialNavigation } from "./outer-navigation";
 import { outereffarigUnlocks } from "./outer-effarig";
 import { outerperkShop } from "./outer-perk-shop";
@@ -16,4 +17,5 @@ export const outer = {
   },
   outerteresa,
   outernavigation: outercelestialNavigation,
+  TeresaMimic: mimicTeresa,
 };

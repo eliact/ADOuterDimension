@@ -30,7 +30,7 @@ export default {
         "o-teresa-shop-button--available": this.isAvailableForPurchase && !this.isCapped,
         "o-teresa-shop-button--capped": this.isCapped,
         "o-teresa-shop-button--pelle-disabled": this.isDoomed &&
-          (this.upgrade === PerkShopUpgrade.musicGlyph || this.upgrade === PerkShopUpgrade.fillMusicGlyph),  
+          (this.upgrade === PerkShopUpgrade.musicGlyph || this.upgrade === PerkShopUpgrade.fillMusicGlyph),
       };
     },
   },

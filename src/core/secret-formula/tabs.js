@@ -544,6 +544,16 @@ export const tabs = [
         component: "TokenTab",
         id: 2,
         hidable: true
+      },
+      {
+        key: "mimicEye",
+        name: "The Mimic Of The Eye",
+        symbol: "⊚",
+        hideAt: 2.8,
+        component: "MimicEyeTab",
+        id: 4,
+        hidable: true,
+        condition: () => OuterTeresa.isRunning && player.outer.MimicEye.TeresaUnlocked
       }
     ]
   }

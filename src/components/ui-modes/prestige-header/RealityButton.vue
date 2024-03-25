@@ -116,9 +116,10 @@ export default {
         [Teresa.isRunning, teresaReward, teresaThreshold]];
     },
     handleClick() {
-      if (OuterTeresa.isRunning) {
+      if (OuterTeresa.isRunning && !player.outer.MimicEye.TeresaUnlocked) {
+        player.outer.MimicEye.TeresaUnlocked = true;
         TheEye.quotes.Teresa.show();
-        return;
+        TabNotification.mimicTeresa.tryTrigger();
       }
       if (this.canReality) {
         requestManualReality();

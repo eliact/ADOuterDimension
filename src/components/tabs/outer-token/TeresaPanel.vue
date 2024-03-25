@@ -89,7 +89,7 @@ export default {
         </span>
         <br>
         <span>
-          Reality is {{ formatPercents(timer, 3) }}% charged.
+          Reality is {{ formatPercents(timer, 3) }} charged.
         </span>
       </div>
     </div>
@@ -103,6 +103,7 @@ export default {
   padding: 1rem;
   -webkit-user-select: none;
   user-select: none;
+  cursor: pointer;
 }
 
 .c-outer-teresa-reality-button__available:hover {
@@ -112,6 +113,7 @@ export default {
   padding: 1rem;
   -webkit-user-select: none;
   user-select: none;
+  cursor: pointer;
 }
 .c-outer-teresa-reality-button__unavailable {
   border: var(--var-border-width, 0.5rem) solid gray;

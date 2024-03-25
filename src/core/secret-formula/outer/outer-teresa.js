@@ -41,7 +41,13 @@ export const outerteresa = {
     spaceShard: {
       id: 6,
       price: 1e40,
-      description: "Unlock Space Shard"
+      description: "Unlock Space Shard",
+      onUnlock: () => {
+        player.outer.tokens.teresa.isRunning = false;
+        player.outer.MimicEye.TeresaUnlocked = false;
+        player.outer.MimicEye.pouredAmount = false;
+        Teresa.quotes.OuterTeresaEnd.show();
+      },
     }
   }
 };

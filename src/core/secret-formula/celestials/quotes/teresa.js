@@ -45,18 +45,27 @@ export const teresaQuotes = {
       "How did you get here ?",
       "I feel like...I am near my..true? self",
       "But I am here, How is it even posible ?",
-      "I...I need some time but thank you to make me discover this. I feel like it's very important"
+      "I...I need some time but I feel like it's very important"
+    ]
+  },
+  OuterTeresaEnd: {
+    id: 6,
+    lines: [
+      "We reached the end of this reality",
+      "I think I discovered my true self",
+      "I am going to remember you through dimensions",
+      "Thank You.....Really"
     ]
   },
   Outereffarig: {
-    id: 6,
+    id: 7,
     lines: [
       "Help them too",
       "Please"
     ]
   },
   TrialsOuter: {
-    id: 7,
+    id: 8,
     lines: [
       "Ho...You, again",
       "Am I the last one ?",

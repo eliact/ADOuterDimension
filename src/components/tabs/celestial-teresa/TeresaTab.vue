@@ -72,11 +72,7 @@ export default {
       return this.bestAMouter.gt(1);
     },
     objectifAttained() {
-      if (player.outer.tokens.teresa.isRunning === true) {
-        return Currency.eternityPoints.gte(DC.E8000);
-      }
-      return false;
-
+      return OuterTeresaUnlocks.spaceShard.canBeApplied;
     },
     rmMult: () => (OuterTeresa.isOuter ? OuterTeresa.rmMultiplier : Teresa.rmMultiplier),
     upgrades() {
@@ -176,11 +172,11 @@ export default {
       const now = new Date().getTime();
       if (this.pour) {
         const diff = (now - this.time) / 1000;
-        Teresa.pourRM(diff);
-        OuterTeresa.pourRM(diff);
+        // eslint-disable-next-line no-unused-expressions
+        this.isOuter ? OuterTeresa.pourRM(diff) : Teresa.pourRM(diff);
       } else {
-        Teresa.timePoured = 0;
-        OuterTeresa.timePoured = 0;
+        // eslint-disable-next-line no-unused-expressions
+        this.isOuter ? OuterTeresa.timePoured = 0 : Teresa.timePoured = 0;
       }
       this.time = now;
       this.pouredAmount = player.celestials.teresa.pouredAmount;
@@ -209,22 +205,18 @@ export default {
       this.outers = player.outers;
       this.outerFragment = player.outer.fragment;
       this.TestUnlocked = player.outer.tokens.teresa.unlocked;
-      this.TestDone = player.outer.tokens.teresa.done;
-      this.TestRunning = player.outer.tokens.teresa.isRunning;
+      this.TestDone = OuterTeresa.runCompleted;
+      this.TestRunning = OuterTeresa.isRunning;
       this.TheEyeTalk = player.outer.quotes.theEye.quoteBits > 0;
-      this.isOuter = player.outerSpace.celestials.teresa.active;
+      this.isOuter = OuterTeresa.isOuter;
       this.bestAMouter.copyFrom(player.records.totalAntimatter);
       this.runRewardOuter = OuterTeresa.runRewardMultiplier;
       this.hasSpaceShard = OuterTeresaUnlocks.spaceShard.isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
-      if (this.isOuter) return;
-      if (this.TestUnlocked) {
-        Modal.outer.show({ name: "Teresa's", number: 0 });
-        return;
-      }
-      Modal.celestials.show({ name: "Teresa's", number: 0 });
+      if (this.TestUnlocked) Modal.outer.show({ name: "Teresa's", number: 0 });
+      if (this.outers < 1) Modal.celestials.show({ name: "Teresa's", number: 0 });
     },
     unlockDescriptionHeight(unlockInfo) {
       const maxPrice = TeresaUnlocks[Teresa.lastUnlock].price;
@@ -241,8 +233,8 @@ export default {
     },
     unlockInfoTooltipClass(unlockInfo, index) {
       return {
-        "c-outerteresa-unlock-last-line": this.isOuter && this.hasSpaceShard && index === 6,
-        "c-outerteresa-unlock-last-line--unlocked": this.isOuter && this.hasSpaceShard &&
+        "c-outerteresa-unlock-last-line": this.isOuter && index === 6,
+        "c-outerteresa-unlock-last-line--unlocked": this.isOuter &&
          index === 6 && this.hasUnlock(unlockInfo),
         "c-outerteresa-unlock-description": this.isOuter && index < 6,
         "c-outerteresa-unlock-description--unlocked": this.hasUnlock(unlockInfo) && this.isOuter && index < 6,
@@ -252,8 +244,8 @@ export default {
     },
     milestoneClass(unlockInfo, index) {
       return {
-        "c-outerteresa-milestone-last-line": this.isOuter && this.hasSpaceShard && index === 6,
-        "c-outerteresa-milestone-last-line--unlocked": this.isOuter && this.hasSpaceShard &&
+        "c-outerteresa-milestone-last-line": this.isOuter && index === 6,
+        "c-outerteresa-milestone-last-line--unlocked": this.isOuter &&
          index === 6 && this.hasUnlock(unlockInfo),
         "c-teresa-milestone-line": !this.isOuter && index < 6,
         "c-teresa-milestone-line--unlocked": this.hasUnlock(unlockInfo) && !this.isOuter && index < 6,
@@ -297,15 +289,6 @@ export default {
     OuterTeresaIntro() {
       Teresa.quotes.IntroOuter.show();
       player.outer.tokens.teresa.unlocked = true;
-    },
-    GoOuterSpace() {
-      player.outerSpace.celestials.teresa.active = true;
-      Teresa.quotes.OuterTeresa.show();
-      player.outer.tokens.teresa.done = true;
-      player.outer.tokens.teresa.isRunning = false;
-      player.outer.tokens.active = false;
-      player.outer.fragment -= 1;
-      OuterTeresa.pouredAmount = Teresa.pouredAmount;
     }
   }
 };
@@ -320,13 +303,6 @@ export default {
       @click="OuterTeresaIntro()"
     >
       Approach Teresa
-    </div>
-    <div
-      v-if="TheEyeTalk && !isOuter && objectifAttained"
-      class="l-teresa-fragment"
-      @click="GoOuterSpace()"
-    >
-      Go out of this Reality
     </div>
     <div>
       You have {{ quantify("Reality Machine", rm, 2, 2) }}.
@@ -447,19 +423,19 @@ export default {
           </div>
           <div v-if="!isOuter">
             <CustomizeableTooltip
-              v-for="unlockInfo in unlockInfos"
+              v-for="(unlockInfo, index) in unlockInfos"
               :key="unlockInfo.id"
               content-class="c-teresa-unlock-description--hover-area"
               :bottom="unlockDescriptionHeight(unlockInfo)"
               right="0"
               mode="right"
               :show="true"
-              :tooltip-arrow-style="unlockInfoTooltipArrowStyle"
-              :tooltip-class="unlockInfoTooltipClass(unlockInfo)"
+              :tooltip-arrow-style="unlockInfoTooltipArrowStyle(index)"
+              :tooltip-class="unlockInfoTooltipClass(unlockInfo, index)"
             >
               <template #mainContent>
                 <div
-                  :class="milestoneClass(unlockInfo)"
+                  :class="milestoneClass(unlockInfo, index)"
                 />
               </template>
               <template #tooltipContent>
