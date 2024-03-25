@@ -1834,6 +1834,16 @@ Rifts once the current cap has been reached.`,
       tags: ["reality", "antimatter", "lategame", "endgame", "final", "pelle", "galaxy",
         "galaxies", "generator", "celestial"],
       tab: "celestials/pelle"
+    }, {
+      name: "Outer Bug",
+      info: () => `
+After your first outer game, you unlock the mechanic of the bugs. Bugs are random event throughout your 
+progression until Teresa. These bugs are based on your actual stage and have multiple effect, giving you 
+antimatter, infinity, eternity, unlocking upgrades. There are special bugs, the super bug, those super bug 
+have a huge effect on your game and speed up a lot your progression.`,
+      isUnlocked: () => PlayerProgress.outerUnlocked(),
+      tags: ["outer", "bug", "super bug"],
+      tab: "outer/outerFragment"
     }
   ]
 };
