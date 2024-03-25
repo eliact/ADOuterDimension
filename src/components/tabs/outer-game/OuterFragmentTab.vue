@@ -234,7 +234,12 @@ export default {
   color: var(--color-reality);
 }
 .l-outer-fragment-container__unavailable {
-  font-size: 2.4rem;
+  width: 50rem;
+  padding: 0.5rem;
+  font-size: 4rem;
   color: var(--color-theEye--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-theEye--base);
+  border-radius: var(--var-border-radius, 0.5rem);
 }
 </style>

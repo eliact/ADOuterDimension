@@ -1,7 +1,7 @@
 export const outerWall = {
   automatorStart: {
     outers: 1,
-    reward: "Start with the automator each times you tried to go outer"
+    reward: "Start with the automator"
   },
   autobuyerStart: {
     outers: 2,

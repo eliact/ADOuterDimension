@@ -688,6 +688,7 @@ export function ListBugDila(id) {
   }
 }
 
+// eslint-disable-next-line complexity
 export function ListBugReal(id) {
   if (id <= 10) {
     player.outer.bug.Real++;
