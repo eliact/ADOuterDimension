@@ -8,7 +8,6 @@ export const OuterRa = {
 
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.ra.isRunning = true;
   },
 

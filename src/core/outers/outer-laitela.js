@@ -8,7 +8,6 @@ export const OuterLaitela = {
 
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.laitela.isRunning = true;
   },
 

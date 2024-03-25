@@ -8,7 +8,6 @@ export const OuterV = {
 
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.v.isRunning = true;
   },
 

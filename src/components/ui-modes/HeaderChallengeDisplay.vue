@@ -1,6 +1,8 @@
 <script>
+// eslint-disable-next-line max-len
 import { OuterEffarig, OuterEnslaved, OuterLaitela, OuterPelle, OuterRa, OuterTeresa, OuterV } from "../../core/globals";
 import { Tab } from "../../core/tabs";
+
 import FailableEcText from "./FailableEcText";
 import PrimaryButton from "@/components/PrimaryButton";
 
@@ -31,12 +33,20 @@ export default {
           activityToken: () => celestial.isRunning,
           tabName: () => tab,
         };
-      };
-      function outerReality(outer, name, tab) {
+      }
+      function outerReality(celestial, name, tab) {
         return {
           name: () => `${name} Outer Reality`,
           isActive: token => token,
-          activityToken: () => outer.isRunning,
+          activityToken: () => celestial.isRunning,
+          tabName: () => tab,
+        };
+      }
+      function SpaceReality(tab) {
+        return {
+          name: () => `Space Reality`,
+          isActive: token => token,
+          activityToken: () => OuterTeresa.inSpaceReality,
           tabName: () => tab,
         };
       }
@@ -47,13 +57,14 @@ export default {
         celestialReality(V, "V's", "v"),
         celestialReality(Ra, "Ra's", "ra"),
         celestialReality(Laitela, "Lai'tela's", "laitela"),
-        outerReality(OuterTeresa,"Teresa's","teresa"),
-        outerReality(OuterEffarig,"Effarig's","effarig"),
-        outerReality(OuterEnslaved,"The Nameless Ones'","enslaved"),
-        outerReality(OuterV,"V's","v"),
-        outerReality(OuterRa,"Ra's","ra"),
-        outerReality(OuterLaitela,"Lai'tela's","laitela"),
-        outerReality(OuterPelle,"Pelle's","pelle"),
+        outerReality(OuterTeresa, "Teresa's", "teresa"),
+        outerReality(OuterEffarig, "Effarig's", "effarig"),
+        outerReality(OuterEnslaved, "The Nameless Ones'", "enslaved"),
+        outerReality(OuterV, "V's", "v"),
+        outerReality(OuterRa, "Ra's", "ra"),
+        outerReality(OuterLaitela, "Lai'tela's", "laitela"),
+        outerReality(OuterPelle, "Pelle's", "pelle"),
+        SpaceReality(OuterTeresa, "Teresa's", "token"),
         {
           name: () => "Time Dilation",
           isActive: token => token,
@@ -122,9 +133,8 @@ export default {
       this.infinityUnlocked = PlayerProgress.infinityUnlocked();
       this.activityTokens = this.parts.map(part => part.activityToken());
       // Dilation in Pelle can't be left once entered, but we still want to allow leaving more nested challenges
-      this.showExit = player.outer.trials.active
-        ? false
-        : this.inPelle && player.dilation.active
+      // eslint-disable-next-line no-nested-ternary
+      this.showExit = (this.inPelle && player.dilation.active) || player.outer.tokens.teresa.isRunning
         ? this.activeChallengeNames.length > 1
         : this.activeChallengeNames.length !== 0;
       this.exitText = this.exitDisplay();
@@ -178,14 +188,13 @@ export default {
       if (this.activeChallengeNames.length === 0) return;
 
       // Iterating back-to-front and breaking ensures we get the innermost restriction
-      let fullName = "", celestial = "", outer = "";
+      let fullName = "", celestial = "";
       for (let i = this.activityTokens.length - 1; i >= 0; i--) {
         const token = this.activityTokens[i];
         const part = this.parts[i];
         if (!part.isActive(token)) continue;
         fullName = part.name(token);
         celestial = part.tabName?.();
-        outer = part.tabName?.();
         break;
       }
 
@@ -194,7 +203,7 @@ export default {
       else if (fullName.match("Infinity Challenge")) Tab.challenges.infinity.show(true);
       else if (fullName.match("Eternity Challenge")) Tab.challenges.eternity.show(true);
       else if (player.dilation.active) Tab.eternity.dilation.show(true);
-      else if (player.outer.trials.active) Tab.celestials[outer].show(true);
+      else if (player.outerSpace.celestials.teresa.inSpaceReality) Tab.outer.token.show(true);
       else Tab.celestials[celestial].show(true);
     },
     exitDisplay() {

@@ -19,7 +19,6 @@ export const OuterEffarig = {
   },
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.effarig.isRunning = true;
     recalculateAllGlyphs();
     Tab.reality.glyphs.show(false);

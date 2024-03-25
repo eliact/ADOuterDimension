@@ -8,7 +8,6 @@ export const OuterEnslaved = {
 
   initializeRun() {
     clearCelestialRuns();
-    player.outer.tokens.active = true;
     player.outer.tokens.enslaved.isRunning = true;
   },
 

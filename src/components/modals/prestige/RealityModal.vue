@@ -27,7 +27,6 @@ export default {
       shardsGained: 0,
       effarigUnlocked: false,
       willAutoPurge: false,
-      OuterTeresaIsRunning: false,
     };
   },
   computed: {
@@ -109,7 +108,6 @@ export default {
       }
       this.bestLevel = player.records.bestReality.glyphLevel;
       this.levelDifference = Math.abs(this.bestLevel - this.level);
-      this.OuterTeresaIsRunning = player.outer.tokens.teresa.isRunning;
     },
     glyphClass(index) {
       return {

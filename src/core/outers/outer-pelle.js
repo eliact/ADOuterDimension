@@ -7,7 +7,6 @@ export const OuterPelle = {
   },
 
   initializeRun() {
-    player.outer.tokens.active = true;
     player.outer.tokens.pelle.isRunning = true;
   },
 
