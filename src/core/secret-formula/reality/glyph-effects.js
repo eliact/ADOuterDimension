@@ -51,7 +51,7 @@ export const glyphEffects = {
     totalDesc: "Game runs ×{value} faster",
     genericDesc: "Game speed multiplier",
     shortDesc: "Game speed ×{value}",
-    effect: (level, strength) => (GlyphAlteration.isEmpowered("time")
+    effect: (level, strength) => (GlyphAlteration.isEmpowered("time") || MimicTeresaUnlocks.GlyphBoost.canBeApplied
       ? 1 + Math.pow(level, 0.35)
       : 1 + Math.pow(level, 0.3) * Math.pow(strength, 0.65) / 20),
     formatEffect: x => format(x, 3, 3),
@@ -109,7 +109,7 @@ export const glyphEffects = {
     singleDesc: "Multiply Dilated Time gain by {value}",
     totalDesc: "Dilated Time gain ×{value}",
     shortDesc: "DT ×{value}",
-    effect: (level, strength) => (GlyphAlteration.isEmpowered("dilation")
+    effect: (level, strength) => (GlyphAlteration.isEmpowered("dilation") || MimicTeresaUnlocks.GlyphBoost.canBeApplied
       ? DC.D1_005.pow(level).times(15)
       : Decimal.pow(level * strength, 1.5).times(2)),
     formatEffect: x => format(x, 2, 1),
@@ -189,7 +189,8 @@ export const glyphEffects = {
     totalDesc: "Replication speed ×{value}",
     genericDesc: "Replication speed multiplier",
     shortDesc: "Replication speed ×{value}",
-    effect: (level, strength) => (GlyphAlteration.isEmpowered("replication")
+    // eslint-disable-next-line max-len
+    effect: (level, strength) => (GlyphAlteration.isEmpowered("replication") || MimicTeresaUnlocks.GlyphBoost.canBeApplied
       ? DC.D1_007.pow(level).times(10)
       : Decimal.times(level, strength).times(3)),
     formatEffect: x => format(x, 2, 1),
@@ -339,7 +340,7 @@ export const glyphEffects = {
     totalDesc: "Infinity gain ×{value}",
     genericDesc: "Infinity gain multiplier",
     shortDesc: "Infinities ×{value}",
-    effect: (level, strength) => (GlyphAlteration.isEmpowered("infinity")
+    effect: (level, strength) => (GlyphAlteration.isEmpowered("infinity") || MimicTeresaUnlocks.GlyphBoost.canBeApplied
       ? DC.D1_02.pow(level)
       : Decimal.pow(level * strength, 1.5).times(2)),
     formatEffect: x => format(x, 2, 1),
@@ -381,7 +382,7 @@ export const glyphEffects = {
     glyphTypes: ["power"],
     singleDesc: "Antimatter Dimension multipliers ×{value}",
     shortDesc: "AD ×{value}",
-    effect: (level, strength) => (GlyphAlteration.isEmpowered("power")
+    effect: (level, strength) => (GlyphAlteration.isEmpowered("power") || MimicTeresaUnlocks.GlyphBoost.canBeApplied
       ? DC.D11111.pow(level * 220)
       : Decimal.pow(level * strength * 10, level * strength * 10)),
     formatEffect: x => formatPostBreak(x, 2, 0),

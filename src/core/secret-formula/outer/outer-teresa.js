@@ -40,7 +40,7 @@ export const outerteresa = {
     },
     spaceShard: {
       id: 6,
-      price: 1e40,
+      price: 1e30,
       description: "Unlock Space Shard",
       onUnlock: () => {
         player.outer.tokens.teresa.isRunning = false;

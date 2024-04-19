@@ -841,6 +841,7 @@ export function getAdjustedGlyphLevel(glyph, realityGlyphBoost = Glyphs.levelBoo
   if (!ignoreCelestialEffects) {
     if (Pelle.isDoomed) return Math.min(level, Pelle.glyphMaxLevel);
     if (Enslaved.isRunning) return Math.max(level, Enslaved.glyphLevelMin);
+    if (MimicTeresaUnlocks.GlyphBoost.canBeApplied) return Math.max(level, 1000);
     if (Effarig.isRunning) return Math.min(level, Effarig.glyphLevelCap);
     if (OuterEffarig.isRunning) return Math.min(level, OuterEffarig.glyphLevelCap);
   }
