@@ -49,10 +49,11 @@ export const GlyphSacrificeHandler = {
     const post10kFactor = 1 + Math.clampMin(glyph.level - 10000, 0) / 100;
     const power = Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.effectOrDefault(1);
     if (OuterTeresa.isOuter === true) {
+      // eslint-disable-next-line max-len
       return Math.pow(pre10kFactor * post10kFactor * glyph.strength * OuterTeresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
-    } else {
-      return Math.pow(pre10kFactor * post10kFactor * glyph.strength * Teresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
     }
+    // eslint-disable-next-line max-len
+    return Math.pow(pre10kFactor * post10kFactor * glyph.strength * Teresa.runRewardMultiplier * Achievement(171).effectOrDefault(1), power);
   },
   sacrificeGlyph(glyph, force = false) {
     if (Pelle.isDoomed) return;
