@@ -1,6 +1,7 @@
+/* eslint-disable complexity */
 import { Achievement, BlackHoles, BreakInfinityUpgrade, DilationUpgrade,
   END_STATE_MARKERS, EternityChallenges, EternityUpgrade,
-  GameEnd, GameIntervals, InfinityChallenge, RealityUpgrades, Replicanti, ReplicantiUpgrade } from "./globals";
+  GameEnd, InfinityChallenge, RealityUpgrades, Replicanti, ReplicantiUpgrade } from "./globals";
 import { Currency } from "./currency";
 import { GameUI } from "./ui";
 import { InfinityUpgrade } from "./infinity-upgrades";
@@ -9,8 +10,8 @@ import { PlayerProgress } from "./player-progress";
 
 export function ListBugAnti(id) {
   if (id <= 10) {
-    player.outer.bug.Anti++;
-    player.outer.bugs++;
+    player.bug.Anti++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.galaxies++;
     if (player.galaxies === 1) {
@@ -25,8 +26,8 @@ export function ListBugAnti(id) {
 
   }
   if (id <= 25 && id > 10) {
-    player.outer.bug.Anti++;
-    player.outer.bugs++;
+    player.bug.Anti++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.dimensionBoosts++;
     if (player.dimensionBoosts >= 10) {
@@ -37,22 +38,22 @@ export function ListBugAnti(id) {
 
   }
   if (id <= 45 && id > 25) {
-    player.outer.bug.Anti++;
-    player.outer.bugs++;
+    player.bug.Anti++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.totalTickBought += 3;
     return;
   }
   if (id <= 90 && id > 45) {
-    player.outer.bug.Anti++;
-    player.outer.bugs++;
+    player.bug.Anti++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.antimatter.multiply(100);
     return;
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     player.galaxies = 30;
     Achievement(26).unlock();
@@ -63,8 +64,8 @@ export function ListBugAnti(id) {
 
 export function ListBugInf(id) {
   if (id <= 7) {
-    player.outer.bug.Inf++;
-    player.outer.bugs++;
+    player.bug.Inf++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!InfinityUpgrade.totalTimeMult.isBought) {
       InfinityUpgrade.totalTimeMult.isBought = true;
@@ -139,8 +140,8 @@ export function ListBugInf(id) {
     return;
   }
   if (id <= 50 && id > 10) {
-    player.outer.bug.Inf++;
-    player.outer.bugs++;
+    player.bug.Inf++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Currency.infinityPoints.value.lte(1000)) {
       player.infinityPoints.mantissa += 1;
@@ -150,8 +151,8 @@ export function ListBugInf(id) {
     return;
   }
   if (id <= 90 && id > 50) {
-    player.outer.bug.Inf++;
-    player.outer.bugs++;
+    player.bug.Inf++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.infinities.mantissa *= 1.2;
     if (Currency.infinities.value.mantissa >= 10 && Currency.infinities.value.mantissa <= 10000) {
@@ -161,8 +162,8 @@ export function ListBugInf(id) {
     return;
   }
   if (id <= 95 && id > 90) {
-    player.outer.bug.Inf++;
-    player.outer.bugs++;
+    player.bug.Inf++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!NormalChallenge(2).isCompleted) {
       NormalChallenge(2).complete();
@@ -230,8 +231,8 @@ export function ListBugInf(id) {
     return;
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     player.IPMultPurchases += 15;
   }
@@ -239,8 +240,8 @@ export function ListBugInf(id) {
 
 export function ListBugBreak(id) {
   if (id <= 10) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!BreakInfinityUpgrade.totalAMMult.isBought) {
       BreakInfinityUpgrade.totalAMMult.isBought = true;
@@ -293,8 +294,8 @@ export function ListBugBreak(id) {
     return;
   }
   if (id <= 15 && id > 10) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!InfinityChallenge(1).isCompleted) {
       InfinityChallenge(1).complete();
@@ -341,45 +342,45 @@ export function ListBugBreak(id) {
     return;
   }
   if (id <= 40 && id > 15) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.infinityPoints.exponent = player.infinityPoints.exponent++;
     return;
   }
   if (id <= 70 && id > 40) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.infinities.mantissa *= 1.2;
     return;
   }
   if (id <= 85 && id > 70) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
-    player.IPMultPurchases += 5;
+    player.IPMultPurchases += 3;
     return;
   }
   if (id <= 95 && id > 85) {
-    player.outer.bug.Break++;
-    player.outer.bugs++;
+    player.bug.Break++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.galaxies += 10;
     return;
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
-    player.infinityPoints.exponent += 30;
+    player.infinityPoints.exponent += 20;
   }
 }
 
 export function ListBugRep(id) {
   if (id <= 10) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (player.replicanti.galaxies === player.replicanti.boughtGalaxyCap) {
       player.replicanti.boughtGalaxyCap++;
@@ -390,8 +391,8 @@ export function ListBugRep(id) {
     return;
   }
   if (id <= 30 && id > 10) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (player.replicanti.interval === ReplicantiUpgrade.interval.cap) {
       return;
@@ -401,8 +402,8 @@ export function ListBugRep(id) {
 
   }
   if (id <= 50 && id > 30) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (player.replicanti.chance === ReplicantiUpgrade.chance.cap) {
       player.replicanti.chance = ReplicantiUpgrade.chance.cap;
@@ -413,8 +414,8 @@ export function ListBugRep(id) {
 
   }
   if (id <= 75 && id > 50) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Replicanti.amount.log10() <= 2) {
       Currency.replicanti.multiply(2);
@@ -424,22 +425,22 @@ export function ListBugRep(id) {
     return;
   }
   if (id <= 90 && id > 75) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     player.infinityPoints.exponent += 5;
     return;
   }
   if (id < 100 && id > 90) {
-    player.outer.bug.Rep++;
-    player.outer.bugs++;
+    player.bug.Rep++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.infinities.add(Currency.infinities.value.log10());
     return;
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     Currency.eternityPoints.add(1);
   }
@@ -447,9 +448,10 @@ export function ListBugRep(id) {
 
 
 export function ListBugEter(id) {
+  console.log(id);
   if (id <= 10) {
-    player.outer.bugs++;
-    player.outer.bug.Eter++;
+    player.bugs++;
+    player.bug.Eter++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Currency.eternityPoints.lte(1000)) {
       Currency.eternityPoints.add(2);
@@ -459,8 +461,8 @@ export function ListBugEter(id) {
     return;
   }
   if (id <= 20 && id > 10) {
-    player.outer.bugs++;
-    player.outer.bug.Eter++;
+    player.bugs++;
+    player.bug.Eter++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Currency.eternities.lte(1000)) {
       Currency.eternities.add(1);
@@ -470,8 +472,8 @@ export function ListBugEter(id) {
     return;
   }
   if (id <= 22 && id > 20) {
-    player.outer.bug.Eter++;
-    player.outer.bugs++;
+    player.bug.Eter++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!EternityUpgrade.idMultEP.isBought) {
       EternityUpgrade.idMultEP.isBought = true;
@@ -501,8 +503,8 @@ export function ListBugEter(id) {
     return;
   }
   if (id <= 38 && id > 23) {
-    player.outer.bug.Eter++;
-    player.outer.bugs++;
+    player.bug.Eter++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Currency.timeTheorems.lte(1000)) {
       Currency.timeTheorems.add(1);
@@ -512,8 +514,8 @@ export function ListBugEter(id) {
     return;
   }
   if (id <= 42 && id > 38) {
-    player.outer.bug.Eter++;
-    player.outer.bugs++;
+    player.bug.Eter++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (EternityChallenges.all[0].completions < 5) {
       EternityChallenges.all[0].addCompletion();
@@ -567,15 +569,15 @@ export function ListBugEter(id) {
     return;
   }
   if (id <= 51 && id > 41) {
-    player.outer.bug.Eter++;
-    player.outer.bugs++;
+    player.bug.Eter++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.infinitiesBanked.add(Currency.infinities.value.log10());
     return;
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     Currency.timeTheorems.add(100);
   }
@@ -583,36 +585,36 @@ export function ListBugEter(id) {
 
 export function ListBugDila(id) {
   if (id <= 10) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.eternityPoints.add(Currency.eternityPoints.value.log10());
     return;
   }
   if (id <= 20 && id > 10) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.eternities.add(Currency.eternities.value.log10());
     return;
   }
   if (id <= 25 && id > 10) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.tachyonParticles.multiply(2);
     return;
   }
   if (id <= 35 && id > 25) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.dilatedTime.multiply(2);
     return;
   }
   if (id <= 40 && id > 35) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!DilationUpgrade.doubleGalaxies.isBought) {
       DilationUpgrade.doubleGalaxies.isBought = true;
@@ -659,14 +661,14 @@ export function ListBugDila(id) {
     }
   }
   if (id <= 50 && id > 40) {
-    player.outer.bug.Dila++;
-    player.outer.bugs++;
+    player.bug.Dila++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.infinitiesBanked.multiply(Currency.infinitiesBanked.value.log10());
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     if (TimeDimensions.all[4].amount.mantissa < 1) {
       TimeDimensions.all[4].amount.mantissa = 1;
@@ -691,8 +693,8 @@ export function ListBugDila(id) {
 // eslint-disable-next-line complexity
 export function ListBugReal(id) {
   if (id <= 10) {
-    player.outer.bug.Real++;
-    player.outer.bugs++;
+    player.bug.Real++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (Currency.realityMachines.value.lt(1000)) {
       Currency.realityMachines.add(1);
@@ -703,22 +705,22 @@ export function ListBugReal(id) {
 
   }
   if (id <= 20 && id > 10) {
-    player.outer.bug.Real++;
-    player.outer.bugs++;
+    player.bug.Real++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.realities.add(1);
     return;
   }
   if (id <= 25 && id > 20) {
-    player.outer.bug.Real++;
-    player.outer.bugs++;
+    player.bug.Real++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     Currency.perkPoints.add(1);
     return;
   }
   if (id <= 28 && id > 25) {
-    player.outer.bug.Real++;
-    player.outer.bugs++;
+    player.bug.Real++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!RealityUpgrades.all[5].isBought) {
       RealityUpgrades.all[5].isBought = true;
@@ -804,8 +806,8 @@ export function ListBugReal(id) {
     return;
   }
   if (id <= 30 && id > 28) {
-    player.outer.bug.Real++;
-    player.outer.bugs++;
+    player.bug.Real++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
     if (!player.blackHole[0].unlocked) {
       player.blackHole[0].unlocked = true;
@@ -833,8 +835,8 @@ export function ListBugReal(id) {
     }
   }
   if (id === 100) {
-    player.outer.bug.Super++;
-    player.outer.bugs++;
+    player.bug.Super++;
+    player.bugs++;
     GameUI.notify.outer(`You encounter a superbug`, 8000);
     const lev = randomInt(100, 400);
     const rar = randomRelat(1, 4, 1);
@@ -857,10 +859,8 @@ function nearestPercent(x) {
 }
 
 export function OuterBug() {
-  if (Currency.outers.value > 0 && GameEnd.endState < END_STATE_MARKERS.INTERACTIVITY_DISABLED) {
+  if (PlayerProgress.outerUnlocked() && GameEnd.endState < END_STATE_MARKERS.INTERACTIVITY_DISABLED) {
     let id = null;
-    GameIntervals.bugloop.stop();
-    player.outer.loop = false;
     if (PlayerProgress.TeresaUnlocked()) {
       return;
     }

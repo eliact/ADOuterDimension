@@ -669,11 +669,6 @@ export function gameLoop(passDiff, options = {}) {
     }
   }
 
-  if (PlayerProgress.outerUnlocked() && player.outer.loop === false) {
-    GameIntervals.bugloop.start();
-    player.outer.loop = true;
-  }
-
   EventHub.dispatch(GAME_EVENT.GAME_TICK_AFTER);
   GameUI.update();
   player.lastUpdate = thisUpdate;
@@ -932,6 +927,7 @@ function afterSimulation(seconds, playerBefore) {
   GameUI.notify.showBlackHoles = true;
 }
 
+// eslint-disable-next-line complexity
 export function simulateTime(seconds, real, fast) {
   // The game is simulated at a base 50ms update rate, with a maximum tick count based on the values of real and fast
   // - Calling with real === true will always simulate at full accuracy with no tick count reduction unless it would
@@ -996,11 +992,16 @@ export function simulateTime(seconds, real, fast) {
   };
 
   if (PlayerProgress.outerUnlocked()) {
-    let timebug = seconds;
+    let timebug = seconds * 1000;
     while (timebug > 0) {
-      const inter = (Math.round(Math.random() * 500)) * 1000;
-      setInterval(OuterBug(), inter);
-      timebug -= inter;
+      const inter = (Math.round(Math.random() * 800)) * 1000;
+      if (timebug >= inter) {
+        OuterBug();
+        console.log(1);
+        timebug -= inter;
+      } else {
+        break;
+      }
     }
   }
   // Simulation code which accounts for BH cycles (segments where a BH is active doesn't use diff since it splits

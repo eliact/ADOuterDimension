@@ -76,6 +76,6 @@ export const GameIntervals = (function() {
           }
         });
     }, 60000),
-    bugloop: interval(() => OuterBug(), (Math.round(Math.random() * 430)) * 1000)
+    bugloop: interval(() => OuterBug(), (Math.round(Math.random() * 450)) * 1000)
   };
 }());
