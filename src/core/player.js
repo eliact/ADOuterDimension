@@ -817,9 +817,9 @@ window.player = {
     highContrastRarity: false,
     swapGlyphColors: false,
     hideAlterationEffects: false,
-    ignoreGlyphEffects: false,
-    ignoreGlyphLevel: false,
-    ignoreGlyphRarity: false,
+    ignoreGlyphEffects: true,
+    ignoreGlyphLevel: true,
+    ignoreGlyphRarity: true,
     glyphBG: GLYPH_BG_SETTING.AUTO,
     glyphBorders: true,
     showHintText: {
@@ -918,20 +918,19 @@ window.player = {
     }
   },
   outers: 0,
+  bug: {
+    Anti: 0,
+    Inf: 0,
+    Break: 0,
+    Rep: 0,
+    Eter: 0,
+    Dila: 0,
+    Real: 0,
+    Teresa: 0,
+    Super: 0,
+  },
+  bugs: 0,
   outer: {
-    fragment: 0,
-    bug: {
-      Anti: 0,
-      Inf: 0,
-      Break: 0,
-      Rep: 0,
-      Eter: 0,
-      Dila: 0,
-      Real: 0,
-      Teresa: 0,
-      Super: 0,
-    },
-    bugs: 0,
     quotes: {
       theEye: {
         quoteBits: 0,
@@ -943,7 +942,6 @@ window.player = {
       TeresaUnlocked: false
     },
     tokens: {
-      active: false,
       teresa: {
         unlocked: false,
         isRunning: false,
