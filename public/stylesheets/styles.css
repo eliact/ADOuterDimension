@@ -2831,9 +2831,8 @@ br {
   background-color: var(--color-base);
   border: 0.1rem var(--color-good);
   border-style: solid;
+  border-top-color: transparent;
   border-radius: var(--var-border-radius, 0.4rem);
-  /* May be removed if it makes things to blurry */
-  transform: translateY(-0.1rem);
 }
 
 /* We need scrollbar-color in this rule as well as identical color specifications in the following two; some
@@ -3024,6 +3023,12 @@ br {
   user-select: none;
 }
 
+.o-achievement--out {
+  background-color: #555555;
+  background-image: url("../images/achhidden.png");
+  border-color: var(--color-theEye--base);
+}
+
 .o-achievement--normal {
   background-image: url("../images/normal achievements.png");
 }
@@ -3178,6 +3183,10 @@ br {
 
 .o-achievement--hidden .o-achievement__indicator--locked {
   border-color: black;
+}
+
+.o-achievement--out .o-achievement__indicator--locked {
+  border-color: var(--color-theEye--base);
 }
 
 .o-achievement__indicator--waiting {
@@ -8531,8 +8540,8 @@ kbd {
 
 .l-outer-fragment-container {
   display: block;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: 0.5rem;
+  padding: 0.5rem;
   border: var(--var-border-width, 0.2rem) solid #2196f3;
   border-radius: var(--var-border-radius, 0.5rem);
 }
@@ -8560,6 +8569,7 @@ kbd {
 .l-outer-wall {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .l-outer-wall-grid {

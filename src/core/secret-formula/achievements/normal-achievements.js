@@ -283,7 +283,7 @@ export const normalAchievements = [
     get description() { return `Complete all ${formatInt(12)} Normal Challenges.`; },
     checkRequirement: () => NormalChallenges.all.countWhere(c => !c.isCompleted) === 0,
     checkEvent: [GAME_EVENT.BIG_CRUNCH_AFTER, GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT],
-    get reward() { return `All Dimensions are ${formatPercents(0.1)} stronger.`; },
+    get reward() { return `All Antimatter Dimensions are ${formatPercents(0.1)} stronger.`; },
     effect: 1.1
   },
   {
@@ -1377,5 +1377,65 @@ export const normalAchievements = [
     description: "Beat the game.",
     checkRequirement: () => GameEnd.endState > END_STATE_MARKERS.GAME_END && !GameEnd.removeAdditionalEnd,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 191,
+    name: "The End?",
+    description: "Back to the Starting Point",
+    checkRequirement: () => player.outers > 0,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `All dimensions are ${formatPercents(0.5)} stronger.`;
+    },
+    effect: 1.5
+  },
+  {
+    id: 192,
+    name: "This game is really buggy",
+    checkRequirement: () => player.bugs >= 100,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get description() { return `Encounter at least ${formatInt(100)} bugs throughout your game`; },
+  },
+  {
+    id: 193,
+    name: "We Meet Again",
+    description: "Meet Teresa and go out together",
+    checkRequirement: () => OuterTeresa.isOuter,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
+  },
+  {
+    id: 194,
+    name: "PlaceHolder",
+    description: "PlaceHolder",
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
+  },
+  {
+    id: 195,
+    name: "PlaceHolder",
+    description: "PlaceHolder",
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
+  },
+  {
+    id: 196,
+    name: "PlaceHolder",
+    description: "PlaceHolder",
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
+  },
+  {
+    id: 197,
+    name: "PlaceHolder",
+    description: "PlaceHolder",
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
+  },
+  {
+    id: 198,
+    name: "PlaceHolder",
+    description: "PlaceHolder",
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
   },
 ];

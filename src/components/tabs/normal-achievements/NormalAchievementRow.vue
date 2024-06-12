@@ -14,6 +14,10 @@ export default {
     isObscured: {
       type: Boolean,
       required: false
+    },
+    isOut: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
@@ -49,6 +53,7 @@ export default {
       :key="i"
       :achievement="achievement"
       :is-obscured="isObscured"
+      :is-out="isOut"
       class="l-achievement-grid__cell"
     />
   </div>

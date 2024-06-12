@@ -31,6 +31,7 @@ export default {
   },
   computed: {
     isDoomed: () => Pelle.isDoomed,
+    isOuter: () => PlayerProgress.outerUnlocked(),
     rows: () => Achievements.allRows,
     renderedRows() {
       return this.rows.filter((_, i) => this.renderedRowIndices.includes(i));
@@ -74,10 +75,14 @@ export default {
       this.achievementPower = Achievements.power;
       this.achTPEffect = RealityUpgrade(8).config.effect();
       this.achCountdown = Achievements.timeToNextAutoAchieve / gameSpeedupFactor;
-      this.totalCountdown = ((Achievements.preReality.countWhere(a => !a.isUnlocked) - 1) * Achievements.period +
-        Achievements.timeToNextAutoAchieve) / gameSpeedupFactor;
+      this.totalCountdown = PlayerProgress.outerUnlocked()
+        ? (((Achievements.all.countWhere(a => !a.isUnlocked) - 1) * Achievements.OuterPeriod +
+          Achievements.timeToNextAutoAchieve) / gameSpeedupFactor)
+        : (((Achievements.preReality.countWhere(a => !a.isUnlocked) - 1) * Achievements.period +
+          Achievements.timeToNextAutoAchieve) / gameSpeedupFactor);
       this.missingAchievements = Achievements.preReality.countWhere(a => !a.isUnlocked);
-      this.showAutoAchieve = PlayerProgress.realityUnlocked() && !Perk.achievementGroup5.isBought;
+      this.showAutoAchieve = (PlayerProgress.realityUnlocked() && !Perk.achievementGroup5.isBought) ||
+       PlayerProgress.outerUnlocked;
       this.isAutoAchieveActive = player.reality.autoAchieve;
       this.hideCompletedRows = player.options.hideCompletedAchievementRows;
       this.achMultBreak = BreakInfinityUpgrade.achievementMult.canBeApplied;
@@ -121,6 +126,9 @@ export default {
     },
     isObscured(row) {
       return this.isDoomed ? false : row === 17;
+    },
+    isOut(row) {
+      return this.isOuter ? false : row === 18;
     },
     timeDisplay,
     timeDisplayNoDecimals,
@@ -180,6 +188,7 @@ export default {
         :key="i"
         :row="row"
         :is-obscured="isObscured(i)"
+        :is-out="isOut(i)"
       />
     </div>
   </div>

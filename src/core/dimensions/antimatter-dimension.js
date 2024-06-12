@@ -1,3 +1,4 @@
+import { Achievement } from "../globals";
 import { DC } from "../constants";
 
 import { DimensionState } from "./dimension";
@@ -31,6 +32,7 @@ export function antimatterDimensionCommonMultiplier() {
     Achievement(84),
     Achievement(91),
     Achievement(92),
+    Achievement(191),
     TimeStudy(91),
     TimeStudy(101),
     TimeStudy(161),

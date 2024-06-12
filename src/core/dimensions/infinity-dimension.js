@@ -6,6 +6,7 @@ export function infinityDimensionCommonMultiplier() {
   let mult = new Decimal(ShopPurchase.allDimPurchases.currentMult)
     .timesEffectsOf(
       Achievement(75),
+      Achievement(191),
       TimeStudy(82),
       TimeStudy(92),
       TimeStudy(162),

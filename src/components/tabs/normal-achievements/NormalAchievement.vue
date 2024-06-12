@@ -1,4 +1,6 @@
 <script>
+import zalgo from "@/core/celestials/pelle/zalgo";
+
 import wordShift from "@/core/word-shift";
 
 import EffectDisplay from "@/components/EffectDisplay";
@@ -18,6 +20,10 @@ export default {
     isObscured: {
       type: Boolean,
       required: false
+    },
+    isOut: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
@@ -28,6 +34,7 @@ export default {
       isCancer: false,
       showUnlockState: false,
       realityUnlocked: false,
+      outerUnlocked: false,
       garbleTimer: 0,
       garbleKey: 0,
       achievementTime: 0,
@@ -52,13 +59,14 @@ export default {
       return {
         "o-achievement": true,
         "o-achievement--disabled": this.isDisabled,
-        "o-achievement--locked": !this.isUnlocked && !this.isDisabled && !this.isObscured,
+        "o-achievement--locked": !this.isUnlocked && !this.isDisabled && !this.isObscured && !this.isOut,
         "o-achievement--unlocked": this.isUnlocked,
         "o-achievement--waiting": !this.isUnlocked && this.isPreRealityAchievement && !this.isDisabled,
         "o-achievement--blink": !this.isUnlocked && this.id === 78 && !this.isDisabled,
-        "o-achievement--normal": !this.isCancer && !this.isObscured,
-        "o-achievement--cancer": this.isCancer && !this.isObscured,
+        "o-achievement--normal": !this.isCancer && !this.isObscured && !this.isOut,
+        "o-achievement--cancer": this.isCancer && !this.isObscured && this.isOut,
         "o-achievement--hidden": this.isObscured,
+        "o-achievement--out": this.isOut
       };
     },
     indicatorIconClass() {
@@ -85,8 +93,11 @@ export default {
     isPreRealityAchievement() {
       return this.realityUnlocked && this.achievement.row <= 13;
     },
+    isPreOuterAchievement() {
+      return this.outerUnlocked && this.achievement.row <= 18;
+    },
     hasReward() {
-      return this.config.reward !== undefined && !this.isObscured;
+      return this.config.reward !== undefined && !this.isObscured && !this.isOut;
     },
     // The garble templates themselves can be static, and shouldn't be recreated every render tick
     garbledNameTemplate() {
@@ -116,6 +127,7 @@ export default {
       this.isCancer = Theme.current().name === "S4" || player.secretUnlocks.cancerAchievements;
       this.showUnlockState = player.options.showHintText.achievementUnlockStates;
       this.realityUnlocked = PlayerProgress.realityUnlocked();
+      this.outerUnlocked = PlayerProgress.outerUnlocked();
 
       this.processedName = this.processText(this.config.name, this.garbledNameTemplate);
       this.processedId = this.processText(this.displayId, this.garbledIDTemplate);
@@ -124,7 +136,7 @@ export default {
       // This uses key-swapping to force the garbled achievements to re-render their text, because otherwise they
       // would remain static. Keys for non-garbled achievements won't change, and all keys remain unique.
       this.garbleTimer++;
-      if (this.isObscured) {
+      if (this.isObscured || this.isOut) {
         this.garbleKey = 10 * this.id + Math.floor(this.garbleTimer / 3);
       } else {
         this.garbleKey = this.id;
@@ -156,18 +168,27 @@ export default {
     },
     // When appropriate, garbles input text for achievements on the last row. Otherwise leaves it unchanged
     processText(unmodified, garbledTemplate) {
-      if (!this.isObscured) return unmodified;
+      if (!this.isObscured && !this.isOut) return unmodified;
 
       // The garbling effect often replaces spaces with non-spaces, which affects line length and can cause individual
       // lines to become long enough that they can't word-wrap. To address that, we take the template as a reference
       // and put spaces back into the same spots, ensuring that text can't overflow any worse than the original text
-      const raw = wordShift.randomCrossWords(garbledTemplate);
-      let modified = "";
-      for (let i = 0; i < raw.length; i++) {
-        if (garbledTemplate[i] === " ") modified += " ";
-        else modified += raw[i];
+      if (this.isObscured) {
+        const raw = wordShift.randomCrossWords(garbledTemplate);
+        let modified = "";
+        for (let i = 0; i < raw.length; i++) {
+          if (garbledTemplate[i] === " ") modified += " ";
+          else modified += raw[i];
+        }
+        return modified;
       }
-      return modified;
+      const outRaw = zalgo(wordShift.randomCrossWords(garbledTemplate), 7);
+      let outmodified = "";
+      for (let i = 0; i < outRaw.length; i++) {
+        if (garbledTemplate[i] === " ") outmodified += " ";
+        else outmodified += outRaw[i];
+      }
+      return outmodified;
     }
   }
 };
@@ -200,7 +221,7 @@ export default {
           class="o-achievement__tooltip__reward"
         >
           <span
-            v-if="!isObscured"
+            v-if="!isObscured && !isOut"
             :class="{ 'o-pelle-disabled': isDisabled }"
           >
             Reward: {{ config.reward }}
@@ -321,6 +342,12 @@ export default {
   background: #a3a3a3;
   border-color: var(--color-bad);
 }
+
+.o-achievement--out .o-achievement__reward--locked {
+  background: #a3a3a3;
+  border-color: var(--color-theEye--base);
+}
+
 
 .o-achievement__reward--waiting {
   background: #d1d161;
