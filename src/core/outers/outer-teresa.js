@@ -10,7 +10,7 @@ export const OuterTeresa = {
   lastUnlock: "spaceShard",
   displayName: "Teresa",
   possessiveName: "Teresa's",
-  pouredAmountCap: 1e40,
+  pouredAmountCap: 1e30,
   get isUnlocked() {
     return player.outer.tokens.teresa.unlocked;
   },
@@ -33,12 +33,11 @@ export const OuterTeresa = {
     player.outer.tokens.teresa.isRunning = true;
     player.outerSpace.celestials.teresa.active = true;
     Teresa.quotes.OuterTeresa.show();
-    player.outer.fragment -= 1;
     this.pouredAmount = Teresa.pouredAmount;
     player.reality.realityMachines = new Decimal("0");
   },
   rewardMultiplier(antimatter) {
-    return Decimal.max(Decimal.pow(antimatter.plus(1).log10() / 1.5e8, 7), 1).toNumber();
+    return Decimal.max(Decimal.pow(antimatter.plus(1).log10() / 1.5e8, 10), 1).toNumber();
   },
   get isRunning() {
     return player.outer.tokens.teresa.isRunning;

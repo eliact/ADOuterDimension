@@ -417,7 +417,17 @@ export const tabs = [
         name: "Celestial Navigation",
         symbol: "<i class='fas fa-map-marked-alt'></i>",
         component: "CelestialNavigationTab",
+        condition: () => !OuterTeresa.isOuter,
         id: 0,
+        hidable: true,
+      },
+      {
+        key: "outer-celestial-navigation",
+        name: "Outer Space",
+        symbol: "<i class='fas fa-map-marked-alt'></i>",
+        component: "OuterCelestialNavigationTab",
+        id: 8,
+        condition: () => OuterTeresa.isOuter,
         hidable: true,
       },
       {
@@ -489,7 +499,7 @@ export const tabs = [
     name: "Shop",
     newUIClass: "shop",
     hideAt: 1.5,
-    condition: () => Cloud.isAvailable,
+    condition: () => false,
     id: 10,
     hidable: true,
     subtabs: [
@@ -512,14 +522,6 @@ export const tabs = [
     hidable: true,
     subtabs: [
       {
-        key: "outer-celestial-navigation",
-        name: "Outer Space",
-        symbol: "<i class='fas fa-map-marked-alt'></i>",
-        component: "OuterCelestialNavigationTab",
-        id: 3,
-        condition: () => OuterTeresa.isRunning || OuterTeresa.runCompleted
-      },
-      {
         key: "TheWall",
         name: "The Wall",
         symbol: "⩸",
@@ -529,7 +531,7 @@ export const tabs = [
       },
       {
         key: "outerFragment",
-        name: "Outer Fragment",
+        name: "Bugs",
         symbol: "",
         hideAt: 2.8,
         component: "OuterFragmentTab",
@@ -543,7 +545,8 @@ export const tabs = [
         hideAt: 2.8,
         component: "TokenTab",
         id: 2,
-        hidable: true
+        hidable: true,
+        condition: () => OuterTeresaUnlocks.spaceShard.isUnlocked
       },
       {
         key: "mimicEye",

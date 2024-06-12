@@ -29,7 +29,7 @@ export default {
       isRunning: false,
       vIsFlipped: false,
       relicShardRarityAlwaysMax: false,
-      preOuter: false,
+      outers: new Decimal(0),
       OutFrag: false,
       Outer: false
     };
@@ -107,13 +107,12 @@ export default {
       this.isRunning = Effarig.isRunning || OuterEffarig.isRunning;
       this.vIsFlipped = V.isFlipped;
       this.relicShardRarityAlwaysMax = Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied;
-      this.preOuter = player.outers > 0;
-      this.OutFrag = player.outer.fragment > 0;
-      this.Outer = OuterEffarigUnlock.outer.isUnlocked;
+      this.outers = player.outers;
+      this.OuterUnlocked = OuterEffarigUnlock.outer.isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
-      if ((this.preOuter && this.OutFrag) || this.Outer) {
+      if (this.outers) {
         Modal.outer.show({ name: "Effarig's", number: 1 });
       } else {
         Modal.celestials.show({ name: "Effarig's", number: 1 });

@@ -49,7 +49,6 @@ export default {
       isRunning: false,
       canUnlockNextPour: false,
       outers: new Decimal(0),
-      outerFragment: 0,
       TestUnlocked: false,
       TestDone: false,
       TestRunning: false,
@@ -203,7 +202,6 @@ export default {
       this.canUnlockNextPour = TeresaUnlocks.all
         .filter(unlock => this.rm.plus(this.pouredAmount).gte(unlock.price) && !unlock.isUnlocked).length > 0;
       this.outers = player.outers;
-      this.outerFragment = player.outer.fragment;
       this.TestUnlocked = player.outer.tokens.teresa.unlocked;
       this.TestDone = OuterTeresa.runCompleted;
       this.TestRunning = OuterTeresa.isRunning;
@@ -298,7 +296,7 @@ export default {
   <div class="l-teresa-celestial-tab">
     <CelestialQuoteHistory celestial="teresa" />
     <div
-      v-if="outers > 0 && TestUnlocked===false && outerFragment > 0"
+      v-if="outers > 0 && TestUnlocked===false"
       class="l-teresa-fragment"
       @click="OuterTeresaIntro()"
     >

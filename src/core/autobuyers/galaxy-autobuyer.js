@@ -11,7 +11,7 @@ export class GalaxyAutobuyerState extends UpgradeableAutobuyerState {
 
   get isUnlocked() {
     if (Pelle.isDisabled("galaxyAutobuyer")) return false;
-    return this.canBeUpgraded;
+    return this.canBeUpgraded || OuterWall.autobuyerStart.isReached;
   }
 
   get canBeUpgraded() {

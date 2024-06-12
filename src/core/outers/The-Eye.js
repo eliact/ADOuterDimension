@@ -6,7 +6,7 @@ import { OuterQuotes } from "./quotes";
 export const TheEye = {
   displayName: "The Eye",
   possessiveName: "The Eye's",
-  pouredAmountCap: 1e30,
+  pouredAmountCap: 1e20,
   lastUnlock: "GlyphBoost",
   quotes: OuterQuotes.theEye,
   symbol: "⊚",

@@ -107,7 +107,7 @@ export const OuterEffarig = {
         break;
       case OUTER_EFFARIG_STAGES.OUTER:
       default:
-        c = 400;
+        c = 100;
         break;
     }
     return 3 * (1 - c / (c + Math.sqrt(power.pLog10())));
