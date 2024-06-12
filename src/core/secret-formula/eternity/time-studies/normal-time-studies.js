@@ -10,9 +10,10 @@ const passiveIPMult = () => {
   const isEffarigLimited = (OuterEffarig.isRunning || Effarig.isRunning) &&
    (Effarig.currentStage === EFFARIG_STAGES.ETERNITY || OuterEffarig.currentStage === OUTER_EFFARIG_STAGES.OUTER);
   const normalValue = Perk.studyPassive.isBought ? 1e50 : 1e25;
+  // eslint-disable-next-line no-nested-ternary
   return isEffarigLimited
-    ? (OuterEffarig.isRunning ? Math.min(normalValue, OuterEffarig.eternityCap.toNumber()) 
-    : Math.min(normalValue, Effarig.eternityCap.toNumber()) )
+    ? (OuterEffarig.isRunning ? Math.min(normalValue, OuterEffarig.eternityCap.toNumber())
+      : Math.min(normalValue, Effarig.eternityCap.toNumber()))
     : normalValue;
 };
 
@@ -330,9 +331,10 @@ export const normalTimeStudies = [
     requirement: [122],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [131, 133],
-    description: () => (Perk.studyPassive.isBought && !Pelle.isDoomed
-      ? `Replicanti Galaxies are ${formatPercents(0.4)} stronger and Replicanti are ${format(3)} times faster`
-      : `Replicanti Galaxies are ${formatPercents(0.4)} stronger`),
+    description: () => (Pelle.isDoomed
+      ? `Replicanti Galaxies are ${formatPercents(0.4)} stronger`
+      : `Replicanti Galaxies are ${formatPercents(0.4)} stronger and Replicanti are 
+        ${Perk.studyPassive.isBought ? formatX(3) : formatX(1.5, 1, 1)} faster`),
     effect: 0.4
   },
   {

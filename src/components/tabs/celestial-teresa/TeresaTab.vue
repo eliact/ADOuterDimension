@@ -474,14 +474,6 @@ export default {
         </div>
       </div>
       <div
-        v-if="pouredAmount < pouredAmountCap"
-        class="l-rm-container-labels l-teresa-mechanic-container"
-      />
-      <div
-        v-else-if="outerpouredAmount < outerpouredAmountCap"
-        class="l-rm-container-labels l-teresa-mechanic-container"
-      />
-      <div
         v-if="hasPerkShop || hasOuterPerkShop"
         class="c-teresa-shop"
       >

@@ -162,7 +162,7 @@ export default {
         names = { chall: toExit, normal: isEC ? "Eternity" : "Infinity" };
         clickFn = () => {
           const oldChall = Player.anyChallenge;
-          Player.anyChallenge.exit();
+          Player.anyChallenge.exit(false);
           if (player.options.retryChallenge) oldChall.requestStart();
         };
       } else {

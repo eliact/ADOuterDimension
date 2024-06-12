@@ -62,6 +62,8 @@ export const NG = {
     const glyphCosmetics = JSON.stringify(player.reality.glyphs.cosmetics);
     const speedrunRecords = JSON.stringify(player.speedrun.previousRuns);
     const hasSpeedrun = player.speedrun.isUnlocked;
+    const presets = JSON.stringify(player.timestudy.presets);
+    const companions = JSON.stringify(Glyphs.allGlyphs.filter(g => g.type === "companion"));
     Modal.hideAll();
     Quote.clearAll();
     GameStorage.hardReset();
@@ -80,6 +82,10 @@ export const NG = {
     player.reality.glyphs.cosmetics = JSON.parse(glyphCosmetics);
     player.speedrun.previousRuns = JSON.parse(speedrunRecords);
     player.speedrun.isUnlocked = hasSpeedrun;
+    player.timestudy.presets = JSON.parse(presets);
+    JSON.parse(companions).forEach(g => {
+      Glyphs.addToInventory(g);
+    });
     Themes.find(Theme.currentName()).set();
     Notations.all.find(n => n.name === player.options.notation).setAsCurrent();
     ADNotations.Settings.exponentCommas.show = player.options.commas;

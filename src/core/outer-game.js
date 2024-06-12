@@ -53,6 +53,8 @@ export const OG = {
     const fullTimePlayed = player.records.previousRunRealTime + player.records.realTimePlayed;
     const glyphCosmetics = JSON.stringify(player.reality.glyphs.cosmetics);
     const speedrunRecords = JSON.stringify(player.speedrun.previousRuns);
+    const presets = JSON.stringify(player.timestudy.presets);
+    const companions = JSON.stringify(Glyphs.allGlyphs.filter(g => g.type === "companion"));
     const Outergame = JSON.stringify(player.outers);
     const Outer = JSON.stringify(player.outer);
     const OuterSpace = JSON.stringify(player.outerSpace);
@@ -73,6 +75,10 @@ export const OG = {
     ui.view.news = player.options.news.enabled;
     player.reality.glyphs.cosmetics = JSON.parse(glyphCosmetics);
     player.speedrun.previousRuns = JSON.parse(speedrunRecords);
+    player.timestudy.presets = JSON.parse(presets);
+    JSON.parse(companions).forEach(g => {
+      Glyphs.addToInventory(g);
+    });
     Themes.find(Theme.currentName()).set();
     Notations.all.find(n => n.name === player.options.notation).setAsCurrent();
     ADNotations.Settings.exponentCommas.show = player.options.commas;
