@@ -296,7 +296,6 @@ function getSaveInfo(save) {
     pelleAM: new Decimal(0),
     remnants: 0,
     realityShards: new Decimal(0),
-    outerFragment: 0,
     // This is a slight workaround to hide DT/level once Doomed
     pelleLore: 0,
     saveName: "",
@@ -321,7 +320,6 @@ function getSaveInfo(save) {
   resources.pelleAM.copyFrom(new Decimal(save.celestials?.pelle.records.totalAntimatter));
   resources.remnants = save.celestials?.pelle.remnants ?? 0;
   resources.realityShards.copyFrom(new Decimal(save.celestials?.pelle.realityShards));
-  resources.outerFragment = save.outerFragment ?? 0;
   resources.pelleLore = save.celestials?.pelle.quoteBits ?? 0;
   resources.saveName = save.options?.saveFileName ?? "";
   resources.compositeProgress = ProgressChecker.getCompositeProgress(save);

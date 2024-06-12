@@ -4,23 +4,20 @@ export const outerWall = {
     reward: "Start with the automator"
   },
   autobuyerStart: {
-    outers: 2,
+    outers: 1,
     reward: "Start with all autobuyers unlocked"
   },
   OuterAutoAchiev: {
-    outers: 3,
+    outers: 1,
     reward: "Really slow auto-achievement"
   },
-  MultFragment: {
-    outers: 4,
-    reward: "x2 Outer Fragment gain"
-  },
-  five: {
-    outers: 5,
-    reward: "Start with NA"
-  },
-  six: {
-    outers: 6,
-    reward: "Start with NA"
-  },
+  // eslint-disable-next-line capitalized-comments
+  // five: {
+  //   outers: 1,
+  //   reward: "Start with N/A"
+  // },
+  // six: {
+  //   outers: 1,
+  //   reward: "Start with N/A"
+  // },
 };

@@ -10,7 +10,6 @@ export default {
   data() {
     return {
       outers: 0,
-      outerFragment: 0,
       AntiBug: 0,
       InfBug: 0,
       BreakBug: 0,
@@ -67,7 +66,7 @@ export default {
       };
     },
     SuperBug() {
-      return player.outer.bug.Super;
+      return player.bug.Super;
     },
     getLayer() {
       if (PlayerProgress.TeresaUnlocked()) {
@@ -97,15 +96,14 @@ export default {
   methods: {
     update() {
       this.outers = Math.floor(Currency.outers.value);
-      this.outerFragment = Math.floor(Currency.outerFragment.value);
-      this.AntiBug = player.outer.bug.Anti;
-      this.InfBug = player.outer.bug.Inf;
-      this.BreakBug = player.outer.bug.Break;
-      this.RepBug = player.outer.bug.Rep;
-      this.EterBug = player.outer.bug.Eter;
-      this.DilaBug = player.outer.bug.Dila;
-      this.RealBug = player.outer.bug.Real;
-      this.TeresBug = player.outer.bug.Teresa;
+      this.AntiBug = player.bug.Anti;
+      this.InfBug = player.bug.Inf;
+      this.BreakBug = player.bug.Break;
+      this.RepBug = player.bug.Rep;
+      this.EterBug = player.bug.Eter;
+      this.DilaBug = player.bug.Dila;
+      this.RealBug = player.bug.Real;
+      this.TeresBug = player.bug.Teresa;
 
       const progress = PlayerProgress.current;
       const layer = this.layer;
@@ -197,7 +195,7 @@ export default {
             You have {{ quantifyInt("bug", InfBug) }} in this Era.
           </div>
           <div v-else>
-            You have {{ quantifyInt("bug", AntiBug) }} in the Era.
+            You have {{ quantifyInt("bug", AntiBug) }} in this Era.
           </div>
         </div>
         <div

@@ -1,5 +1,6 @@
 <script>
 import { Currency } from "../../../core/currency";
+
 import { MatterScale } from "./matter-scale";
 import PrimaryButton from "@/components/PrimaryButton";
 
@@ -154,7 +155,6 @@ export default {
 
       if (isOuterUnlocked) {
         outer.count = Math.floor(Currency.outers.value);
-        outer.fragment = Math.floor(Currency.outerFragment.value);
       }
 
       this.updateMatterScale();

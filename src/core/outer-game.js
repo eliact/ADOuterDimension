@@ -7,11 +7,6 @@ export const OG = {
     GameEnd.creditsEverClosed = false;
     player.isGameEnd = false;
     player.celestials.pelle.doomed = false;
-    if (OuterWall.MultFragments.isReached) {
-      player.outer.fragment += 2;
-    } else {
-      player.outer.fragment++;
-    }
     player.outers ++;
 
     const speedrun = player.speedrun;
@@ -59,7 +54,8 @@ export const OG = {
     const glyphCosmetics = JSON.stringify(player.reality.glyphs.cosmetics);
     const speedrunRecords = JSON.stringify(player.speedrun.previousRuns);
     const Outergame = JSON.stringify(player.outers);
-    const OuterFragment = JSON.stringify(player.outer.fragment);
+    const Outer = JSON.stringify(player.outer);
+    const OuterSpace = JSON.stringify(player.outerSpace);
     Modal.hideAll();
     Quote.clearAll();
     GameStorage.hardReset();
@@ -82,7 +78,8 @@ export const OG = {
     ADNotations.Settings.exponentCommas.show = player.options.commas;
     player.lastUpdate = Date.now();
     player.outers = JSON.parse(Outergame);
-    player.outer.fragment = JSON.parse(OuterFragment);
+    player.outer = JSON.parse(Outer);
+    player.outerSpace = JSON.parse(OuterSpace);
     Achievements.all[26].unlock();
     Achievements.all[53].unlock();
     if (player.outers === 1) TheEye.quotes.Outer.show();

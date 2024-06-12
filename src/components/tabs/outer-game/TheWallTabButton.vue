@@ -51,9 +51,6 @@ export default {
     v-if="!config.invisible"
     class="l-outer-wall"
   >
-    <span class="o-outer-wall__goal">
-      {{ quantifyInt("Outer", outers) }}:
-    </span>
     <button
       v-tooltip="activeCondition"
       :class="rewardClassObject"
