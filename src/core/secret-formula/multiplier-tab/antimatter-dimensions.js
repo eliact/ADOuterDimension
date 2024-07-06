@@ -126,7 +126,8 @@ export const AD = {
         Achievement(76),
         Achievement(84),
         Achievement(91),
-        Achievement(92)
+        Achievement(92),
+        Achievement(191)
       );
 
       const dimMults = Array.repeat(DC.D1, 9);
