@@ -448,7 +448,6 @@ export function ListBugRep(id) {
 
 
 export function ListBugEter(id) {
-  console.log(id);
   if (id <= 10) {
     player.bugs++;
     player.bug.Eter++;
@@ -588,14 +587,14 @@ export function ListBugDila(id) {
     player.bug.Dila++;
     player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
-    Currency.eternityPoints.add(Currency.eternityPoints.value.log10());
+    Currency.eternityPoints.multiply(2);
     return;
   }
   if (id <= 20 && id > 10) {
     player.bug.Dila++;
     player.bugs++;
     GameUI.notify.outer(`You encounter a bug`, 8000);
-    Currency.eternities.add(Currency.eternities.value.log10());
+    Currency.eternities.multiply(2);
     return;
   }
   if (id <= 25 && id > 10) {
@@ -628,19 +627,19 @@ export function ListBugDila(id) {
       DilationUpgrade.ndMultDT.isBought = true;
       return;
     }
-    if (DilationUpgrade.ipMultDT.isBought) {
+    if (!DilationUpgrade.ipMultDT.isBought) {
       DilationUpgrade.ipMultDT.isBought = true;
       return;
     }
-    if (DilationUpgrade.timeStudySplit.isBought) {
+    if (!DilationUpgrade.timeStudySplit.isBought) {
       DilationUpgrade.timeStudySplit.isBought = true;
       return;
     }
-    if (DilationUpgrade.dilationPenalty.isBought) {
+    if (!DilationUpgrade.dilationPenalty.isBought) {
       DilationUpgrade.dilationPenalty.isBought = true;
       return;
     }
-    if (DilationUpgrade.ttGenerator.isBought) {
+    if (!DilationUpgrade.ttGenerator.isBought) {
       DilationUpgrade.ttGenerator.isBought = true;
       return;
     }
@@ -814,6 +813,7 @@ export function ListBugReal(id) {
       Achievement(144).unlock();
       return;
     }
+    // eslint-disable-next-line no-negated-condition
     if (!BlackHoles.list[0].isPermanent) {
       const ran = randomInt(1, 3);
       switch (ran) {
@@ -871,6 +871,7 @@ export function OuterBug() {
     }
     if (PlayerProgress.dilationUnlocked()) {
       id = randomInt(1, 100);
+      console.log(id);
       ListBugDila(id);
       return;
     }

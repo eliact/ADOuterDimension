@@ -841,7 +841,7 @@ function laitelaBeatText(disabledDim) {
 function applyAutoprestige(diff) {
   Currency.infinityPoints.add(TimeStudy(181).effectOrDefault(0));
 
-  if (TeresaUnlocks.epGen.canBeApplied) {
+  if (TeresaUnlocks.epGen.canBeApplied || OuterTeresaUnlocks.epGen.canBeApplied) {
     // eslint-disable-next-line no-unused-expressions
     OuterTeresa.isOuter
       ? Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_02)

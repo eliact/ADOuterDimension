@@ -34,7 +34,7 @@ export default {
       return description ? description() : "";
     },
     topLabel() {
-      return `Attempt ${this.name} Test`;
+      return `${this.name} Test`;
     },
     message() {
       return `Perform a Reality and enter ${this.name} Reality in wich`;

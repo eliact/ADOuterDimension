@@ -133,12 +133,8 @@ export const awayProgressTypes = [
     reference: ["celestials", "pelle", "realityShards"],
     isUnlocked: () => Pelle.isDoomed,
   }, {
-    name: "bug",
-    reference: ["outer", "bugs"],
-    isUnlocked: () => PlayerProgress.outerUnlocked()
-  }, {
     name: "spaceShards",
-    reference: ["outerSpace", "celestials", "teresa", "spaceShard"],
+    reference: ["outerSpace", "celestials", "teresa", "spaceShards"],
     isUnlocked: () => OuterTeresaUnlocks.spaceShard.isUnlocked,
   }
 ];

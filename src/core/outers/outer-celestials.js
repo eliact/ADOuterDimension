@@ -23,11 +23,11 @@ GameDatabase.outer.descriptions = [
     name: "Teresa",
     effects() {
       return `Glyph Time Theorem generation is disabled.
-            You gain less Infinity Points and Eternity Points (x^${format(0.55, 2, 2)}).
-            Hint: It's better if you have good glyphs or It'll be difficult.`;
+            You gain less Infinity Points and Eternity Points (x^${format(0.55, 2, 2)}).`;
     },
     description() {
-      return `Teresa doesn't trust you, show that they can be themself.`;
+      return `You can't leave this reality until you have reach 1e30rm inside it,
+            so you should grind a bit for good glyphs and a bit more rm.`;
     }
   },
   {

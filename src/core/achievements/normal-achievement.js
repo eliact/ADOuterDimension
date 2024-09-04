@@ -155,7 +155,8 @@ export const Achievements = {
   },
 
   get OuterPeriod() {
-    return TimeSpan.fromMinutes(180).totalMilliseconds;
+    if (!Achievements.preReality.every(a => a.isUnlocked)) return TimeSpan.fromMinutes(180).totalMilliseconds;
+    return TimeSpan.fromMinutes(540).totalMilliseconds;
   },
 
   // eslint-disable-next-line complexity
@@ -169,8 +170,8 @@ export const Achievements = {
       return;
     }
     if (PlayerProgress.outerUnlocked()) {
-      if (Achievements.preReality.every(a => a.isUnlocked)) return;
-    } else if (Achievements.preReality.every(a => a.isUnlocked)) return;
+      if (Achievements.preOuter.every(a => a.isUnlocked)) return;
+    } else if (Achievements.preOuter.every(a => a.isUnlocked)) return;
     player.reality.achTimer += diff;
     // eslint-disable-next-line max-len
     if (((PlayerProgress.outerUnlocked() && player.reality.achTimer < this.OuterPeriod && !PlayerProgress.realityUnlocked()) ||
@@ -180,7 +181,7 @@ export const Achievements = {
 
     // eslint-disable-next-line max-len
     if ((PlayerProgress.outerUnlocked() && !PlayerProgress.realityUnlocked()) || (PlayerProgress.outerUnlocked() && Perk.achievementGroup5.isBought)) {
-      for (const achievements of Achievements.preReality.filter(a => !a.isUnlocked)) {
+      for (const achievements of Achievements.preOuter.filter(a => !a.isUnlocked)) {
         achievements.unlock(true);
         player.reality.achTimer -= this.OuterPeriod;
         if (player.reality.achTimer < this.OuterPeriod) break;
