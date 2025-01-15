@@ -998,6 +998,7 @@ export function simulateTime(seconds, real, fast) {
       const inter = (Math.round(Math.random() * 800)) * 1000;
       if (timebug >= inter) {
         OuterBug();
+        // eslint-disable-next-line no-console
         console.log(1);
         timebug -= inter;
       } else {

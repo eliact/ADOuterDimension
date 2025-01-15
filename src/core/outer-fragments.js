@@ -871,7 +871,6 @@ export function OuterBug() {
     }
     if (PlayerProgress.dilationUnlocked()) {
       id = randomInt(1, 100);
-      console.log(id);
       ListBugDila(id);
       return;
     }
